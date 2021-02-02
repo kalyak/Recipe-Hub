@@ -21,7 +21,7 @@ router.post("/new", (req, res) => {
     if (err) {
       // res.send(err);
       if (err.code === 11000) {
-        res.status(401).send("Tag already exists.");
+        res.status(401).send({ tagName: "Tag already exists." });
       } else {
         return res
           .stats(500)
@@ -57,7 +57,7 @@ router.put("/archive/:id", (req, res) => {
     if (err) {
       return res.status(500).send(err);
     } else {
-      return res.status(200).send("Tag archived.");
+      return res.status(200).send(tag.tagName, "Tag archived.");
     }
   });
 });
