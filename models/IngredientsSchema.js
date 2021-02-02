@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const IngredientsSchema = new Schema(
   {
     units: { type: Array },
-    ingredientName: { type: String },
+    ingredientName: { type: String, unique: true },
   },
   {
     timestamps: true,

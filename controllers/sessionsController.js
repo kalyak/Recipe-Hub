@@ -24,8 +24,6 @@ sessions.post("/", (req, res) => {
         res.status(200).send({
           _id: foundUser._id,
           username: foundUser.username,
-          roomHostedHistory: foundUser.roomHostedHistory,
-          roomAttendedHistory: foundUser.roomAttendedHistory,
         });
       } else {
         res.status(401).send({ password: "Password incorrect" });
@@ -38,7 +36,6 @@ sessions.post("/", (req, res) => {
 sessions.get("/check", (req, res) => {
   console.log("session data:", req.session.currentUser);
   if (req.session.currentUser) {
-    attendeeID = req.session.currentUser._id;
     res.status(200).send(true);
   } else {
     console.log("no session");

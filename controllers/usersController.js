@@ -24,28 +24,23 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(400).send({ errors: errors.array() });
     }
-    Users.findOne({ username: req.body.username }, (err, user) => {
+    req.body.password = bcrypt.hashSync(
+      req.body.password,
+      bcrypt.genSaltSync()
+    );
+    Users.create(req.body, (err, user) => {
       if (err) {
-        return res
-          .status(500)
-          .send("Database error. Pls contact your system admin");
-      } else if (user) {
-        return res.status(401).send({ username: "Username taken" });
+        if (err.code === 11000) {
+          res.status(401).send({ username: "Username is taken." });
+          // res.status(401).send(err);
+        } else {
+          res
+            .status(500)
+            .send("Database error. Please contact your system administrator.");
+        }
       } else {
-        req.body.password = bcrypt.hashSync(
-          req.body.password,
-          bcrypt.genSaltSync()
-        );
-        Users.create(req.body, (err, user) => {
-          if (err) {
-            res
-              .status(500)
-              .send("Database error. Pls contact your system admin");
-          } else {
-            console.log("User created");
-            res.status(200).send({ _id: user._id, username: user.username });
-          }
-        });
+        console.log("User created.");
+        res.status(200).send({ _id: user._id, username: user.username });
       }
     });
   }
@@ -93,13 +88,16 @@ router.put("/", isAuthenticated, (req, res) => {
 
   Users.findByIdAndUpdate(userID, req.body, { new: true }, (err, user) => {
     if (err) {
-      return res.status(500).send("Database error");
+      if (err.code === 11000) {
+        return res.status(401).send({ username: "Username already exists." });
+      } else {
+        return res.status(500).send("Database error");
+      }
     } else {
       console.log("User updated", user);
       res.status(200).send({
         _id: user._id,
         username: user.username,
-        contact: user.contact,
         admin: user.admin,
       });
     }

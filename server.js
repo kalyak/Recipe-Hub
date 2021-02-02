@@ -39,5 +39,7 @@ app.use("/sessions", sessionsController);
 const usersController = require("./controllers/usersController.js");
 app.use("/users", usersController);
 
+const tagsController = require("./controllers/tagsController.js");
+app.use("/tags", tagsController);
 
 app.listen(process.env.PORT || 4000);
