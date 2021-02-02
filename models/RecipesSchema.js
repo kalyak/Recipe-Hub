@@ -21,8 +21,8 @@ const RecipesSchema = new Schema(
     ],
     instructions: { type: Array },
     userID: { type: mongoose.Schema.Types.ObjectId, ref: "Users" },
-    rating: { type: Number },
-    review: [{ type: mongoose.Schema.Types.ObjectId, ref: "Reviews" }],
+    avgRating: { type: Number },
+    reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: "Reviews" }],
   },
   {
     timestamps: true,
