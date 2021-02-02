@@ -43,7 +43,7 @@ router.post(
               .send("Database error. Pls contact your system admin");
           } else {
             console.log("User created");
-            res.status(200).send(user);
+            res.status(200).send({ _id: user._id, username: user.username });
           }
         });
       }
