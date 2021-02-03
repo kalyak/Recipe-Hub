@@ -43,6 +43,7 @@ router.get("/:recipeID", (req, res) => {
   Recipes.findById(req.params.recipeID)
     .populate({ path: "tags", select: "tagName tagCategory" })
     .populate({ path: "userID", select: "username" })
+    .populate({ path: "ingredientList.ingredient", select: "ingredientName" })
     .exec((err, recipe) => {
       if (err) {
         // return dbError(res);
@@ -75,7 +76,7 @@ router.get("/", (req, res) => {
 });
 
 // UPDATE
-router.post("/:recipeID", (req, res) => {
+router.post("/:recipeID", isAuthenticated, (req, res) => {
   Recipes.findByIdAndUpdate(
     req.params.recipeID,
     req.body,
@@ -91,7 +92,7 @@ router.post("/:recipeID", (req, res) => {
 });
 
 // DELETE / Archive
-router.post("/archive", (req, res) => {
+router.post("/archive", isAuthenticated, (req, res) => {
   Recipes.findByIdAndUpdate(
     req.params.recipeID,
     { archived: true },
