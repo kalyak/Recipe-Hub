@@ -6,9 +6,12 @@ const RecipesSchema = new Schema(
     recipeName: { type: String },
     servingSize: { type: Number },
     prepTime: { type: Number },
+    prepTimeUnit: { type: String },
     cookTime: { type: Number },
+    cookTimeUnit: { type: String },
     tags: [{ type: mongoose.Schema.Types.ObjectId, ref: "Tags" }],
     description: { type: String },
+    imgURL: { type: String },
     ingredientList: [
       {
         quantity: { type: Number },
@@ -23,6 +26,7 @@ const RecipesSchema = new Schema(
     userID: { type: mongoose.Schema.Types.ObjectId, ref: "Users" },
     avgRating: { type: Number },
     reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: "Reviews" }],
+    archived: { type: Boolean, default: false },
   },
   {
     timestamps: true,

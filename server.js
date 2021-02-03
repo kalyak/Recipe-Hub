@@ -45,4 +45,7 @@ app.use("/tags", tagsController);
 const ingredientsController = require("./controllers/ingredientsController.js");
 app.use("/ingredients", ingredientsController);
 
+const recipesController = require("./controllers/recipesController.js");
+app.use("/recipes", recipesController);
+
 app.listen(process.env.PORT || 4000);
