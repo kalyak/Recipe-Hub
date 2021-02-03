@@ -25,7 +25,14 @@ const SearchBar = () => {
         value={keyword}
         onChange={(e) => handleChange(e)}
       />
-      <Button type="submit" variant="outline-info">
+      <Button
+        type="submit"
+        variant="outline-info"
+        disabled={keyword === "" ? true : false}
+        onclick={() => {
+          setKeyword("");
+        }}
+      >
         Submit
       </Button>
     </Form>
