@@ -57,14 +57,48 @@ router.get("/:recipeID", (req, res) => {
 // SHOW (listings)
 router.get("/", (req, res) => {
   // res.send(req.query);
+  const query = { ...req.query, archived: false };
+  console.log();
   Recipes.find(
-    // { $and: [{ recipeName: /Egg/ }, { recipeName: /Tomato/ }] },
-    req.query,
+    // { $and: [{ recipeName: /Egg/ }, { recipeName: /Tomato/ }] }, //test query with multiple keywords
+    query,
     "recipeName tags description avgRating",
     (err, recipe) => {
       if (err) {
         // return dbError(res);
         return res.send(err);
+      } else {
+        res.send(recipe);
+      }
+    }
+  );
+});
+
+// UPDATE
+router.post("/:recipeID", (req, res) => {
+  Recipes.findByIdAndUpdate(
+    req.params.recipeID,
+    req.body,
+    { upsert: true, new: true },
+    (err, recipe) => {
+      if (err) {
+        return dbError(res);
+      } else {
+        res.send(recipe);
+      }
+    }
+  );
+});
+
+// DELETE / Archive
+router.post("/archive", (req, res) => {
+  Recipes.findByIdAndUpdate(
+    req.params.recipeID,
+    { archived: true },
+    { upsert: true, new: true },
+    (err, recipe) => {
+      if (err) {
+        return dbError(res);
       } else {
         res.send(recipe);
       }
