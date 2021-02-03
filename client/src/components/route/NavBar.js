@@ -1,5 +1,6 @@
 import { Nav, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import SearchBar from "../pages/SearchBar";
 
 const NavBar = () => {
   return (
@@ -18,11 +19,9 @@ const NavBar = () => {
             Random Recipe
           </Nav.Link>
         </Nav.Item>
-        <Nav.Item>
-          <Nav.Link as={Link} to="/search">
-            Search Bar
-          </Nav.Link>
-        </Nav.Item>
+      </Nav>
+      <Nav className="mr-auto">
+        <SearchBar />
       </Nav>
       {/* check if not logged in yet */}
       <Nav>

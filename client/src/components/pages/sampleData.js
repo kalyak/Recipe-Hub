@@ -14,7 +14,7 @@ const HomePageData = {
     },
     {
       _id: 3,
-      RecipeName: "Kimchi fried rice",
+      recipeName: "Kimchi fried rice",
       description:
         "Kimchi fried rice is made primarily with kimchi and rice, along with other available ingredients, such as diced vegetables or meats like spam",
     },

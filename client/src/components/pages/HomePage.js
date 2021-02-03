@@ -48,7 +48,7 @@ const HomePage = () => {
       <h3>Newly Added Recipes</h3>
       <Row>
         {data.newlyAdded !== undefined &&
-          data.topRating.map((recipe) => {
+          data.newlyAdded.map((recipe) => {
             return (
               <Col md={4}>
                 <Card style={{ width: "18rem" }} className="mb-5 ml-5">
@@ -72,7 +72,9 @@ const HomePage = () => {
             return (
               <Col md={4}>
                 <Link to={`/search/${category}`}>
-                  <Button variant="info">{category}</Button>
+                  <Button variant="info" className="mb-5 ml-5">
+                    {category}
+                  </Button>
                 </Link>
               </Col>
             );
