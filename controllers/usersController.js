@@ -34,7 +34,8 @@ router.post(
           res.status(401).send({ username: "Username is taken." });
           // res.status(401).send(err);
         } else {
-          res
+          console.log(err);
+          return res
             .status(500)
             .send("Database error. Please contact your system administrator.");
         }
