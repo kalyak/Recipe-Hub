@@ -11,7 +11,7 @@ const FavouritePage = () => {
     // axios
     //   .get()
     //   .then((response) => {
-    //     setData(response.data);
+    //     setFave(response.data);
     //   })
     //   .catch((error) => {
     //     console.log(error.response);
