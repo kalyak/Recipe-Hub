@@ -2,15 +2,30 @@ const express = require("express");
 const router = express.Router();
 const Tags = require("../models/TagsSchema");
 
+const dbError = (res) => {
+  return res
+    .status(500)
+    .send("Database error. Please contact your system administrator.");
+};
+
 //SHOW/READ
 router.get("/", (req, res) => {
-  Tags.find({}, (err, tags) => {
+  Tags.find({}, "tagName tagCategory", (err, tags) => {
     if (err) {
-      res
-        .status(500)
-        .send("Database error. Please contact your system administrator.");
+      return dbError(res);
     } else {
       res.status(200).send(tags);
+    }
+  });
+});
+
+//SHOW Categories
+router.get("/categories", (req, res) => {
+  Tags.distinct("tagCategory", (err, categories) => {
+    if (err) {
+      return dbError(res);
+    } else {
+      return res.status(200).send(categories);
     }
   });
 });
@@ -23,11 +38,7 @@ router.post("/new", (req, res) => {
       if (err.code === 11000) {
         res.status(401).send({ tagName: "Tag already exists." });
       } else {
-        return res
-          .stats(500)
-          .send("Database error. Please contact your system administrator.");
-        // .status(401)
-        // .send(err)
+        return dbError(res);
       }
     } else {
       res.status(200).send(tag);
@@ -42,7 +53,7 @@ router.put("/update/:id", (req, res) => {
       if (err.code === 11000) {
         return res.status(401).send({ tagName: "Tag already exists." });
       } else {
-        return res.status(500).send("Database error");
+        return dbError(res);
       }
     } else {
       console.log("Tag updated", tag);
@@ -55,7 +66,7 @@ router.put("/update/:id", (req, res) => {
 router.put("/archive/:id", (req, res) => {
   Tags.findByIdAndUpdate(req.params.id, { archived: true }, (err, tag) => {
     if (err) {
-      return res.status(500).send(err);
+      return dbError(res);
     } else {
       return res.status(200).send(tag.tagName, "Tag archived.");
     }
