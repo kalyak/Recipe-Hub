@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Tags = require("../models/TagsSchema");
+const { body, validationResult } = require("express-validator");
 
 const dbError = (res) => {
   return res
@@ -31,20 +32,35 @@ router.get("/categories", (req, res) => {
 });
 
 //CREATE
-router.post("/new", (req, res) => {
-  Tags.create(req.body, (err, tag) => {
-    if (err) {
-      // res.send(err);
-      if (err.code === 11000) {
-        res.status(401).send({ tagName: "Tag already exists." });
+router.post(
+  "/new",
+  [
+    body("tagName")
+      .trim()
+      .toLowerCase()
+      .notEmpty()
+      .withMessage("tag name cannot be empty"),
+    body("tagCategory")
+      .trim()
+      .toLowerCase()
+      .notEmpty()
+      .withMessage("category name cannot be empty"),
+  ],
+  (req, res) => {
+    Tags.create(req.body, (err, tag) => {
+      if (err) {
+        // res.send(err);
+        if (err.code === 11000) {
+          res.status(401).send({ tagName: "Tag already exists." });
+        } else {
+          return dbError(res);
+        }
       } else {
-        return dbError(res);
+        res.status(200).send(tag);
       }
-    } else {
-      res.status(200).send(tag);
-    }
-  });
-});
+    });
+  }
+);
 
 //UPDATE
 router.put("/update/:id", (req, res) => {

@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Recipes = require("../models/RecipesSchema");
+const { body, validationResult } = require("express-validator");
 
 const isAuthenticated = (req, res, next) => {
   console.log(req.sessions);
@@ -21,11 +22,32 @@ const dbError = (res) => {
 // CREATE
 router.post(
   "/new",
-  // isAuthenticated,
+  isAuthenticated,
+  [
+    body("recipeName")
+      .trim()
+      .toLowerCase() //html capitalize recipeName when displaying
+      .notEmpty()
+      .withMessage("recipe name cannot be empty"),
+    body("instructions")
+      .trim()
+      .notEmpty()
+      .withMessage("instructions cannot be empty"),
+    body("prepTime")
+      .trim()
+      .toInt()
+      .notEmpty()
+      .withMessage("prep time cannot be empty"),
+    body("cookTime")
+      .trim()
+      .toInt()
+      .notEmpty()
+      .withMessage("cook time cannot be empty"),
+  ],
   (req, res) => {
     data = {
       ...req.body,
-      // userID,
+      userID,
     };
     Recipes.create(data, (err, recipe) => {
       if (err) {
