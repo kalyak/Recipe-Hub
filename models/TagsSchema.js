@@ -3,8 +3,8 @@ const Schema = mongoose.Schema;
 
 const TagsSchema = new Schema(
   {
-    tagName: { type: String },
-    tagType: { type: String },
+    tagName: { type: String, unique: true },
+    tagCategory: { type: String },
   },
   {
     timestamps: true,
