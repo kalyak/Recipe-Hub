@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 const NavBar = () => {
   return (
     <Navbar bg="dark" variant="dark">
-      <Navbar.Brand as={Link} to="/home">
+      <Navbar.Brand as={Link} to="/">
         RECIPE HUB
       </Navbar.Brand>
-      <Nav className="mr-auto" activeKey="/home">
+      <Nav className="mr-auto">
         <Nav.Item>
           <Nav.Link as={Link} to="/browse">
             Browse Recipe
@@ -47,6 +47,11 @@ const NavBar = () => {
         <Nav.Item>
           <Nav.Link as={Link} to="/planner">
             Planner
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link as={Link} to="/recipe/new">
+            Add New Recipe
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>
