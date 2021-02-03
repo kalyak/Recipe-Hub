@@ -39,7 +39,7 @@ const HomePageData = {
         "Kimchi fried rice is made primarily with kimchi and rice, along with other available ingredients, such as diced vegetables or meats like spam",
     },
   ],
-  categories: ["cuisine", "occassion", "dietary"],
+  categories: ["cuisine", "occassion", "dietary", "category", "category"],
 };
 
 export default HomePageData;
