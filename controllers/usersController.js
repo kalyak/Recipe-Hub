@@ -14,7 +14,7 @@ router.get("/", (req, res) => {
 router.post(
   "/new",
   [
-    body("username").notEmpty().withMessage("username cannot be empty"),
+    body("username").trim().notEmpty().withMessage("username cannot be empty"),
     body("password")
       .isLength({ min: 8 })
       .withMessage("password must be at least 8 characters"),
