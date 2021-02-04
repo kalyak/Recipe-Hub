@@ -62,7 +62,7 @@ const MyVerticallyCenteredModal = (props) => {
           name="userReview"
           value={reviewData.userReview}
           style={{ width: "100%", height: "100px" }}
-        ></textarea>
+        />
       </Modal.Body>
       <Modal.Footer>
         <Button type="submit" onClick={(e) => handleSubmit(e)}>
