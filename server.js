@@ -48,4 +48,7 @@ app.use("/ingredients", ingredientsController);
 const recipesController = require("./controllers/recipesController.js");
 app.use("/recipes", recipesController);
 
+const reviewsController = require("./controllers/reviewsController.js");
+app.use("/reviews", reviewsController);
+
 app.listen(process.env.PORT || 4000);

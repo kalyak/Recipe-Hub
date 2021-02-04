@@ -6,6 +6,7 @@ const ReviewsSchema = new Schema(
     userID: { type: mongoose.Schema.Types.ObjectId, ref: "Users" },
     userRating: { type: Number },
     userReview: { type: String },
+    recipeID: { type: mongoose.Schema.Types.ObjectId, ref: "Recipes" },
   },
   {
     timestamps: true,
