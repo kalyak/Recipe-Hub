@@ -29,7 +29,7 @@ const SearchBar = () => {
         type="submit"
         variant="outline-info"
         disabled={keyword === "" ? true : false}
-        onclick={() => {
+        onClick={() => {
           setKeyword("");
         }}
       >
