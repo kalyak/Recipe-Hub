@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Form, Col, Button } from "react-bootstrap";
+import { Form, Col, Button, Container } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
 
@@ -7,17 +7,12 @@ const NewRecipePage = () => {
   const [availableTags, setAvailableTags] = useState([]);
   const [availableIngredients, setAvailableIngredients] = useState([]);
   const [done, setDone] = useState(false);
-  // const [selectedIngredient, setSelectedIngredient] = useState({
-  //   quantity: "",
-  //   units: "",
-  //   ingredient: "",
-  // });
-  const [selectedIngredientUnits, setSelectedIngredientUnits] = useState([]);
   const [selectedIngredients, setSelectedIngredients] = useState([
-    { quantity: "", units: "", ingredient: "" },
+    { quantity: "", units: "", ingredient: "", unitOptions: [] },
   ]);
+  const [cookingInstructions, setCookingInstructions] = useState([""]);
 
-  const [formData, setFormData] = useState({
+  const initialState = {
     recipeName: "",
     servingSize: "",
     prepTime: "mins",
@@ -29,7 +24,9 @@ const NewRecipePage = () => {
     imgURL: "",
     ingredientList: [], // {quantity: "", units: "", ingredient: contains the id""}
     instructions: [],
-  });
+  };
+
+  const [formData, setFormData] = useState(initialState);
 
   useEffect(() => {
     // const getTags = axios.get("/tags");
@@ -77,17 +74,52 @@ const NewRecipePage = () => {
   };
 
   const handleIngredientSelect = (event, index) => {
-    console.log(event);
-    setSelectedIngredients((state) => {
-      return { ...state[index], [event.target.id]: event.target.value };
-    });
+    console.log("handleIngredientSelect", event);
+    const values = [...selectedIngredients];
+    values[index][event.target.id] = event.target.value;
 
-    const selectedIngredient = availableIngredients.filter((ingredient) => {
-      return ingredient._id == event.target.value;
-    });
+    if (event.target.id === "ingredient") {
+      const selectedIngredient = availableIngredients.filter((ingredient) => {
+        return ingredient._id == event.target.value;
+      });
+      values[index]["unitOptions"] = selectedIngredient[0].units;
+    }
+    setSelectedIngredients(values);
+  };
 
-    console.log("units:", selectedIngredient);
-    setSelectedIngredientUnits(selectedIngredient[0].units);
+  const handleIngredientChange = (event, index) => {
+    console.log("handleIngredientChange", event);
+    const values = [...selectedIngredients];
+    values[index][event.target.id] = event.target.value;
+    setSelectedIngredients(values);
+  };
+
+  const handleAddIngredient = (index) => {
+    setSelectedIngredients([
+      ...selectedIngredients,
+      { quantity: "", units: "", ingredient: "", unitOptions: [] },
+    ]);
+  };
+  const handleDeleteIngredient = (index) => {
+    const values = [...selectedIngredients];
+    values.splice(index, 1);
+    setSelectedIngredients(values);
+  };
+
+  const handleInstructionChange = (event, index) => {
+    const values = [...cookingInstructions];
+    values[index] = event.target.value;
+    setCookingInstructions(values);
+  };
+
+  const handleAddInstruction = (index) => {
+    setCookingInstructions([...cookingInstructions, ""]);
+  };
+
+  const handleDeleteInstruction = (index) => {
+    const values = [...cookingInstructions];
+    values.splice(index, 1);
+    setCookingInstructions(values);
   };
 
   const capitalizeName = (str) => {
@@ -99,18 +131,11 @@ const NewRecipePage = () => {
     return splitStr.join(" ");
   };
 
-  const handleNameChange = (event) => {
-    const name = capitalizeName(event.target.value);
-    setFormData((state) => {
-      return { ...state, recipeName: name };
-    });
-  };
-
   const checkTagsChecked = () => {
     const checkedTags = availableTags.filter((tag) => {
       return tag.checked === true;
     });
-    setFormData({ ...formData, tags: checkedTags._id });
+    setFormData({ ...formData, tags: checkedTags.map((tag) => tag._id) });
   };
 
   const handleCheckChange = (index) => {
@@ -122,24 +147,39 @@ const NewRecipePage = () => {
     checkTagsChecked();
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSelect = (event) => {
+    console.log(event.target.value, event);
+    setFormData((state) => {
+      return { ...state, [event.target.id]: event.target.value };
+    });
+  };
+
+  const handleReset = () => {
+    setFormData(initialState);
+  };
+
+  const handleSubmit = () => {
+    console.log("submit button clicked");
+    const ingredientLists = [...selectedIngredients];
+    ingredientLists.map((ingredient) => delete ingredient.unitOptions);
+    console.log(ingredientLists);
+    const dataToBeSubmitted = {
+      ...formData,
+      recipeName: capitalizeName(formData.recipeName),
+      ingredientList: ingredientLists,
+      instructions: cookingInstructions,
+    };
+
     // axios
-    //   .post("/recipe/new", formData)
+    //   .post("/recipe/new", dataToBeSubmitted)
     //   .then((response) => {
     //     setDone(true);
     //   })
     //   .catch((error) => {
     //     console.log(error);
     //   });
-    console.log(formData);
-  };
-
-  const handleSelect = (event) => {
-    console.log(event.target.value, event);
-    setFormData((state) => {
-      return { ...state, [event.target.id]: event.target.value };
-    });
+    console.log(dataToBeSubmitted);
+    setDone(true);
   };
 
   if (done) {
@@ -149,17 +189,15 @@ const NewRecipePage = () => {
   console.log(selectedIngredients);
 
   return (
-    <>
+    <Container>
       <h1>Add A New Recipe</h1>
       {availableTags.length > 0 && availableIngredients.length > 0 ? (
         <Form>
           <Form.Group controlId="recipeName">
             <Form.Label>Recipe Name:</Form.Label>
             <Form.Control
-              type="email"
-              placeholder="Recipe Name"
+              type="text"
               value={formData.recipeName}
-              // onNameChange={handleNameChange}
               onChange={handleChange}
             />
           </Form.Group>
@@ -187,16 +225,6 @@ const NewRecipePage = () => {
                 />
               );
             })}
-          </Form.Group>
-          <Form.Group controlId="ingredientList">
-            <Form.Label>Select Ingredients</Form.Label>
-            <Form.Control as="select">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-            </Form.Control>
           </Form.Group>
           <Form.Group controlId="servingSize">
             <Form.Label>Serving Size:</Form.Label>
@@ -254,10 +282,10 @@ const NewRecipePage = () => {
                 <Form.Group as={Col} controlId="ingredient">
                   <Form.Control
                     as="select"
-                    onChange={(event) => handleIngredientSelect(event)}
+                    onChange={(event) => handleIngredientSelect(event, index)}
                   >
                     <option disabled selected>
-                      Please select..
+                      Please select ingredient
                     </option>
                     {availableIngredients.map((ingredient) => {
                       return (
@@ -272,39 +300,70 @@ const NewRecipePage = () => {
                   <Form.Control
                     type="number"
                     value={selectedIngredient.quantity}
-                    onChange={handleIngredientSelect}
+                    placeholder="Quantity"
+                    onChange={(event) => handleIngredientChange(event, index)}
                   />
                 </Form.Group>
                 <Form.Group as={Col} controlId="units">
                   <Form.Control
                     as="select"
-                    onChange={(event) => handleIngredientSelect(event)}
+                    onChange={(event) => handleIngredientSelect(event, index)}
                   >
                     <option disabled selected>
-                      Please select..
+                      Please select unit measurement
                     </option>
-                    {selectedIngredientUnits.map((unit) => {
+                    {selectedIngredient["unitOptions"].map((unit) => {
                       return <option value={unit}>{unit}</option>;
                     })}
                   </Form.Control>
                 </Form.Group>
-                <Button>-</Button>
-                <Button>+</Button>
+                {index === selectedIngredients.length - 1 && (
+                  <Button onClick={() => handleAddIngredient(index)}>+</Button>
+                )}
+                {index !== selectedIngredients.length - 1 && (
+                  <Button onClick={() => handleDeleteIngredient(index)}>
+                    -
+                  </Button>
+                )}
+              </Form.Row>
+            );
+          })}
+          <Form.Row>
+            <Form.Label>Cooking Instructions:</Form.Label>
+          </Form.Row>
+          {cookingInstructions.map((instruction, index) => {
+            return (
+              <Form.Row>
+                <Form.Group as={Col}>Step {index + 1}</Form.Group>
+                <Form.Group as={Col} controlId="instructions">
+                  <Form.Control
+                    as="textarea"
+                    rows={1}
+                    value={cookingInstructions[index]}
+                    onChange={(event) => handleInstructionChange(event, index)}
+                  />
+                </Form.Group>
+                {index === cookingInstructions.length - 1 && (
+                  <Button onClick={() => handleAddInstruction(index)}>+</Button>
+                )}
+                {index !== cookingInstructions.length - 1 && (
+                  <Button onClick={() => handleDeleteInstruction(index)}>
+                    -
+                  </Button>
+                )}
               </Form.Row>
             );
           })}
 
-          <Form.Row>
-            <Button>Done with ingredient</Button>
-          </Form.Row>
-          <Button type="submit" onSubmit={handleSubmit}>
-            Add New Recipe
+          <Button onClick={handleSubmit}>Submit New Recipe</Button>
+          <Button className="ml-1" onClick={handleReset}>
+            Reset Form
           </Button>
         </Form>
       ) : (
         <p>Loading..</p>
       )}
-    </>
+    </Container>
   );
 };
 
