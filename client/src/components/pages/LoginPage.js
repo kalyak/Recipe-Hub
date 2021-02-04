@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 
-const LoginPage = ({ setLoggedIn }) => {
+const LoginPage = () => {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -23,7 +23,6 @@ const LoginPage = ({ setLoggedIn }) => {
       .then((response) => {
         // console.log(response);
         setIsLogin(true);
-        setLoggedIn(true);
       })
       .catch((error) => {
         // console.log(error.response.data);
