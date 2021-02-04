@@ -14,22 +14,22 @@ const SearchBar = () => {
   return (
     <Form
       inline
-      method="GET"
+      method='GET'
       action={`/search/all/${keyword}`}
       //   onSubmit={(e) => handleSubmit(e)}
     >
       <FormControl
-        type="text"
-        placeholder="Quick Search"
-        className=" mr-sm-4"
+        type='text'
+        placeholder='Quick Search'
+        className=' mr-sm-4'
         value={keyword}
         onChange={(e) => handleChange(e)}
       />
       <Button
-        type="submit"
-        variant="outline-info"
+        type='submit'
+        variant='outline-info'
         disabled={keyword === "" ? true : false}
-        onclick={() => {
+        onClick={() => {
           setKeyword("");
         }}
       >
