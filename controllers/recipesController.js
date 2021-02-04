@@ -4,9 +4,9 @@ const Recipes = require("../models/RecipesSchema");
 const { body, validationResult } = require("express-validator");
 
 const isAuthenticated = (req, res, next) => {
-  console.log(req.sessions);
-  if (req.sessions.currentUser) {
-    const userID = req.sessions.currentUser._id;
+  console.log(req.session);
+  if (req.session.currentUser) {
+    const userID = req.session.currentUser._id;
     next();
   } else {
     res.status(401).send("You are currently not logged in. Please log in.");
