@@ -3,13 +3,11 @@ import { Table } from "react-bootstrap";
 const IngredientList = (props) => {
   const listIngredient = props.ingredientList.map((ingredient, index) => {
     return (
-      <>
-        <tr>
-          <td>{ingredient.quantity}</td>
-          <td>{ingredient.units}</td>
-          <td>{ingredient.ingredient}</td>
-        </tr>
-      </>
+      <tr key={ingredient._id}>
+        <td>{ingredient.quantity}</td>
+        <td>{ingredient.units}</td>
+        <td>{ingredient.ingredient}</td>
+      </tr>
     );
   });
 

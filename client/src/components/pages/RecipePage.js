@@ -25,11 +25,13 @@ const RecipePage = () => {
         quantity: 1,
         units: "piece",
         ingredient: "tomato",
+        _id: 123,
       },
       {
         quantity: 12,
         units: "piece",
         ingredient: "egg",
+        _id: 124,
       },
     ],
     instructions: [
@@ -41,19 +43,28 @@ const RecipePage = () => {
     avgRating: 2,
     reviews: [
       {
-        userID: "Username",
+        userID: {
+          _id: 344,
+          username: "Username",
+        },
         userRating: 1,
         userReview:
           "vsequi totam ad earum libero, eveniet iste nesciunt. Sunt, provident sit!",
       },
       {
-        userID: "Username2",
+        userID: {
+          _id: 345,
+          username: "Username2",
+        },
         userRating: 2,
         userReview:
           "vsequi totam ad earum libero, eveniet iste nesciunt. Sunt, provident sit!",
       },
       {
-        userID: "Username3",
+        userID: {
+          _id: 346,
+          username: "Username3",
+        },
         userRating: 3,
         userReview:
           "vsequi totam ad earum libero, eveniet iste nesciunt. Sunt, provident sit!",

@@ -1,4 +1,4 @@
-import { Row, Col, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Row, Col, OverlayTrigger, Tooltip, Container } from "react-bootstrap";
 import ReactStars from "react-rating-stars-component";
 import cuttingImg from "../icons/cutting.svg";
 import fryingpanImg from "../icons/frying-pan.svg";
@@ -18,34 +18,34 @@ const RecipeInfo = (props) => {
           <p>Average Rating: {props.recipeData.avgRating} / 5</p>
         </Col>
         <Col md="auto">
-          <OverlayTrigger
+          {/* <OverlayTrigger
             placement="bottom"
             overlay={<Tooltip>Estimated Preparation Time</Tooltip>}
-          >
-            <img src={cuttingImg} style={{ height: "50px" }} />
-          </OverlayTrigger>
+          > */}
+          <img src={cuttingImg} alt="icon" style={{ height: "50px" }} />
+          {/* </OverlayTrigger> */}
           <p>
             {props.recipeData.prepTime} {props.recipeData.prepTimeUnit}
           </p>
         </Col>
         <Col md="auto">
-          <OverlayTrigger
+          {/* <OverlayTrigger
             placement="bottom"
             overlay={<Tooltip>Estimated Cooking Time</Tooltip>}
-          >
-            <img src={fryingpanImg} style={{ height: "50px" }} />
-          </OverlayTrigger>
+          > */}
+          <img src={fryingpanImg} alt="icon" style={{ height: "50px" }} />
+          {/* </OverlayTrigger> */}
           <p>
             {props.recipeData.cookTime} {props.recipeData.cookTimeUnit}
           </p>
         </Col>
         <Col md="auto">
-          <OverlayTrigger
+          {/* <OverlayTrigger
             placement="bottom"
             overlay={<Tooltip>Serving Size</Tooltip>}
-          >
-            <img src={servingImg} style={{ height: "50px" }} />
-          </OverlayTrigger>
+          > */}
+          <img src={servingImg} alt="icon" style={{ height: "50px" }} />
+          {/* </OverlayTrigger> */}
           <p>{props.recipeData.servingSize} pax</p>
         </Col>
       </Row>
