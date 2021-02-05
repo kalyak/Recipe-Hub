@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Recipes = require("../models/RecipesSchema");
 const { body, validationResult } = require("express-validator");
+const ObjectId = require("mongoose").Types.ObjectId;
 
 const isAuthenticated = (req, res, next) => {
   console.log(req.session);
@@ -60,6 +61,27 @@ router.post(
   }
 );
 
+//Show recipe list from userid
+router.get("/user", isAuthenticated, (req, res) => {
+  // res.send(req.query);
+  // const query = { userID: req.session.currentUser.userID, archived: false };
+  Recipes.find(
+    // { $and: [{ recipeName: /Egg/ }, { recipeName: /Tomato/ }] }, //test query with multiple keywords
+    { userID: req.session.currentUser._id },
+    "recipeName tags description avgRating createdAt updatedAt",
+    (err, recipe) => {
+      if (err) {
+        // return dbError(res);
+        console.log(err);
+        return res.send(err);
+      } else {
+        console.log(recipe);
+        res.send(recipe);
+      }
+    }
+  );
+});
+
 // SHOW (individual)
 router.get("/:recipeID", (req, res) => {
   Recipes.findById(req.params.recipeID)
@@ -81,7 +103,6 @@ router.get("/:recipeID", (req, res) => {
 router.get("/", (req, res) => {
   // res.send(req.query);
   const query = { ...req.query, archived: false };
-  console.log();
   Recipes.find(
     // { $and: [{ recipeName: /Egg/ }, { recipeName: /Tomato/ }] }, //test query with multiple keywords
     query,

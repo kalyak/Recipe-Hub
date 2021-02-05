@@ -31,6 +31,23 @@ router.get("/categories", (req, res) => {
   });
 });
 
+//SHOW Categories
+router.get("/group", (req, res) => {
+  Tags.aggregate()
+    .group({
+      _id: "$tagCategory",
+      tagName: { $push: "$tagName" },
+    })
+    // .project("tagCategory tagName")
+    .exec((err, categories) => {
+      if (err) {
+        return dbError(res);
+      } else {
+        return res.status(200).send(categories);
+      }
+    });
+});
+
 //CREATE
 router.post(
   "/new",
