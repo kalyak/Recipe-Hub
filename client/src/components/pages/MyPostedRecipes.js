@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Card, Button, Row, Col } from "react-bootstrap";
 import axios from "axios";
+import DeleteRecipe from "../buttons/DeleteRecipe";
 import sampleImage from "./sampleimage.jpg";
 
 const MyPostedRecipes = () => {
@@ -36,9 +37,13 @@ const MyPostedRecipes = () => {
                   <Card.Body>
                     <Card.Title>{recipe.recipeName}</Card.Title>
                     <Card.Text>{recipe.description}</Card.Text>
-                    <Link to={`/recipe/${recipe._id}`}>
-                      <Button variant="primary">Show More</Button>
-                    </Link>
+                    <Card.Link as={Link} to={`/recipe/${recipe._id}`}>
+                      Show More
+                    </Card.Link>
+                    <Card.Link as={Link} to={`/recipe/${recipe._id}/edit`}>
+                      Edit Recipe
+                    </Card.Link>
+                    <DeleteRecipe recipe={recipe} />
                   </Card.Body>
                 </Card>
               </Col>
