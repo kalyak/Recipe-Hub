@@ -24,7 +24,7 @@ const SwitchRoute = () => {
       <Route exact path="/search">
         <SearchPage />
       </Route>
-      <Route exact path="/search/:category">
+      {/* <Route exact path="/search/:category">
         <SearchPage />
       </Route>
       <Route exact path="/search/:category/:keyword">
@@ -32,7 +32,7 @@ const SwitchRoute = () => {
       </Route>
       <Route exact path="/search/:category/:keyword/:filter">
         <SearchPage />
-      </Route>
+      </Route> */}
       <Route exact path="/random">
         <RandomRecipePage />
       </Route>
