@@ -102,11 +102,21 @@ router.get("/:recipeID", (req, res) => {
 // SHOW (listings)
 router.get("/", (req, res) => {
   // res.send(req.query);
+  const limit = {};
+  if (req.query.limit) {
+    limit.limit = parseInt(req.query.limit);
+    delete req.query.limit;
+  }
+  if (req.query.sort) {
+    limit.sort = req.query.sort;
+    delete req.query.sort;
+  }
   const query = { ...req.query, archived: false };
   Recipes.find(
     // { $and: [{ recipeName: /Egg/ }, { recipeName: /Tomato/ }] }, //test query with multiple keywords
     query,
     "recipeName tags description avgRating",
+    limit,
     (err, recipe) => {
       if (err) {
         // return dbError(res);
