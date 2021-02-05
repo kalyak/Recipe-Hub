@@ -49,6 +49,11 @@ const NavBar = () => {
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>
+          <Nav.Link as={Link} to="/recipe/user">
+            My Recipes
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
           <Nav.Link as={Link} to="/recipe/new">
             Add New Recipe
           </Nav.Link>

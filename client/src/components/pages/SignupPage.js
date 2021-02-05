@@ -129,7 +129,7 @@ const SignupPage = () => {
           <span style={{ color: "red" }}> {errors.password} </span>
         </Row>
         <Row className='justify-content-md-center'>
-          <Button type='submit'>Sign Up </Button>
+          <Button type='submit'>Create Account</Button>
         </Row>
       </form>
 
