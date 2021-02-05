@@ -58,9 +58,6 @@ const SwitchRoute = () => {
       <Route exact path="/login/">
         <LoginPage />
       </Route>
-      <Route exact path="/logout/">
-        <LogoutPage />
-      </Route>
       <Route exact path="/signup">
         <SignupPage />
       </Route>
