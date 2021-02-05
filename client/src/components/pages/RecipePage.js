@@ -8,66 +8,36 @@ import AddReviewButton from "../display/AddReviewButton.js";
 
 const RecipePage = () => {
   const [recipeData, setRecipeData] = useState({
-    recipeName: "Recipe Name",
-    servingSize: 2,
-    prepTime: 30,
+    recipeName: "No data",
+    servingSize: 0,
+    prepTime: 0,
     prepTimeUnit: "mins",
-    cookTime: 30,
+    cookTime: 0,
     cookTimeUnit: "mins",
-    tags: [
-      { _id: 1, tagName: "chinese", tagCategory: "meal" },
-      { _id: 2, tagName: "lunch", tagCategory: "meal" },
-    ],
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia possimus repudiandae exercitationem ipsa sunt illo aperiam reiciendis beatae nesciunt! Hic, animi aperiam possimus sint voluptatibus veniam aut quibusdam ducimus cupiditate tempora voluptatem culpa aspernatur exercitationem deleniti temporibus facilis velit, sequi totam ad earum libero, eveniet iste nesciunt. Sunt, provident sit!",
+    tags: [{ _id: 0, tagName: "No data", tagCategory: "No data" }],
+    description: "No data",
     ingredientList: [
       {
-        quantity: 1,
-        units: "piece",
-        ingredient: "tomato",
-        _id: 123,
-      },
-      {
-        quantity: 12,
-        units: "piece",
-        ingredient: "egg",
-        _id: 124,
+        quantity: 0,
+        units: "No data",
+        ingredient: {
+          _id: "No data",
+          ingredientName: "No data",
+        },
+        _id: 0,
       },
     ],
-    instructions: [
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      "Mollitia possimus repudiandae exercitationem ipsa sunt illo aperiam reiciendis beatae nesciunt.",
-      "Hic, animi aperiam possimus sint voluptatibus veniam aut quibusdam ducimus cupiditate tempora.",
-    ],
+    instructions: ["No data"],
     // userID: { type: mongoose.Schema.Types.ObjectId, ref: "Users" },
-    avgRating: 2,
+    avgRating: 0,
     reviews: [
       {
         userID: {
-          _id: 344,
-          username: "Username",
+          _id: 0,
+          username: "No data",
         },
-        userRating: 1,
-        userReview:
-          "vsequi totam ad earum libero, eveniet iste nesciunt. Sunt, provident sit!",
-      },
-      {
-        userID: {
-          _id: 345,
-          username: "Username2",
-        },
-        userRating: 2,
-        userReview:
-          "vsequi totam ad earum libero, eveniet iste nesciunt. Sunt, provident sit!",
-      },
-      {
-        userID: {
-          _id: 346,
-          username: "Username3",
-        },
-        userRating: 3,
-        userReview:
-          "vsequi totam ad earum libero, eveniet iste nesciunt. Sunt, provident sit!",
+        userRating: 0,
+        userReview: "No data",
       },
     ],
     imageURL: sampleimg,
@@ -75,17 +45,18 @@ const RecipePage = () => {
 
   console.log(recipeData);
 
-  //   useEffect(() => {
-  //     axios
-  //       .get()
-  //       .then((response) => {
-  //         console.log(response);
-  //         setRecipeData();
-  //       })
-  //       .catch((error) => {
-  //         console.log(error);
-  //       });
+  // const recipeID = "";
+  // useEffect(() => {
+  // axios
+  //   .get(`/recipes/${recipeID}`)
+  //   .then((response) => {
+  //     // console.log(response);
+  //     setRecipeData(response.data);
+  //   })
+  //   .catch((error) => {
+  //     console.log(error);
   //   });
+  // }, []);
 
   return (
     <>

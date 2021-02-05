@@ -16,7 +16,10 @@ const RecipeDisplay = (props) => {
       <br />
 
       <Row className="justify-content-md-center">
-        <img src={props.recipeData.imageURL} />
+        <img
+          src={props.recipeData.imageURL}
+          alt={props.recipeData.recipeName}
+        />
       </Row>
       <br />
 
