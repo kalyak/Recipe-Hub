@@ -1,4 +1,6 @@
+import { useState, useEffect } from "react";
+
 const EditRecipePage = () => {
-  return <h1>EditRecipePage</h1>;
+  return <h1>EditRecipe Page</h1>;
 };
 export default EditRecipePage;
