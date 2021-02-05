@@ -6,11 +6,11 @@ import axios from "axios";
 const NewRecipePage = () => {
   const [availableTags, setAvailableTags] = useState([]);
   const [availableIngredients, setAvailableIngredients] = useState([]);
-  const [done, setDone] = useState(false);
   const [selectedIngredients, setSelectedIngredients] = useState([
     { quantity: "", units: "", ingredient: "", unitOptions: [] },
   ]);
   const [cookingInstructions, setCookingInstructions] = useState([""]);
+  const [done, setDone] = useState(false);
 
   const initialState = {
     recipeName: "",
@@ -29,42 +29,25 @@ const NewRecipePage = () => {
   const [formData, setFormData] = useState(initialState);
 
   useEffect(() => {
-    // const getTags = axios.get("/tags");
-    // const getIngredients = axios.get("/ingredients");
-    // axios
-    //   .all([getTags, getIngredients])
-    //   .then(
-    //     axios.spread((...allData) => {
-    //       const allTags = allData[0].data
-    //       const allIngredients = allData[1].data
-    //       setAvailableTags(
-    //         allTags.map((tag) => {
-    //           return { ...tag, select: false };
-    //         })
-    //       );
-    //       setAvailableIngredients(allIngredients);
-    //     })
-    //   )
-    //   .catch((error) => {
-    //     console.log(error.response);
-    //   });
-
-    const allTags = [
-      { _id: 1, tagName: "asian", tagCategory: "cuisine" },
-      { _id: 2, tagName: "western", tagCategory: "cuisine" },
-      { _id: 3, tagName: "italian", tagCategory: "cuisine" },
-    ];
-    const allIngredients = [
-      { _id: 1, units: ["pieces"], ingredientName: "Egg" },
-      { _id: 2, units: ["tsp", "tbsp"], ingredientName: "salt" },
-      { _id: 3, units: ["g", "kg"], ingredientName: "rice" },
-    ];
-    setAvailableTags(
-      allTags.map((tag) => {
-        return { ...tag, checked: false };
-      })
-    );
-    setAvailableIngredients(allIngredients);
+    const getTags = axios.get("/tags");
+    const getIngredients = axios.get("/ingredients");
+    axios
+      .all([getTags, getIngredients])
+      .then(
+        axios.spread((...allData) => {
+          const allTags = allData[0].data;
+          const allIngredients = allData[1].data;
+          setAvailableTags(
+            allTags.map((tag) => {
+              return { ...tag, checked: false };
+            })
+          );
+          setAvailableIngredients(allIngredients);
+        })
+      )
+      .catch((error) => {
+        console.log(error.response);
+      });
   }, []);
 
   const handleChange = (event) => {
@@ -131,20 +114,10 @@ const NewRecipePage = () => {
     return splitStr.join(" ");
   };
 
-  const checkTagsChecked = () => {
-    const checkedTags = availableTags.filter((tag) => {
-      return tag.checked === true;
-    });
-    setFormData({ ...formData, tags: checkedTags.map((tag) => tag._id) });
-  };
-
   const handleCheckChange = (index) => {
     const tags = [...availableTags];
-    console.log("index", index);
-    console.log("tags", tags);
     tags[index].checked = !tags[index].checked;
     setAvailableTags(tags);
-    checkTagsChecked();
   };
 
   const handleSelect = (event) => {
@@ -155,31 +128,49 @@ const NewRecipePage = () => {
   };
 
   const handleReset = () => {
+    //reset the tags checked
+    const currentAvailableTags = [...availableTags];
+    setAvailableTags(
+      currentAvailableTags.map((tag) => {
+        return { ...tag, checked: false };
+      })
+    );
+    //reset ingredients selected
+    setSelectedIngredients([
+      { quantity: "", units: "", ingredient: "", unitOptions: [] },
+    ]);
+
+    //reset cooking instruction
+    setCookingInstructions([""]);
     setFormData(initialState);
   };
 
   const handleSubmit = () => {
-    console.log("submit button clicked");
+    //remove unitOptions from selected ingredient
     const ingredientLists = [...selectedIngredients];
     ingredientLists.map((ingredient) => delete ingredient.unitOptions);
-    console.log(ingredientLists);
+    //check tags checked
+    const checkedTags = availableTags.filter((tag) => {
+      return tag.checked === true;
+    });
+    //construct data to be submitted
     const dataToBeSubmitted = {
       ...formData,
       recipeName: capitalizeName(formData.recipeName),
       ingredientList: ingredientLists,
       instructions: cookingInstructions,
+      tags: checkedTags.map((tag) => tag._id),
     };
-
-    // axios
-    //   .post("/recipe/new", dataToBeSubmitted)
-    //   .then((response) => {
-    //     setDone(true);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
     console.log(dataToBeSubmitted);
-    setDone(true);
+
+    axios
+      .post("/recipes/new", dataToBeSubmitted, { withCredentials: true })
+      .then((response) => {
+        setDone(true);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   if (done) {
@@ -282,9 +273,10 @@ const NewRecipePage = () => {
                 <Form.Group as={Col} controlId="ingredient">
                   <Form.Control
                     as="select"
+                    value={selectedIngredient.ingredient}
                     onChange={(event) => handleIngredientSelect(event, index)}
                   >
-                    <option disabled selected>
+                    <option disabled value="">
                       Please select ingredient
                     </option>
                     {availableIngredients.map((ingredient) => {
@@ -307,9 +299,10 @@ const NewRecipePage = () => {
                 <Form.Group as={Col} controlId="units">
                   <Form.Control
                     as="select"
+                    value={selectedIngredient.units}
                     onChange={(event) => handleIngredientSelect(event, index)}
                   >
-                    <option disabled selected>
+                    <option disabled value="">
                       Please select unit measurement
                     </option>
                     {selectedIngredient["unitOptions"].map((unit) => {

@@ -1,23 +1,21 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Card, Button, Row, Col } from "react-bootstrap";
-import HomePageData from "./sampleData";
+import axios from "axios";
 import sampleImage from "./sampleimage.jpg";
 
 const MyPostedRecipes = () => {
   const [myRecipes, setMyRecipes] = useState("");
 
   useEffect(() => {
-    // axios
-    //   .get("/recipes/user", { withCredentials: true })
-    //   .then((response) => {
-    //     setMyRecipes(response.data);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error.response);
-    //   });
-    console.log(HomePageData.topRating);
-    setMyRecipes(HomePageData.topRating);
+    axios
+      .get("/recipes/user", { withCredentials: true })
+      .then((response) => {
+        setMyRecipes(response.data);
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
   }, []);
 
   return (
