@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Form, Col, Button, Container } from "react-bootstrap";
+import SweetAlert from "react-bootstrap-sweetalert";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
 
@@ -10,7 +11,8 @@ const NewRecipePage = () => {
     { quantity: "", units: "", ingredient: "", unitOptions: [] },
   ]);
   const [cookingInstructions, setCookingInstructions] = useState([""]);
-  const [done, setDone] = useState(false);
+  const [donePopUp, setDonePopUp] = useState(false);
+  const [redirect, setRedirect] = useState(false);
 
   const initialState = {
     recipeName: "",
@@ -166,15 +168,32 @@ const NewRecipePage = () => {
     axios
       .post("/recipes/new", dataToBeSubmitted, { withCredentials: true })
       .then((response) => {
-        setDone(true);
+        setDonePopUp(true);
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
-  if (done) {
-    return <Redirect to={"/"} />;
+  if (redirect) {
+    return <Redirect to={"/recipe/user"} />;
+  }
+
+  if (donePopUp) {
+    return (
+      <Container>
+        <SweetAlert
+          success
+          title="Recipe Added"
+          onConfirm={() => {
+            setRedirect(true);
+          }}
+          confirmBtnText="Go to your recipes"
+        >
+          Your have successfully added a new recipe!
+        </SweetAlert>
+      </Container>
+    );
   }
   console.log(formData);
   console.log(selectedIngredients);
