@@ -2,22 +2,28 @@ import { useState, useEffect } from "react";
 import { Container, Button, Card, Accordion, Row, Col } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
+import QueryFilterResults from "./QueryFilterResults.js";
 
-const QueryForm = () => {
+const QueryForm = (props) => {
   const queryKeyword = new URLSearchParams(window.location.search).get(
     "keyword"
   );
+
   const [formData, setFormData] = useState({ keyword: queryKeyword });
-  const [tagData, setTagData] = useState([
-    {
-      tagName: ["mains", "mains2"],
-      tagCategory: "course",
-    },
-    {
-      tagName: ["dinner", "lunch"],
-      tagCategory: "meal",
-    },
-  ]);
+  const [queryResults, setQueryResults] = useState("hi");
+
+  useEffect(() => {
+    // axios
+    //   .get("/", formData)
+    //   .then((response) => {
+    //     console.log(response);
+    //     setQueryResults(response);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+    setQueryResults("new");
+  }, []);
 
   const handleChange = (event) => {
     setFormData((state) => {
@@ -25,56 +31,41 @@ const QueryForm = () => {
     });
   };
 
-  const handleSelect = (event) => {
-    console.log(event.target.value);
-    setFormData((state) => {
-      return { ...state, [event.target.name]: event.target.value };
-    });
+  const handleClick = (event) => {
+    console.log("clicked");
+    // axios
+    //   .get('/', formData)
+    //   .then((response) => {
+    //     console.log(response);
+    //     setQueryResults(response);
+    //   })
+    //   .catch((errpr) => {
+    //     console.log(error);
+    //   });
   };
 
   console.log(formData);
-
-  const displayTags = tagData.map((x) => {
-    return (
-      <Col>
-        <h2>{x.tagCategory}</h2>
-        <select
-          name={x.tagCategory}
-          onChange={(e) => {
-            handleSelect(e);
-          }}
-        >
-          <option value=""></option>
-          {x.tagName.map((y) => {
-            return (
-              <>
-                <option>{y}</option>
-              </>
-            );
-          })}
-        </select>
-      </Col>
-    );
-  });
 
   return (
     <Container style={{ border: "1px solid black" }}>
       <h1>Query Form</h1>
       <h2>You are searching for {formData.keyword}</h2>
+
       <form>
-        <label>Keywords:</label>
         <input
           type="text"
           name="keyword"
           value={formData.keyword}
+          placeholder="Enter Keyword"
           onChange={(e) => handleChange(e)}
         />
         <br />
         <br />
-        <Row>{displayTags}</Row>
+        <Button onClick={(e) => handleClick(e)}>Search</Button>
         <br />
-        <Button>Search</Button>
+        <br />
       </form>
+      <QueryFilterResults queryResults={queryResults} />
     </Container>
   );
 };
