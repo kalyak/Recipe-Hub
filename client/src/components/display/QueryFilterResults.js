@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Container, Col, Row } from "react-bootstrap";
+import { useState, useEffect } from "react";
+import { Container, Col, Row, Accordion, Card } from "react-bootstrap";
 import QueryResultsDisplay from "./QueryResultsDisplay";
 
 const QueryResults = (props) => {
@@ -21,6 +21,8 @@ const QueryResults = (props) => {
       tagName: ["chinese", "italian", "mediteranian", "indonesia"],
     },
   ]);
+  const [filterTarget, setFilterTarget] = useState([]);
+  const [filteredResults, setFilteredResults] = useState(props.queryResults);
 
   // useEffect(() => {
   //   axios
@@ -34,9 +36,43 @@ const QueryResults = (props) => {
   //     });
   // }, []);
 
-  const handleClick = (event) => {
-    console.log(event.target.name);
-    console.log(event.target.value);
+  // console.log(filterTarget);
+  // console.log(filteredResults);
+
+  useEffect(() => {
+    console.log("Filtering...");
+    let results = props.queryResults;
+    let target = [];
+    console.log("results:");
+    console.log(results);
+    results.map((recipe) => {
+      let isIncludeTarget = filterTarget.every((target) =>
+        recipe.tags.includes(target)
+      );
+      if (isIncludeTarget) {
+        target.push(recipe);
+      }
+      console.log(isIncludeTarget);
+    });
+    console.log("target:");
+    console.log(target);
+    setFilteredResults(target);
+  }, [filterTarget]);
+
+  const handleChange = (event) => {
+    // console.log(event.target.name);
+    // console.log(event);
+    if (event.target.checked === true) {
+      console.log("added " + event.target.value);
+      const newFilter = [...filterTarget, event.target.value];
+      setFilterTarget(newFilter);
+    } else {
+      console.log("removed " + event.target.value);
+      const cloneArr = [...filterTarget];
+      const index = cloneArr.indexOf(event.target.value);
+      cloneArr.splice(index, 1);
+      setFilterTarget(cloneArr);
+    }
   };
 
   const displayTags = tagData.map((category) => {
@@ -44,16 +80,19 @@ const QueryResults = (props) => {
       <>
         <Col>
           <h3>{category._id}</h3>
-          {category.tagName.map((tag) => {
+          {category.tagName.map((tag, index) => {
             return (
               <Col>
-                <input
-                  type="checkbox"
-                  name={category._id}
-                  value={tag}
-                  onClick={(e) => handleClick(e)}
-                />
-                <label>{tag}</label>
+                <label>
+                  <input
+                    type="checkbox"
+                    key={category._id + index}
+                    name={category._id}
+                    value={tag}
+                    onChange={(e) => handleChange(e)}
+                  />
+                  {tag}
+                </label>
               </Col>
             );
           })}
@@ -66,9 +105,26 @@ const QueryResults = (props) => {
     <Container style={{ border: "1px red solid" }}>
       <h1>Query Results Filtering</h1>
       <h2>Filter By:</h2>
-      <Row>{displayTags}</Row>
+      {/* <Row>
+        {filterTarget.map((x) => {
+          return <p>{x}</p>;
+        })}
+      </Row> */}
 
-      <QueryResultsDisplay queryResults={props.queryResults} />
+      <Row>{displayTags}</Row>
+      {/* <Accordion defaultActiveKey="0">
+        <Card>
+          <Accordion.Toggle as={Card.Header} eventKey="1">
+            Click me!
+          </Accordion.Toggle>
+          <Accordion.Collapse eventKey="1">
+            <Card.Body>
+              <Row>{displayTags}</Row>
+            </Card.Body>
+          </Accordion.Collapse>
+        </Card>
+      </Accordion> */}
+      <QueryResultsDisplay filteredResults={filteredResults} />
     </Container>
   );
 };

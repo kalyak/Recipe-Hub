@@ -10,7 +10,13 @@ const QueryForm = (props) => {
   );
 
   const [formData, setFormData] = useState({ keyword: queryKeyword });
-  const [queryResults, setQueryResults] = useState("hi");
+  const [queryResults, setQueryResults] = useState([
+    { _id: "1", tags: ["lunch", "dinner"] },
+    { _id: "2", tags: ["breakfast", "lunch"] },
+    { _id: "3", tags: ["breakfast", "supper"] },
+    { _id: "4", tags: ["breakfast", "main"] },
+    { _id: "5", tags: ["side dish", "chinese"] },
+  ]);
 
   useEffect(() => {
     // axios
@@ -22,7 +28,6 @@ const QueryForm = (props) => {
     //   .catch((error) => {
     //     console.log(error);
     //   });
-    setQueryResults("new");
   }, []);
 
   const handleChange = (event) => {
