@@ -1,23 +1,22 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Card, Button, Row, Col } from "react-bootstrap";
-import HomePageData from "./sampleData";
+import axios from "axios";
+import DeleteRecipe from "../buttons/DeleteRecipe";
 import sampleImage from "./sampleimage.jpg";
 
 const MyPostedRecipes = () => {
   const [myRecipes, setMyRecipes] = useState("");
 
   useEffect(() => {
-    // axios
-    //   .get("/recipes/user", { withCredentials: true })
-    //   .then((response) => {
-    //     setMyRecipes(response.data);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error.response);
-    //   });
-    console.log(HomePageData.topRating);
-    setMyRecipes(HomePageData.topRating);
+    axios
+      .get("/recipes/user", { withCredentials: true })
+      .then((response) => {
+        setMyRecipes(response.data);
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
   }, []);
 
   return (
@@ -38,9 +37,13 @@ const MyPostedRecipes = () => {
                   <Card.Body>
                     <Card.Title>{recipe.recipeName}</Card.Title>
                     <Card.Text>{recipe.description}</Card.Text>
-                    <Link to={`/recipe/${recipe._id}`}>
-                      <Button variant="primary">Show More</Button>
-                    </Link>
+                    <Card.Link as={Link} to={`/recipe/${recipe._id}`}>
+                      Show More
+                    </Card.Link>
+                    <Card.Link as={Link} to={`/recipe/${recipe._id}/edit`}>
+                      Edit Recipe
+                    </Card.Link>
+                    <DeleteRecipe recipe={recipe} />
                   </Card.Body>
                 </Card>
               </Col>
