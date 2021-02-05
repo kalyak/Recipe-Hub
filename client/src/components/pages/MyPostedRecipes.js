@@ -4,33 +4,33 @@ import { Card, Button, Row, Col } from "react-bootstrap";
 import HomePageData from "./sampleData";
 import sampleImage from "./sampleimage.jpg";
 
-const FavouritePage = () => {
-  const [fave, setFave] = useState("");
+const MyPostedRecipes = () => {
+  const [myRecipes, setMyRecipes] = useState("");
 
   useEffect(() => {
     // axios
-    //   .get()
+    //   .get("/recipes/user", { withCredentials: true })
     //   .then((response) => {
-    //     setFave(response.data);
+    //     setMyRecipes(response.data);
     //   })
     //   .catch((error) => {
     //     console.log(error.response);
     //   });
     console.log(HomePageData.topRating);
-    setFave(HomePageData.topRating);
+    setMyRecipes(HomePageData.topRating);
   }, []);
 
   return (
     <>
-      <h1>My Favourite Recipes</h1>
+      <h1>My Recipes</h1>
       <br />
       <Row>
-        {fave === "" ? (
+        {myRecipes === "" ? (
           <p>Loading..</p>
-        ) : fave.length === 0 ? (
-          <p>You do not have any favourite recipe yet</p>
+        ) : myRecipes.length === 0 ? (
+          <p>You have not posted any recipe yet</p>
         ) : (
-          fave.map((recipe) => {
+          myRecipes.map((recipe) => {
             return (
               <Col md={4}>
                 <Card style={{ width: "18rem" }} className="mb-5 ml-5">
@@ -52,4 +52,4 @@ const FavouritePage = () => {
   );
 };
 
-export default FavouritePage;
+export default MyPostedRecipes;

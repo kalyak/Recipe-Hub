@@ -10,6 +10,7 @@ import NewRecipePage from "../pages/NewRecipePage";
 import SearchPage from "../pages/SearchPage";
 import RandomRecipePage from "../pages/RandomRecipePage";
 import PlannerPage from "../pages/PlannerPage";
+import MyPostedRecipes from "../pages/MyPostedRecipes";
 
 const SwitchRoute = () => {
   return (
@@ -40,6 +41,9 @@ const SwitchRoute = () => {
       </Route>
       <Route exact path="/recipe/new">
         <NewRecipePage />
+      </Route>
+      <Route exact path="/recipe/user">
+        <MyPostedRecipes />
       </Route>
       <Route exact path="/recipe/:recipeID">
         <RecipePage />
