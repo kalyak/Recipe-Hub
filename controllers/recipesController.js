@@ -4,10 +4,11 @@ const Recipes = require("../models/RecipesSchema");
 const { body, validationResult } = require("express-validator");
 const ObjectId = require("mongoose").Types.ObjectId;
 
+let userID = "";
 const isAuthenticated = (req, res, next) => {
   console.log(req.session);
   if (req.session.currentUser) {
-    const userID = req.session.currentUser._id;
+    userID = req.session.currentUser._id;
     next();
   } else {
     res.status(401).send("You are currently not logged in. Please log in.");
@@ -46,7 +47,7 @@ router.post(
       .withMessage("cook time cannot be empty"),
   ],
   (req, res) => {
-    data = {
+    const data = {
       ...req.body,
       userID,
     };
@@ -102,11 +103,21 @@ router.get("/:recipeID", (req, res) => {
 // SHOW (listings)
 router.get("/", (req, res) => {
   // res.send(req.query);
+  const limit = {};
+  if (req.query.limit) {
+    limit.limit = parseInt(req.query.limit);
+    delete req.query.limit;
+  }
+  if (req.query.sort) {
+    limit.sort = req.query.sort;
+    delete req.query.sort;
+  }
   const query = { ...req.query, archived: false };
   Recipes.find(
     // { $and: [{ recipeName: /Egg/ }, { recipeName: /Tomato/ }] }, //test query with multiple keywords
     query,
     "recipeName tags description avgRating",
+    limit,
     (err, recipe) => {
       if (err) {
         // return dbError(res);
@@ -135,7 +146,7 @@ router.post("/:recipeID", isAuthenticated, (req, res) => {
 });
 
 // DELETE / Archive
-router.post("/archive", isAuthenticated, (req, res) => {
+router.delete("/:recipeID", isAuthenticated, (req, res) => {
   Recipes.findByIdAndUpdate(
     req.params.recipeID,
     { archived: true },

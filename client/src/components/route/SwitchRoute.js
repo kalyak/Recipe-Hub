@@ -11,6 +11,7 @@ import SearchPage from "../pages/SearchPage";
 import RandomRecipePage from "../pages/RandomRecipePage";
 import PlannerPage from "../pages/PlannerPage";
 import MyPostedRecipes from "../pages/MyPostedRecipes";
+import EditRecipePage from "../pages/EditRecipePage.js";
 
 const SwitchRoute = () => {
   return (
@@ -47,6 +48,9 @@ const SwitchRoute = () => {
       </Route>
       <Route exact path="/recipe/:recipeID">
         <RecipePage />
+      </Route>
+      <Route exact path="/recipe/:recipeID/edit">
+        <EditRecipePage />
       </Route>
       <Route exact path="/fave">
         <FavouritePage />
