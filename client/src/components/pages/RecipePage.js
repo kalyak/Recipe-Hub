@@ -46,17 +46,17 @@ const RecipePage = () => {
 
   // console.log(recipeData);
 
-  useEffect(() => {
-    axios
-      .get(`/recipes/${recipeID}`)
-      .then((response) => {
-        // console.log(response);
-        setRecipeData(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get(`/recipes/${recipeID}`)
+  //     .then((response) => {
+  //       // console.log(response);
+  //       setRecipeData(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, []);
 
   return (
     <>
