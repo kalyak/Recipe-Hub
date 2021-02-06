@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { Form, Col, Button, Container } from "react-bootstrap";
+import { Form, Col, Button, Container, ButtonToolbar } from "react-bootstrap";
 import SweetAlert from "react-bootstrap-sweetalert";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
+import AddIngredientModal from "../display/AddIngredientModal";
 
 const NewRecipePage = () => {
   const [availableTags, setAvailableTags] = useState([]);
@@ -13,6 +14,8 @@ const NewRecipePage = () => {
   const [cookingInstructions, setCookingInstructions] = useState([""]);
   const [donePopUp, setDonePopUp] = useState(false);
   const [redirect, setRedirect] = useState(false);
+
+  const [openIngredientModal, setOpenIngredientModal] = useState(false);
 
   const initialState = {
     recipeName: "",
@@ -340,6 +343,23 @@ const NewRecipePage = () => {
               </Form.Row>
             );
           })}
+          <ButtonToolbar>
+            <Button
+              onClick={() => {
+                setOpenIngredientModal(true);
+              }}
+            >
+              Can't find the ingredient you are looking for? Click here to add
+              more!
+            </Button>
+            <AddIngredientModal
+              show={openIngredientModal}
+              onHide={() => {
+                setOpenIngredientModal(false);
+              }}
+              availableIngredients={availableIngredients}
+            />
+          </ButtonToolbar>
           <Form.Row>
             <Form.Label>Cooking Instructions:</Form.Label>
           </Form.Row>

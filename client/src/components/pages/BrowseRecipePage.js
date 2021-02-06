@@ -8,16 +8,14 @@ const BrowseRecipePage = () => {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    // axios
-    //   .get()
-    //   .then((response) => {
-    //     setCategories(response.data);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error.response);
-    //   });
-    console.log(HomePageData.categories);
-    setCategories(HomePageData.categories);
+    axios
+      .get("/tags/categories")
+      .then((response) => {
+        setCategories(response.data);
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
   }, []);
 
   return (
