@@ -105,17 +105,12 @@ const QueryResults = (props) => {
     <Container style={{ border: "1px red solid" }}>
       <h1>Query Results Filtering</h1>
       <h2>Filter By:</h2>
-      {/* <Row>
-        {filterTarget.map((x) => {
-          return <p>{x}</p>;
-        })}
-      </Row> */}
 
       <Row>{displayTags}</Row>
       {/* <Accordion defaultActiveKey="0">
         <Card>
           <Accordion.Toggle as={Card.Header} eventKey="1">
-            Click me!
+            Click here to add filter
           </Accordion.Toggle>
           <Accordion.Collapse eventKey="1">
             <Card.Body>
@@ -124,6 +119,8 @@ const QueryResults = (props) => {
           </Accordion.Collapse>
         </Card>
       </Accordion> */}
+      <br />
+      <br />
       <QueryResultsDisplay filteredResults={filteredResults} />
     </Container>
   );

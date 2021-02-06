@@ -3,6 +3,7 @@ import { Container, Button, Card, Accordion, Row, Col } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import QueryFilterResults from "./QueryFilterResults.js";
+import sampleimg from "../pages/sampleimage.jpg";
 
 const QueryForm = (props) => {
   const queryKeyword = new URLSearchParams(window.location.search).get(
@@ -11,11 +12,51 @@ const QueryForm = (props) => {
 
   const [formData, setFormData] = useState({ keyword: queryKeyword });
   const [queryResults, setQueryResults] = useState([
-    { _id: "1", tags: ["lunch", "dinner"] },
-    { _id: "2", tags: ["breakfast", "lunch"] },
-    { _id: "3", tags: ["breakfast", "supper"] },
-    { _id: "4", tags: ["breakfast", "main"] },
-    { _id: "5", tags: ["side dish", "chinese"] },
+    {
+      _id: "1",
+      tags: ["lunch", "dinner"],
+      recipeName: "Egg Fried Rice1",
+      description:
+        "1If you are busy with all the preparations for the festive season, this oldie but goodie is just the thing to whip up for a simple one-dish homecooked meal.",
+      avgRating: 3.5,
+      imageURL: sampleimg,
+    },
+    {
+      _id: "2",
+      tags: ["breakfast", "lunch"],
+      recipeName: "Egg Fried Rice2",
+      description:
+        "2If you are busy with all the preparations for the festive season, this oldie but goodie is just the thing to whip up for a simple one-dish homecooked meal.",
+      avgRating: 3.5,
+      imageURL: sampleimg,
+    },
+    {
+      _id: "3",
+      tags: ["breakfast", "supper"],
+      recipeName: "Egg Fried Rice3",
+      description:
+        "3If you are busy with all the preparations for the festive season, this oldie but goodie is just the thing to whip up for a simple one-dish homecooked meal.",
+      avgRating: 3.5,
+      imageURL: sampleimg,
+    },
+    {
+      _id: "4",
+      tags: ["breakfast", "main"],
+      recipeName: "Egg Fried Rice4",
+      description:
+        "4If you are busy with all the preparations for the festive season, this oldie but goodie is just the thing to whip up for a simple one-dish homecooked meal.",
+      avgRating: 3.5,
+      imageURL: sampleimg,
+    },
+    {
+      _id: "5",
+      tags: ["side dish", "chinese"],
+      recipeName: "Egg Fried Rice5",
+      description:
+        "5If you are busy with all the preparations for the festive season, this oldie but goodie is just the thing to whip up for a simple one-dish homecooked meal.",
+      avgRating: 3.5,
+      imageURL: sampleimg,
+    },
   ]);
 
   useEffect(() => {
@@ -55,7 +96,6 @@ const QueryForm = (props) => {
     <Container style={{ border: "1px solid black" }}>
       <h1>Query Form</h1>
       <h2>You are searching for {formData.keyword}</h2>
-
       <form>
         <input
           type="text"
