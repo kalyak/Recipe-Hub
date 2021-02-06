@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Row } from "react-bootstrap";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import RecipeDisplay from "../display/RecipeDisplay.js";
 import ReviewDisplay from "../display/ReviewDisplay.js";
@@ -7,6 +7,7 @@ import sampleimg from "./sampleimage.jpg";
 import AddReviewButton from "../display/AddReviewButton.js";
 
 const RecipePage = () => {
+  const recipeID = useParams().recipeID;
   const [recipeData, setRecipeData] = useState({
     recipeName: "No data",
     servingSize: 0,
@@ -43,20 +44,19 @@ const RecipePage = () => {
     imageURL: sampleimg,
   });
 
-  console.log(recipeData);
+  // console.log(recipeData);
 
-  // const recipeID = "";
-  // useEffect(() => {
-  // axios
-  //   .get(`/recipes/${recipeID}`)
-  //   .then((response) => {
-  //     // console.log(response);
-  //     setRecipeData(response.data);
-  //   })
-  //   .catch((error) => {
-  //     console.log(error);
-  //   });
-  // }, []);
+  useEffect(() => {
+    axios
+      .get(`/recipes/${recipeID}`)
+      .then((response) => {
+        // console.log(response);
+        setRecipeData(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   return (
     <>
