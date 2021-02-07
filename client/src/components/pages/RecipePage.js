@@ -29,7 +29,7 @@ const RecipePage = () => {
       },
     ],
     instructions: ["No data"],
-    // userID: { type: mongoose.Schema.Types.ObjectId, ref: "Users" },
+    userID: { username: "", _id: "" },
     avgRating: 0,
     reviews: [
       {
@@ -44,19 +44,19 @@ const RecipePage = () => {
     imageURL: sampleimg,
   });
 
-  // console.log(recipeData);
+  console.log(recipeData);
 
-  // useEffect(() => {
-  //   axios
-  //     .get(`/recipes/${recipeID}`)
-  //     .then((response) => {
-  //       // console.log(response);
-  //       setRecipeData(response.data);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }, []);
+  useEffect(() => {
+    axios
+      .get(`/recipes/${recipeID}`)
+      .then((response) => {
+        // console.log(response);
+        setRecipeData(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   return (
     <>

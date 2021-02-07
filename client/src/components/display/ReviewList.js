@@ -1,6 +1,6 @@
-import { Fragment } from "react";
 import { Card, Row, Col } from "react-bootstrap";
 import ReactStars from "react-rating-stars-component";
+import dayjs from "dayjs";
 
 const ReviewList = (props) => {
   const listReviews = props.reviews.map((review) => {
@@ -27,12 +27,7 @@ const ReviewList = (props) => {
     );
   });
 
-  return (
-    <>
-      <h2>Reviews</h2>
-      {listReviews}
-    </>
-  );
+  return <>{listReviews}</>;
 };
 
 export default ReviewList;
