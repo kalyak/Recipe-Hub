@@ -2,7 +2,7 @@ import { Container, Card, Button, Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const QueryResultsDisplay = (props) => {
-  console.log(props.filteredResults.imageURL);
+  // console.log(props.filteredResults.imageURL);
   const display = props.filteredResults.map((x) => {
     return (
       <Col sm="auto">

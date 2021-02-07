@@ -5,16 +5,31 @@ import axios from "axios";
 
 // CHIlD COMPONENT
 const MyVerticallyCenteredModal = (props) => {
+  const [isInputValid, setIsInputValid] = useState(false);
   const [reviewData, setReviewData] = useState({});
 
   const handleChange = (event) => {
+    if (reviewData.userRating !== undefined && event.target.value.length > 0) {
+      setIsInputValid(true);
+    } else {
+      setIsInputValid(false);
+    }
     setReviewData((state) => {
       return { ...state, [event.target.name]: event.target.value };
     });
   };
 
   const handleRating = (event) => {
-    console.log(event);
+    if (
+      event > 0 &&
+      reviewData.userReview !== undefined &&
+      reviewData.userReview.length > 0
+    ) {
+      setIsInputValid(true);
+    } else {
+      setIsInputValid(false);
+    }
+    // console.log(event);
     setReviewData((state) => {
       return { ...state, userRating: event };
     });
@@ -25,15 +40,24 @@ const MyVerticallyCenteredModal = (props) => {
     setReviewData({});
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmitReview = (event) => {
     console.log("clicked");
+    reviewData["userID"] = {
+      _id: 1,
+      username: "",
+    };
+    let oldReviews = props.reviews;
+    oldReviews.unshift(reviewData);
+    // console.log(oldReviews);
+    props.setRecipeData((state) => {
+      return { ...state, reviews: oldReviews };
+    });
+    props.onHide();
 
     // axios
     //   .post()
     //   .then((response) => {
     //     console.log(response);
-    //     setReviewData({ });
-    //     props.onHide();
     //   })
     //   .catch((error) => {
     //     console.log(error);
@@ -42,7 +66,9 @@ const MyVerticallyCenteredModal = (props) => {
 
   return (
     <Modal
-      {...props}
+      show={props.show}
+      onHide={props.onHide}
+      // {...props}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
@@ -62,12 +88,17 @@ const MyVerticallyCenteredModal = (props) => {
           name="userReview"
           value={reviewData.userReview}
           style={{ width: "100%", height: "100px" }}
+          placeholder="Input your review here"
         />
       </Modal.Body>
       <Modal.Footer>
-        <Button type="submit" onClick={(e) => handleSubmit(e)}>
-          Submit Review
-        </Button>
+        {isInputValid ? (
+          <Button type="submit" onClick={(e) => handleSubmitReview(e)}>
+            Submit Review
+          </Button>
+        ) : (
+          ""
+        )}
         <Button variant="danger" onClick={(e) => handleClose(e)}>
           Close
         </Button>
@@ -78,7 +109,7 @@ const MyVerticallyCenteredModal = (props) => {
 
 // PARENT COMPONENT
 const AddReviewButton = (props) => {
-  const [modalShow, setModalShow] = useState(true);
+  const [modalShow, setModalShow] = useState(false);
 
   return (
     <>
@@ -87,6 +118,8 @@ const AddReviewButton = (props) => {
         <MyVerticallyCenteredModal
           show={modalShow}
           onHide={() => setModalShow(false)}
+          reviews={props.reviews}
+          setRecipeData={props.setRecipeData}
         />
       </Row>
     </>

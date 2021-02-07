@@ -46,17 +46,17 @@ const RecipePage = () => {
 
   console.log(recipeData);
 
-  useEffect(() => {
-    axios
-      .get(`/recipes/${recipeID}`)
-      .then((response) => {
-        // console.log(response);
-        setRecipeData(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get(`/recipes/${recipeID}`)
+  //     .then((response) => {
+  //       // console.log(response);
+  //       setRecipeData(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, [recipeData]);
 
   return (
     <>
@@ -64,7 +64,10 @@ const RecipePage = () => {
       <RecipeDisplay recipeData={recipeData} />
       <br />
       <br />
-      <AddReviewButton />
+      <AddReviewButton
+        reviews={recipeData.reviews}
+        setRecipeData={setRecipeData}
+      />
       <br />
       <br />
       <ReviewDisplay reviews={recipeData.reviews} />
