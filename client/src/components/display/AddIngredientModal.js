@@ -37,9 +37,9 @@ const AddIngredientModal = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(formData);
+    console.log("axios call with", formData);
     axios
-      .post("/ingredients", formData, { withCredentials: true })
+      .post("/ingredients/new", formData, { withCredentials: true })
       .then((response) => {
         setFormData({ ingredientName: "", units: [""] });
         props.availableIngredients.push(response.data);
