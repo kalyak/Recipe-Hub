@@ -7,6 +7,7 @@ import InstructionList from "./InstructionList.js";
 import IngredientList from "./IngredientList.js";
 import TagList from "./TagList.js";
 import dayjs from "dayjs";
+import AddtoFavePlanner from "./AddtoFavePlanner";
 
 const RecipeDisplay = (props) => {
   let now = dayjs(props.recipeData.updatedAt).format("DD MMM YYYY");
@@ -32,7 +33,8 @@ const RecipeDisplay = (props) => {
       <br />
 
       <RecipeInfo recipeData={props.recipeData} />
-      <br />
+
+      <AddtoFavePlanner recipeID={props.recipeData._id} />
 
       <TagList tags={props.recipeData.tags} />
       <br />

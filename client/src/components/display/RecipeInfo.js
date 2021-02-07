@@ -17,7 +17,7 @@ const RecipeInfo = (props) => {
           />
           <p>Average Rating: {props.recipeData.avgRating} / 5</p>
         </Col>
-        <Col md="auto">
+        <Col md="auto" className="text-center">
           {/* <OverlayTrigger
             placement="bottom"
             overlay={<Tooltip>Estimated Preparation Time</Tooltip>}
@@ -28,7 +28,7 @@ const RecipeInfo = (props) => {
             {props.recipeData.prepTime} {props.recipeData.prepTimeUnit}
           </p>
         </Col>
-        <Col md="auto">
+        <Col md="auto" className="text-center">
           {/* <OverlayTrigger
             placement="bottom"
             overlay={<Tooltip>Estimated Cooking Time</Tooltip>}
@@ -39,7 +39,7 @@ const RecipeInfo = (props) => {
             {props.recipeData.cookTime} {props.recipeData.cookTimeUnit}
           </p>
         </Col>
-        <Col md="auto">
+        <Col md="auto" className="text-center">
           {/* <OverlayTrigger
             placement="bottom"
             overlay={<Tooltip>Serving Size</Tooltip>}
@@ -50,6 +50,7 @@ const RecipeInfo = (props) => {
         </Col>
       </Row>
       <br />
+      <h2>Description</h2>
       <p>{props.recipeData.description}</p>
     </>
   );
