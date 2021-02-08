@@ -9,20 +9,88 @@ import sampleimg from "./sampleimage.jpg";
 const BrowseRecipePage = () => {
   const [tagData, setTagData] = useState([
     // {
-    //   _id: "dietary",
-    //   tagName: ["halal", "low carb", "gluten free", "dairy free"],
-    // },
-    // {
-    //   _id: "course",
-    //   tagName: ["appetizer", "mains", "dessert"],
-    // },
-    // {
     //   _id: "meal",
-    //   tagName: ["lunch", "dinner", "breakfast", "supper", "side dish"],
+    //   tag: [
+    //     {
+    //       tagName: "lunch",
+    //       tagID: "601a4cab1d8a6124f7a12bed",
+    //     },
+    //     {
+    //       tagName: "dinner",
+    //       tagID: "601a4e08006c0625affcd17b",
+    //     },
+    //     {
+    //       tagName: "breakfast",
+    //       tagID: "601a4e0e006c0625affcd17c",
+    //     },
+    //     {
+    //       tagName: "supper",
+    //       tagID: "601a4e65006c0625affcd17d",
+    //     },
+    //     {
+    //       tagName: "side dish",
+    //       tagID: "601a87dbdf56c5440ce204a2",
+    //     },
+    //   ],
     // },
     // {
     //   _id: "cuisine",
-    //   tagName: ["chinese", "italian", "mediteranian", "indonesia"],
+    //   tag: [
+    //     {
+    //       tagName: "chinese",
+    //       tagID: "601a4ea7006c0625affcd181",
+    //     },
+    //     {
+    //       tagName: "italian",
+    //       tagID: "601a4eac006c0625affcd182",
+    //     },
+    //     {
+    //       tagName: "mediteranian",
+    //       tagID: "601a4eb5006c0625affcd183",
+    //     },
+    //     {
+    //       tagName: "indonesia",
+    //       tagID: "601a4eba006c0625affcd184",
+    //     },
+    //   ],
+    // },
+    // {
+    //   _id: "course",
+    //   tag: [
+    //     {
+    //       tagName: "appetizer",
+    //       tagID: "601a4e76006c0625affcd17e",
+    //     },
+    //     {
+    //       tagName: "mains",
+    //       tagID: "601a4e85006c0625affcd17f",
+    //     },
+    //     {
+    //       tagName: "dessert",
+    //       tagID: "601a4e9b006c0625affcd180",
+    //     },
+    //   ],
+    // },
+    // {
+    //   _id: "dietary",
+    //   tag: [
+    //     {
+    //       tagName: "halal",
+    //       tagID: "601a4ec5006c0625affcd185",
+    //     },
+    //     {
+    //       tagName: "low carb",
+    //       tagID: "601a4ecc006c0625affcd186",
+    //     },
+    //     {
+    //       tagName: "gluten free",
+    //       tagID: "601a4ed2006c0625affcd187",
+    //     },
+    //     {
+    //       tagName: "dairy free",
+    //       tagID: "601a4ed8006c0625affcd188",
+    //     },
+    //   ],
     // },
   ]);
   const [browsingTag, setBrowsingTag] = useState({ tag: "" });
@@ -74,12 +142,11 @@ const BrowseRecipePage = () => {
     },
   ]);
 
-  // console.log(categories);
-
   useEffect(() => {
     axios
       .get("/tags/group")
       .then((response) => {
+        console.log(response.data);
         setTagData(response.data);
       })
       .catch((error) => {
@@ -87,19 +154,23 @@ const BrowseRecipePage = () => {
       });
   }, []);
 
-  // useEffect(() => {
-  //   axios
-  //     .get()
-  //     .then((response) => {
-  //       console.log(response.data);
-  //       // setQueryResults(response.data);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }, [browsingTag]);
+  useEffect(() => {
+    const url = `/recipes?tags=${browsingTag.tag}`;
+    console.log(url);
+    axios
+      .get(url)
+      .then((response) => {
+        console.log(response.data);
+        // setQueryResults(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [browsingTag]);
 
   const handleClick = (event) => {
+    console.log(event.target.name);
+    console.log(event.target.value);
     setBrowsingTag({ [event.target.name]: event.target.value });
   };
   console.log(browsingTag);
@@ -109,19 +180,19 @@ const BrowseRecipePage = () => {
       <>
         <Col>
           <h3>{category._id}</h3>
-          {category.tagName.map((tag, index) => {
-            if (browsingTag.tag === tag) {
+          {category.tag.map((tag, index) => {
+            if (browsingTag.tag === tag.tagID) {
               return (
                 <Col>
                   <label>
                     <Button
                       variant="danger"
-                      key={category._id + index}
+                      key={index}
                       name="tag"
-                      value={tag}
+                      value={tag.tagID}
                       onClick={(e) => handleClick(e)}
                     >
-                      {tag}
+                      {tag.tagName}
                     </Button>
                   </label>
                 </Col>
@@ -132,12 +203,12 @@ const BrowseRecipePage = () => {
                   <label>
                     <Button
                       variant="light"
-                      key={category._id + index}
+                      key={index}
                       name="tag"
-                      value={tag}
+                      value={tag.tagID}
                       onClick={(e) => handleClick(e)}
                     >
-                      {tag}
+                      {tag.tagName}
                     </Button>
                   </label>
                 </Col>
@@ -152,22 +223,7 @@ const BrowseRecipePage = () => {
   return (
     <Container>
       <h1>Browse by categories for your meal</h1>
-      <Row>
-        {/* {categories.length > 0 &&
-          categories.map((category) => {
-            return (
-              <Col md="auto">
-                <Link to={`/search/${category}`}>
-                  <Button variant="info" className="mb-5 ml-5">
-                    {category}
-                  </Button>
-                </Link>
-              </Col>
-            );
-          })} */}
-
-        {displayTags}
-      </Row>
+      <Row>{displayTags}</Row>
       {browsingTag.tag !== "" ? (
         <QueryResultsDisplay filteredResults={queryResults} />
       ) : (
