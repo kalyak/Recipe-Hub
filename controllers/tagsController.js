@@ -44,7 +44,8 @@ router.get("/group", (req, res) => {
   Tags.aggregate()
     .group({
       _id: "$tagCategory",
-      tagName: { $push: "$tagName" },
+      // tagName: { $push: "$tagName" },
+      tag: { $push: { tagName: "$tagName", tagID: "$_id" } },
     })
     // .project("tagCategory tagName")
     .exec((err, categories) => {
