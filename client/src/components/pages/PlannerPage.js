@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import { Table, Row, Button, Container } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import SweetAlert from "react-bootstrap-sweetalert";
+import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
-import converter from "../data/conversionData";
 
 const PlannerPage = () => {
   const [list, setList] = useState([]);
+  const [successfulUpdatePopUp, setSuccessfulUpdatePopUp] = useState(false);
+  const [successfulClearPopUp, setSuccessfulClearPopUp] = useState(false);
+  const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
     axios
@@ -59,30 +62,70 @@ const PlannerPage = () => {
   };
 
   const handleUpdatePlanner = () => {
-    // axios
-    //   .put("/users", {planner: list}, { withCredentials: true })
-    //   .then((response) => {
-    //     setList(response.data);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error.response);
-    //   });
-    console.log("list updated");
-    setList(list);
+    console.log("list to be sent to axios", list);
+    axios
+      .put("/users", { planner: list }, { withCredentials: true })
+      .then((response) => {
+        console.log("backend updated");
+        console.log(response.data);
+        setSuccessfulUpdatePopUp(true);
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
   };
 
   const handleClearPlanner = () => {
-    // axios
-    //   .put("/users", {planner: []}, { withCredentials: true })
-    //   .then((response) => {
-    //     setList(response.data);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error.response);
-    //   });
-    console.log("planner cleared");
-    setList([]);
+    axios
+      .put("/users", { planner: [] }, { withCredentials: true })
+      .then((response) => {
+        console.log("planner cleared");
+        console.log(response.data);
+        setList([]);
+        setSuccessfulClearPopUp(true);
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
   };
+
+  if (redirect) {
+    return <Redirect to="/" />;
+  }
+
+  if (successfulUpdatePopUp) {
+    return (
+      <Container>
+        <SweetAlert
+          success
+          title="Planner Updated"
+          onConfirm={() => {
+            setRedirect(true);
+          }}
+          confirmBtnText="Go to homepage"
+        >
+          Your have successfully updated your planner!
+        </SweetAlert>
+      </Container>
+    );
+  }
+
+  if (successfulClearPopUp) {
+    return (
+      <Container>
+        <SweetAlert
+          success
+          title="Planner Cleared"
+          onConfirm={() => {
+            setRedirect(true);
+          }}
+          confirmBtnText="Go to homepage"
+        >
+          Yay! Your shopping list has been cleared!
+        </SweetAlert>
+      </Container>
+    );
+  }
 
   return (
     <Container>
