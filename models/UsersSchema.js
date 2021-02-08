@@ -9,11 +9,10 @@ const UsersSchema = new Schema(
     favourites: [{ type: mongoose.Schema.Types.ObjectId, ref: "Recipes" }],
     planner: [
       {
-        multiplier: { type: Number },
-        ingredientList: {
+        multiplier: { type: Number, default: 1 },
+        recipeID: {
           type: mongoose.Schema.Types.ObjectId,
           ref: "Recipes",
-          // populate ingredientLists Array from recipe schema, and populate ingredientName from ingredients schema
         },
       },
     ],
