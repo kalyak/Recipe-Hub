@@ -65,10 +65,11 @@ router.post(
 //Show recipe list from userid
 router.get("/user", isAuthenticated, (req, res) => {
   // res.send(req.query);
-  // const query = { userID: req.session.currentUser.userID, archived: false };
+  const query = { userID: req.session.currentUser.userID, archived: false };
   Recipes.find(
     // { $and: [{ recipeName: /Egg/ }, { recipeName: /Tomato/ }] }, //test query with multiple keywords
-    { userID: req.session.currentUser._id },
+    // { userID: req.session.currentUser._id },
+    query,
     "recipeName tags description avgRating createdAt updatedAt",
     (err, recipe) => {
       if (err) {
@@ -102,7 +103,7 @@ router.get("/:recipeID", (req, res) => {
 
 // SHOW (listings)
 router.get("/", (req, res) => {
-  // res.send(req.query);
+  console.log(req.query);
   const limit = {};
   if (req.query.limit) {
     limit.limit = parseInt(req.query.limit);
@@ -112,21 +113,28 @@ router.get("/", (req, res) => {
     limit.sort = req.query.sort;
     delete req.query.sort;
   }
+  if (req.query.keyword) {
+    req.query.recipeName = new RegExp(req.query.keyword);
+    delete req.query.keyword;
+  }
   const query = { ...req.query, archived: false };
+
+  console.log(query);
   Recipes.find(
     // { $and: [{ recipeName: /Egg/ }, { recipeName: /Tomato/ }] }, //test query with multiple keywords
     query,
-    "recipeName tags description avgRating",
-    limit,
-    (err, recipe) => {
+    "recipeName tags description avgRating imgURL",
+    limit
+  )
+    .populate({ path: "tags", select: "tagName" })
+    .exec((err, recipe) => {
       if (err) {
         // return dbError(res);
         return res.send(err);
       } else {
         res.send(recipe);
       }
-    }
-  );
+    });
 });
 
 // UPDATE
