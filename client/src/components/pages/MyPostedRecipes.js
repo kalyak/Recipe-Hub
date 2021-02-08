@@ -12,6 +12,7 @@ const MyPostedRecipes = () => {
     axios
       .get("/recipes/user", { withCredentials: true })
       .then((response) => {
+        console.log(response.data);
         setMyRecipes(response.data);
       })
       .catch((error) => {
@@ -29,7 +30,7 @@ const MyPostedRecipes = () => {
         ) : myRecipes.length === 0 ? (
           <p>You have not posted any recipe yet</p>
         ) : (
-          myRecipes.map((recipe) => {
+          myRecipes.map((recipe, index) => {
             return (
               <Col md={4}>
                 <Card style={{ width: "18rem" }} className="mb-5 ml-5">
@@ -43,7 +44,11 @@ const MyPostedRecipes = () => {
                     <Card.Link as={Link} to={`/recipe/${recipe._id}/edit`}>
                       Edit Recipe
                     </Card.Link>
-                    <DeleteRecipe recipe={recipe} />
+                    <DeleteRecipe
+                      myRecipes={myRecipes}
+                      index={index}
+                      setMyRecipes={setMyRecipes}
+                    />
                   </Card.Body>
                 </Card>
               </Col>

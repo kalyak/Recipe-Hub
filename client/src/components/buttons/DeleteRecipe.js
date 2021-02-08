@@ -5,24 +5,22 @@ import axios from "axios";
 import { Redirect } from "react-router-dom";
 
 const DeleteRecipe = (props) => {
-  const recipe = props.recipe;
+  const recipe = props.myRecipes[props.index];
   const [deletePopUp, setDeletePopUp] = useState(false);
-  const [successfulDelete, setSuccessfulDelete] = useState(false);
 
   const handleDelete = () => {
     axios
       .delete(`/recipes/${recipe._id}`, { withCredentials: true })
       .then(() => {
-        setSuccessfulDelete(true);
+        const myRecipeList = [...props.myRecipes];
+        myRecipeList.splice(props.index, 1);
+        setDeletePopUp(false);
+        props.setMyRecipes(myRecipeList);
       })
       .catch((err) => {
         console.log(err);
       });
   };
-
-  if (successfulDelete) {
-    return <Redirect to="/recipe/user" />;
-  }
 
   return (
     <>
