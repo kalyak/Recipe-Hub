@@ -46,11 +46,11 @@ const MyVerticallyCenteredModal = (props) => {
       _id: 1,
       username: "",
     };
-    let oldReviews = props.reviews;
-    oldReviews.unshift(reviewData);
+    let newReviews = props.reviews;
+    newReviews.unshift(reviewData);
     // console.log(oldReviews);
     props.setRecipeData((state) => {
-      return { ...state, reviews: oldReviews };
+      return { ...state, reviews: newReviews };
     });
     props.onHide();
 

@@ -1,8 +1,17 @@
-import { Button, Row } from "react-bootstrap";
+import { Button, Row, Badge } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const TagList = (props) => {
   const listTags = props.tags.map((tag) => {
-    return <Button key={tag._id}>{tag.tagName}</Button>;
+    return (
+      <>
+        <Link to="/browse">
+          <Badge pill variant="success" key={tag._id}>
+            {tag.tagName}
+          </Badge>
+        </Link>
+      </>
+    );
   });
 
   return (
