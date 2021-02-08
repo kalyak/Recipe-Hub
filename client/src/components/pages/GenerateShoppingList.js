@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import { Table, Row, Col, Container } from "react-bootstrap";
+import { Table, Row, Container } from "react-bootstrap";
 import axios from "axios";
 import converter from "../data/conversionData";
 
-const PlannerPage = () => {
+const GenerateShoppingList = () => {
   const [list, setList] = useState([]);
 
   const sampleList = [
     {
-      multiplier: 1,
+      multiplier: 2,
       ingredientList: [
         { quantity: 2, units: "tsp", ingredient: "salt", type: "solid" },
         { quantity: 500, units: "g", ingredient: "chicken", type: "solid" },
@@ -17,7 +17,7 @@ const PlannerPage = () => {
       ],
     },
     {
-      multiplier: 1,
+      multiplier: 5,
       ingredientList: [
         { quantity: 2, units: "tsp", ingredient: "sugar", type: "solid" },
         {
@@ -37,7 +37,7 @@ const PlannerPage = () => {
       ],
     },
     {
-      multiplier: 1,
+      multiplier: 5,
       ingredientList: [
         { quantity: 5, units: "", ingredient: "egg", type: "solid" },
         {
@@ -161,5 +161,4 @@ const PlannerPage = () => {
     </Container>
   );
 };
-
-export default PlannerPage;
+export default GenerateShoppingList;
