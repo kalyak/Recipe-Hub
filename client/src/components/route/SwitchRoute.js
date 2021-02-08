@@ -11,55 +11,59 @@ import SearchPage from "../pages/SearchPage";
 import RandomRecipePage from "../pages/RandomRecipePage";
 import PlannerPage from "../pages/PlannerPage";
 import MyPostedRecipes from "../pages/MyPostedRecipes";
+import AxiosTest from "../pages/axiostest";
 
 const SwitchRoute = () => {
   return (
     <Switch>
-      <Route exact path="/">
+      <Route exact path='/'>
         <HomePage />
       </Route>
-      <Route exact path="/browse">
+      <Route exact path='/browse'>
         <BrowseRecipe />
       </Route>
-      <Route exact path="/search">
+      <Route exact path='/search'>
         <SearchPage />
       </Route>
       {/* <Route exact path="/search/:category">
         <SearchPage />
       </Route>
-      <Route exact path="/search/:category/:keyword">
+      <Route exact path='/search/:category/:keyword'>
         <SearchPage />
       </Route>
-      <Route exact path="/search/:category/:keyword/:filter">
+      <Route exact path='/search/:category/:keyword/:filter'>
         <SearchPage />
       </Route> */}
-      <Route exact path="/random">
+      <Route exact path='/random'>
         <RandomRecipePage />
       </Route>
-      <Route exact path="/planner">
+      <Route exact path='/planner'>
         <PlannerPage />
       </Route>
-      <Route exact path="/recipe/new">
+      <Route exact path='/recipe/new'>
         <NewRecipePage />
       </Route>
-      <Route exact path="/recipe/user">
+      <Route exact path='/recipe/user'>
         <MyPostedRecipes />
       </Route>
-      <Route exact path="/recipe/:recipeID">
+      <Route exact path='/recipe/:recipeID'>
         <RecipePage />
       </Route>
-      <Route exact path="/fave">
+      <Route exact path='/fave'>
         <FavouritePage />
       </Route>
-      <Route exact path="/login/">
+      <Route exact path='/login/'>
         <LoginPage />
       </Route>
-      <Route exact path="/logout/">
+      <Route exact path='/logout/'>
         <LogoutPage />
       </Route>
-      <Route exact path="/signup">
+      <Route exact path='/signup'>
         <SignupPage />
       </Route>
+      {/* <Route path='/axios'>
+        <AxiosTest />
+      </Route> */}
     </Switch>
   );
 };

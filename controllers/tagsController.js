@@ -11,7 +11,15 @@ const dbError = (res) => {
 
 //SHOW/READ
 router.get("/", (req, res) => {
-  Tags.find({}, "tagName tagCategory", (err, tags) => {
+  console.log(req.query);
+  //doctoring to remove limit
+  const limit = {};
+  if (req.query.limit) {
+    limit.limit = parseInt(req.query.limit);
+    delete req.query.limit;
+  }
+  console.log(req.query, limit);
+  Tags.find(req.query, "tagName tagCategory", limit, (err, tags) => {
     if (err) {
       return dbError(res);
     } else {
