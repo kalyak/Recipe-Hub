@@ -7,16 +7,17 @@ const RandomRecipePage = () => {
   const [randomRecipeID, setRandomRecipeID] = useState("");
 
   useEffect(() => {
-    // axios
-    //   .get()
-    //   .then((response) => {
-    //     setRandomRecipeID(response.data._id);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error.response);
-    //   });
-    console.log(HomePageData);
-    setRandomRecipeID(HomePageData.topRating[0]._id);
+    axios
+      .get("/recipes/random")
+      .then((response) => {
+        console.log(response.data[0]._id);
+        setRandomRecipeID(response.data[0]._id);
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+    // console.log(HomePageData);
+    // setRandomRecipeID(HomePageData.topRating[0]._id);
   }, []);
 
   if (randomRecipeID !== "") {

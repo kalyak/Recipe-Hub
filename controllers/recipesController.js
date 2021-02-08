@@ -21,6 +21,25 @@ const dbError = (res) => {
     .send("Database error. Please contact your system administrator.");
 };
 
+// Return Random Recipe
+router.get("/random", (req, res) => {
+  Recipes.estimatedDocumentCount((err, count) => {
+    // console.log(count);
+    if (err) {
+      return res.send(err);
+    } else {
+      const random = Math.floor(Math.random() * count);
+      // console.log(random);
+      Recipes.find()
+        .limit(1)
+        .skip(random)
+        .exec((err, doc) => {
+          return res.send(doc);
+        });
+    }
+  });
+});
+
 // CREATE
 router.post(
   "/new",
