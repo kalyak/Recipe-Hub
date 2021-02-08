@@ -101,7 +101,7 @@ const EditRecipePage = () => {
 
     if (event.target.id === "ingredient") {
       const selectedIngredient = availableIngredients.filter((ingredient) => {
-        return ingredient._id == event.target.value;
+        return ingredient._id === event.target.value;
       });
       values[index]["unitOptions"] = selectedIngredient[0].units;
     }
@@ -182,14 +182,14 @@ const EditRecipePage = () => {
     setFormData(initialState);
   };
 
-  const capitalizeName = (str) => {
-    const splitStr = str.toLowerCase().split(" ");
-    for (let i = 0; i < splitStr.length; i++) {
-      splitStr[i] =
-        splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
-    }
-    return splitStr.join(" ");
-  };
+  // const capitalizeName = (str) => {
+  //   const splitStr = str.toLowerCase().split(" ");
+  //   for (let i = 0; i < splitStr.length; i++) {
+  //     splitStr[i] =
+  //       splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
+  //   }
+  //   return splitStr.join(" ");
+  // };
 
   const handleSubmit = () => {
     //remove unitOptions from selected ingredient
@@ -202,7 +202,7 @@ const EditRecipePage = () => {
     //construct data to be submitted
     const dataToBeSubmitted = {
       ...formData,
-      recipeName: capitalizeName(formData.recipeName),
+      // recipeName: capitalizeName(formData.recipeName),
       ingredientList: ingredientLists,
       instructions: cookingInstructions,
       tags: checkedTags.map((tag) => tag._id),
