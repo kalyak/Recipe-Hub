@@ -65,7 +65,10 @@ router.post(
 //Show recipe list from userid
 router.get("/user", isAuthenticated, (req, res) => {
   // res.send(req.query);
-  const query = { userID: req.session.currentUser.userID, archived: false };
+  console.log("userid", req.session.currentUser._id);
+  const query = {
+    $and: [{ userID: req.session.currentUser._id }, { archived: false }],
+  };
   Recipes.find(
     // { $and: [{ recipeName: /Egg/ }, { recipeName: /Tomato/ }] }, //test query with multiple keywords
     // { userID: req.session.currentUser._id },
