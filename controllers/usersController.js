@@ -99,7 +99,7 @@ router.put("/", isAuthenticated, (req, res) => {
       res.status(200).send({
         _id: user._id,
         username: user.username,
-        admin: user.admin,
+        // admin: user.admin,
       });
     }
   });
