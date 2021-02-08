@@ -13,6 +13,8 @@ import PlannerPage from "../pages/PlannerPage";
 import MyPostedRecipes from "../pages/MyPostedRecipes";
 import EditRecipePage from "../pages/EditRecipePage";
 import GenerateShoppingList from "../pages/GenerateShoppingList";
+import AxiosTest from "../pages/axiostest";
+import EditRecipePage from "../pages/EditRecipePage.js";
 
 const SwitchRoute = () => {
   return (
@@ -29,10 +31,10 @@ const SwitchRoute = () => {
       {/* <Route exact path="/search/:category">
         <SearchPage />
       </Route>
-      <Route exact path="/search/:category/:keyword">
+      <Route exact path='/search/:category/:keyword'>
         <SearchPage />
       </Route>
-      <Route exact path="/search/:category/:keyword/:filter">
+      <Route exact path='/search/:category/:keyword/:filter'>
         <SearchPage />
       </Route> */}
       <Route exact path="/random">
@@ -65,6 +67,9 @@ const SwitchRoute = () => {
       <Route exact path="/signup">
         <SignupPage />
       </Route>
+      {/* <Route path='/axios'>
+        <AxiosTest />
+      </Route> */}
     </Switch>
   );
 };
