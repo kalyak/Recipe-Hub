@@ -116,17 +116,18 @@ router.get("/", (req, res) => {
   Recipes.find(
     // { $and: [{ recipeName: /Egg/ }, { recipeName: /Tomato/ }] }, //test query with multiple keywords
     query,
-    "recipeName tags description avgRating",
-    limit,
-    (err, recipe) => {
+    "recipeName tags description avgRating imgURL",
+    limit
+  )
+    .populate({ path: "tags", select: "tagName" })
+    .exec((err, recipe) => {
       if (err) {
         // return dbError(res);
         return res.send(err);
       } else {
         res.send(recipe);
       }
-    }
-  );
+    });
 });
 
 // UPDATE
