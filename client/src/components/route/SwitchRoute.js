@@ -14,7 +14,6 @@ import MyPostedRecipes from "../pages/MyPostedRecipes";
 import EditRecipePage from "../pages/EditRecipePage";
 import GenerateShoppingList from "../pages/GenerateShoppingList";
 import AxiosTest from "../pages/axiostest";
-import EditRecipePage from "../pages/EditRecipePage.js";
 
 const SwitchRoute = () => {
   return (

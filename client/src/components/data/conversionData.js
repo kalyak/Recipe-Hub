@@ -6,7 +6,7 @@ const converter = {
     g: 1,
   },
   liquid: {
-    cups: 250,
+    cup: 250,
     tsp: 5,
     tbsp: 15,
     ml: 1,
