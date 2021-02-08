@@ -116,6 +116,23 @@ const AddIngredientModal = (props) => {
               );
             })}
             <br />
+            <label htmlFor="type">Type of ingredient:</label>
+            <br />
+            <select
+              id="type"
+              name="type"
+              value={formData.type}
+              onChange={(event) => handleChange(event)}
+              required={true}
+            >
+              <option disabled value="">
+                --Pls select--
+              </option>
+              <option value="solid">Solid</option>
+              <option value="liquid">Liquid</option>
+            </select>
+            <br />
+            <br />
             <Button onClick={handleCancel}>Cancel</Button>
             <Button type="submit">Add</Button>
           </form>
