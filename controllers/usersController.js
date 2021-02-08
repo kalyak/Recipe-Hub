@@ -122,6 +122,22 @@ router.get("/planner", isAuthenticated, (req, res) => {
   // res.send("SHOW USERS");
 });
 
+// SHOW(Favourite)
+router.get("/favourites", isAuthenticated, (req, res) => {
+  const userID = req.session.currentUser._id;
+  Users.findById(userID, "favourites")
+    .populate({
+      path: "favourites",
+      select: "recipeName tags description avgRating imgURL",
+      populate: { path: "tags", select: "tagName" },
+    })
+    // .project({ _id: 0 })
+    .exec((err, user) => {
+      res.send(user.favourites);
+    });
+  // res.send("SHOW USERS");
+});
+
 // DELETE
 router.delete("/", isAuthenticated, (req, res) => {
   // res.send("USERS DELETE");
