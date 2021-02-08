@@ -1,4 +1,4 @@
-import { Container, Card, Button, Col, Row } from "react-bootstrap";
+import { Container, Card, Button, Col, Row, Badge } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const QueryResultsDisplay = (props) => {
@@ -11,15 +11,24 @@ const QueryResultsDisplay = (props) => {
           <Card.Body>
             <Card.Title>{x.recipeName}</Card.Title>
             <Card.Text>{x.description}</Card.Text>
-            <Card.Text>Tags: </Card.Text>
             <Card.Text>
+              Tags:
+              <br />
               {x.tags.map((tag) => {
-                return <Button variant="success">{tag}</Button>;
+                return (
+                  <>
+                    <Link to="/browse">
+                      <Badge variant="success">{tag}</Badge>
+                    </Link>
+                  </>
+                );
               })}
             </Card.Text>
-            <Link to={`/recipe/${x._id}`}>
-              <Button variant="primary">Show More</Button>
-            </Link>
+            <Row className="justify-content-md-center">
+              <Link to={`/recipe/${x._id}`}>
+                <Button variant="primary">Show More</Button>
+              </Link>
+            </Row>
           </Card.Body>
         </Card>
       </Col>
