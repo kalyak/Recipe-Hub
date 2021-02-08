@@ -1,247 +1,32 @@
 import { useEffect, useState } from "react";
 import { Table, Row, Button, Container } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import SweetAlert from "react-bootstrap-sweetalert";
+import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
-import converter from "../data/conversionData";
 
 const PlannerPage = () => {
   const [list, setList] = useState([]);
-
-  const sampleList = [
-    {
-      multiplier: 1,
-      _id: "6020e6e21cf5483c7d2f1326",
-      recipeID: {
-        _id: "601bdfd4e47158a8894b23ad",
-        recipeName: "egg fried rice",
-        servingSize: 2,
-        ingredientList: [
-          {
-            quantity: 1,
-            units: "cup",
-            ingredient: {
-              _id: "601bdc9ae47158a8894b23a0",
-              ingredientName: "long-grained rice",
-            },
-          },
-          {
-            quantity: 0.75,
-            units: "cup",
-            ingredient: {
-              _id: "601bdcc9e47158a8894b23a1",
-              ingredientName: "water",
-            },
-          },
-          {
-            quantity: 3,
-            units: "",
-            ingredient: {
-              _id: "601bdd18e47158a8894b23a3",
-              ingredientName: "egg",
-            },
-          },
-          {
-            quantity: 0.25,
-            units: "tsp",
-            ingredient: {
-              _id: "601bdd31e47158a8894b23a4",
-              ingredientName: "salt",
-            },
-          },
-          {
-            quantity: 1,
-            units: "tsp",
-            ingredient: {
-              _id: "601bdd4fe47158a8894b23a5",
-              ingredientName: "sesame oil",
-            },
-          },
-          {
-            quantity: 2,
-            units: "tsp",
-            ingredient: {
-              _id: "601bdd9ee47158a8894b23a6",
-              ingredientName: "cooking oil",
-            },
-          },
-          {
-            quantity: 3,
-            units: "clove",
-            ingredient: {
-              _id: "601bddc5e47158a8894b23a7",
-              ingredientName: "garlic",
-            },
-          },
-          {
-            quantity: 1,
-            units: "tbsp",
-            ingredient: {
-              _id: "601bde08e47158a8894b23a8",
-              ingredientName: "fish sauce",
-            },
-          },
-          {
-            quantity: 1,
-            units: "tbsp",
-            ingredient: {
-              _id: "601bde44e47158a8894b23a9",
-              ingredientName: "light soy sauce",
-            },
-          },
-          {
-            quantity: 0.25,
-            units: "tsp",
-            ingredient: {
-              _id: "601bde6fe47158a8894b23aa",
-              ingredientName: "ground white pepper",
-            },
-          },
-          {
-            quantity: 20,
-            units: "g",
-            ingredient: {
-              _id: "601bde92e47158a8894b23ab",
-              ingredientName: "spring onion",
-            },
-          },
-          {
-            quantity: 10,
-            units: "g",
-            ingredient: {
-              _id: "601bdeb0e47158a8894b23ac",
-              ingredientName: "fried ikan bilis",
-            },
-          },
-        ],
-      },
-    },
-    {
-      multiplier: 1,
-      _id: "6020e6e21cf5483c7d2f1326",
-      recipeID: {
-        _id: "601bdfd4e47158a8894b23ad",
-        recipeName: "egg fried rice",
-        servingSize: 2,
-        ingredientList: [
-          {
-            quantity: 1,
-            units: "cup",
-            ingredient: {
-              _id: "601bdc9ae47158a8894b23a0",
-              ingredientName: "long-grained rice",
-            },
-          },
-          {
-            quantity: 0.75,
-            units: "cup",
-            ingredient: {
-              _id: "601bdcc9e47158a8894b23a1",
-              ingredientName: "water",
-            },
-          },
-          {
-            quantity: 3,
-            units: "",
-            ingredient: {
-              _id: "601bdd18e47158a8894b23a3",
-              ingredientName: "egg",
-            },
-          },
-          {
-            quantity: 0.25,
-            units: "tsp",
-            ingredient: {
-              _id: "601bdd31e47158a8894b23a4",
-              ingredientName: "salt",
-            },
-          },
-          {
-            quantity: 1,
-            units: "tsp",
-            ingredient: {
-              _id: "601bdd4fe47158a8894b23a5",
-              ingredientName: "sesame oil",
-            },
-          },
-          {
-            quantity: 2,
-            units: "tsp",
-            ingredient: {
-              _id: "601bdd9ee47158a8894b23a6",
-              ingredientName: "cooking oil",
-            },
-          },
-          {
-            quantity: 3,
-            units: "clove",
-            ingredient: {
-              _id: "601bddc5e47158a8894b23a7",
-              ingredientName: "garlic",
-            },
-          },
-          {
-            quantity: 1,
-            units: "tbsp",
-            ingredient: {
-              _id: "601bde08e47158a8894b23a8",
-              ingredientName: "fish sauce",
-            },
-          },
-          {
-            quantity: 1,
-            units: "tbsp",
-            ingredient: {
-              _id: "601bde44e47158a8894b23a9",
-              ingredientName: "light soy sauce",
-            },
-          },
-          {
-            quantity: 0.25,
-            units: "tsp",
-            ingredient: {
-              _id: "601bde6fe47158a8894b23aa",
-              ingredientName: "ground white pepper",
-            },
-          },
-          {
-            quantity: 20,
-            units: "g",
-            ingredient: {
-              _id: "601bde92e47158a8894b23ab",
-              ingredientName: "spring onion",
-            },
-          },
-          {
-            quantity: 10,
-            units: "g",
-            ingredient: {
-              _id: "601bdeb0e47158a8894b23ac",
-              ingredientName: "fried ikan bilis",
-            },
-          },
-        ],
-      },
-    },
-  ];
+  const [successfulUpdatePopUp, setSuccessfulUpdatePopUp] = useState(false);
+  const [successfulClearPopUp, setSuccessfulClearPopUp] = useState(false);
+  const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
-    // axios
-    //   .get("/users/planner")
-    //   .then((response) => {
-    //     setList(response.data);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error.response);
-    //   });
-    const sample = [...sampleList];
-    const sampleArr = sample.map((list) => {
-      return {
-        ...list,
-        totalServing: list.multiplier * list.recipeID.servingSize,
-      };
-    });
-    console.log(sampleArr);
-    setList(sampleArr);
+    axios
+      .get("/users/planner")
+      .then((response) => {
+        console.log(response.data);
+        const data = response.data.map((list) => {
+          return {
+            ...list,
+            totalServing: list.multiplier * list.recipeID.servingSize,
+          };
+        });
+
+        setList(data);
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
   }, []);
 
   const handleAddServing = (index) => {
@@ -277,30 +62,70 @@ const PlannerPage = () => {
   };
 
   const handleUpdatePlanner = () => {
-    // axios
-    //   .put("/users", {planner: list}, { withCredentials: true })
-    //   .then((response) => {
-    //     setList(response.data);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error.response);
-    //   });
-    console.log("list updated");
-    setList(list);
+    console.log("list to be sent to axios", list);
+    axios
+      .put("/users", { planner: list }, { withCredentials: true })
+      .then((response) => {
+        console.log("backend updated");
+        console.log(response.data);
+        setSuccessfulUpdatePopUp(true);
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
   };
 
   const handleClearPlanner = () => {
-    // axios
-    //   .put("/users", {planner: []}, { withCredentials: true })
-    //   .then((response) => {
-    //     setList(response.data);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error.response);
-    //   });
-    console.log("planner cleared");
-    setList([]);
+    axios
+      .put("/users", { planner: [] }, { withCredentials: true })
+      .then((response) => {
+        console.log("planner cleared");
+        console.log(response.data);
+        setList([]);
+        setSuccessfulClearPopUp(true);
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
   };
+
+  if (redirect) {
+    return <Redirect to="/" />;
+  }
+
+  if (successfulUpdatePopUp) {
+    return (
+      <Container>
+        <SweetAlert
+          success
+          title="Planner Updated"
+          onConfirm={() => {
+            setRedirect(true);
+          }}
+          confirmBtnText="Go to homepage"
+        >
+          Your have successfully updated your planner!
+        </SweetAlert>
+      </Container>
+    );
+  }
+
+  if (successfulClearPopUp) {
+    return (
+      <Container>
+        <SweetAlert
+          success
+          title="Planner Cleared"
+          onConfirm={() => {
+            setRedirect(true);
+          }}
+          confirmBtnText="Go to homepage"
+        >
+          Yay! Your shopping list has been cleared!
+        </SweetAlert>
+      </Container>
+    );
+  }
 
   return (
     <Container>
