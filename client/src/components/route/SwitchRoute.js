@@ -11,19 +11,20 @@ import SearchPage from "../pages/SearchPage";
 import RandomRecipePage from "../pages/RandomRecipePage";
 import PlannerPage from "../pages/PlannerPage";
 import MyPostedRecipes from "../pages/MyPostedRecipes";
+import EditRecipePage from "../pages/EditRecipePage";
+import GenerateShoppingList from "../pages/GenerateShoppingList";
 import AxiosTest from "../pages/axiostest";
-import EditRecipePage from "../pages/EditRecipePage.js";
 
 const SwitchRoute = () => {
   return (
     <Switch>
-      <Route exact path='/'>
+      <Route exact path="/">
         <HomePage />
       </Route>
-      <Route exact path='/browse'>
+      <Route exact path="/browse">
         <BrowseRecipe />
       </Route>
-      <Route exact path='/search'>
+      <Route exact path="/search">
         <SearchPage />
       </Route>
       {/* <Route exact path="/search/:category">
@@ -35,19 +36,22 @@ const SwitchRoute = () => {
       <Route exact path='/search/:category/:keyword/:filter'>
         <SearchPage />
       </Route> */}
-      <Route exact path='/random'>
+      <Route exact path="/random">
         <RandomRecipePage />
       </Route>
-      <Route exact path='/planner'>
+      <Route exact path="/planner">
         <PlannerPage />
       </Route>
-      <Route exact path='/recipe/new'>
+      <Route exact path="/planner/generate">
+        <GenerateShoppingList />
+      </Route>
+      <Route exact path="/recipe/new">
         <NewRecipePage />
       </Route>
-      <Route exact path='/recipe/user'>
+      <Route exact path="/recipe/user">
         <MyPostedRecipes />
       </Route>
-      <Route exact path='/recipe/:recipeID'>
+      <Route exact path="/recipe/:recipeID">
         <RecipePage />
       </Route>
       <Route exact path="/recipe/:recipeID/edit">
@@ -56,7 +60,7 @@ const SwitchRoute = () => {
       <Route exact path="/fave">
         <FavouritePage />
       </Route>
-      <Route exact path='/login/'>
+      <Route exact path="/login/">
         <LoginPage />
       </Route>
       <Route exact path="/signup">

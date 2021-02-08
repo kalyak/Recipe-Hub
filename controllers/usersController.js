@@ -4,6 +4,7 @@ const router = express.Router();
 const Users = require("../models/UsersSchema");
 const bcrypt = require("bcrypt");
 const { body, validationResult } = require("express-validator");
+const { find } = require("../models/UsersSchema");
 
 // SHOW
 router.get("/", (req, res) => {
@@ -103,6 +104,38 @@ router.put("/", isAuthenticated, (req, res) => {
       });
     }
   });
+});
+
+// SHOW(Planner)
+router.get("/planner", isAuthenticated, (req, res) => {
+  const userID = req.session.currentUser._id;
+  Users.findById(userID, "planner")
+    .populate({
+      path: "planner.recipeID",
+      select: "recipeName servingSize ingredientList",
+      populate: { path: "ingredientList.ingredient", select: "ingredientName" },
+    })
+    // .project({ _id: 0 })
+    .exec((err, user) => {
+      res.send(user.planner);
+    });
+  // res.send("SHOW USERS");
+});
+
+// SHOW(Favourite)
+router.get("/favourites", isAuthenticated, (req, res) => {
+  const userID = req.session.currentUser._id;
+  Users.findById(userID, "favourites")
+    .populate({
+      path: "favourites",
+      select: "recipeName tags description avgRating imgURL",
+      populate: { path: "tags", select: "tagName" },
+    })
+    // .project({ _id: 0 })
+    .exec((err, user) => {
+      res.send(user.favourites);
+    });
+  // res.send("SHOW USERS");
 });
 
 // DELETE
