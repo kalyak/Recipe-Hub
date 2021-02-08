@@ -5,7 +5,7 @@ const TagList = (props) => {
   const listTags = props.tags.map((tag) => {
     return (
       <>
-        <Link to="/browse">
+        <Link to={`/browse?tag=${tag._id}`}>
           <Badge pill variant="success" key={tag._id}>
             {tag.tagName}
           </Badge>

@@ -59,9 +59,13 @@ const QueryForm = (props) => {
     },
   ]);
 
+  console.log(formData);
+  const apiurl = `/recipe?keyword=${formData.keyword}`;
+  console.log(apiurl);
+
   useEffect(() => {
     // axios
-    //   .get("/", formData)
+    //   .get("/recipe/")
     //   .then((response) => {
     //     console.log(response);
     //     setQueryResults(response);
@@ -90,7 +94,7 @@ const QueryForm = (props) => {
     //   });
   };
 
-  console.log(formData);
+  // console.log(formData);
 
   return (
     <Container style={{ border: "1px solid black" }}>
