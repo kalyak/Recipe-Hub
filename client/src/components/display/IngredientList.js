@@ -3,10 +3,10 @@ import { Table } from "react-bootstrap";
 const IngredientList = (props) => {
   const listIngredient = props.ingredientList.map((ingredient, index) => {
     return (
-      <tr key={ingredient._id}>
+      <tr key={ingredient.ingredient._id}>
         <td>{ingredient.quantity}</td>
         <td>{ingredient.units}</td>
-        <td>{ingredient.ingredient}</td>
+        <td>{ingredient.ingredient.ingredientName}</td>
       </tr>
     );
   });

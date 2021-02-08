@@ -12,6 +12,7 @@ import RandomRecipePage from "../pages/RandomRecipePage";
 import PlannerPage from "../pages/PlannerPage";
 import MyPostedRecipes from "../pages/MyPostedRecipes";
 import AxiosTest from "../pages/axiostest";
+import EditRecipePage from "../pages/EditRecipePage.js";
 
 const SwitchRoute = () => {
   return (
@@ -49,16 +50,16 @@ const SwitchRoute = () => {
       <Route exact path='/recipe/:recipeID'>
         <RecipePage />
       </Route>
-      <Route exact path='/fave'>
+      <Route exact path="/recipe/:recipeID/edit">
+        <EditRecipePage />
+      </Route>
+      <Route exact path="/fave">
         <FavouritePage />
       </Route>
       <Route exact path='/login/'>
         <LoginPage />
       </Route>
-      <Route exact path='/logout/'>
-        <LogoutPage />
-      </Route>
-      <Route exact path='/signup'>
+      <Route exact path="/signup">
         <SignupPage />
       </Route>
       {/* <Route path='/axios'>

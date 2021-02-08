@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { Form, Col, Button, Container, ButtonToolbar } from "react-bootstrap";
 import SweetAlert from "react-bootstrap-sweetalert";
-import { Redirect } from "react-router-dom";
+import { Redirect, useParams } from "react-router-dom";
 import axios from "axios";
 import AddIngredientModal from "../display/AddIngredientModal";
 
-const NewRecipePage = () => {
+const EditRecipePage = () => {
+  const { recipeID } = useParams();
   const [availableTags, setAvailableTags] = useState([]);
   const [availableIngredients, setAvailableIngredients] = useState([]);
   const [selectedIngredients, setSelectedIngredients] = useState([
@@ -16,8 +17,8 @@ const NewRecipePage = () => {
   const [redirect, setRedirect] = useState(false);
 
   const [openIngredientModal, setOpenIngredientModal] = useState(false);
-
-  const initialState = {
+  const [initialState, setInitialState] = useState({});
+  const [formData, setFormData] = useState({
     recipeName: "",
     servingSize: "",
     prepTime: "mins",
@@ -29,29 +30,59 @@ const NewRecipePage = () => {
     imgURL: "",
     ingredientList: [], // {quantity: "", units: "", ingredient: contains the id""}
     instructions: [],
-  };
-
-  const [formData, setFormData] = useState(initialState);
+  });
 
   useEffect(() => {
     const getTags = axios.get("/tags");
     const getIngredients = axios.get("/ingredients");
+    const getRecipe = axios.get(`/recipes/${recipeID}`);
+
     axios
-      .all([getTags, getIngredients])
+      .all([getTags, getIngredients, getRecipe])
       .then(
         axios.spread((...allData) => {
+          console.log("all data", allData);
           const allTags = allData[0].data;
           const allIngredients = allData[1].data;
+          const initialState = allData[2].data;
+          setAvailableIngredients(allIngredients);
+          setInitialState(initialState);
+          setFormData(initialState);
+
+          setCookingInstructions(initialState.instructions);
+          //setAvailableTags
+          const checkedTags = initialState.tags.map((tag) => {
+            return tag.tagName;
+          });
+          console.log("checked tags", checkedTags);
+
+          const checkChecked = (tag) => {
+            return checkedTags.includes(tag);
+          };
+
           setAvailableTags(
             allTags.map((tag) => {
-              return { ...tag, checked: false };
+              return { ...tag, checked: checkChecked(tag.tagName) };
             })
           );
-          setAvailableIngredients(allIngredients);
+          //setSelectedIngredients
+          const ingredientList = initialState.ingredientList;
+          console.log("ingredient list", ingredientList);
+          const selectedIng = ingredientList.map((ingredient) => {
+            const filter = allIngredients.filter((ing) => {
+              return (
+                ing.ingredientName === ingredient.ingredient.ingredientName
+              );
+            });
+
+            return { ...ingredient, unitOptions: filter[0].units };
+          });
+
+          setSelectedIngredients(selectedIng);
         })
       )
       .catch((error) => {
-        console.log(error.response);
+        console.log(error);
       });
   }, []);
 
@@ -85,7 +116,12 @@ const NewRecipePage = () => {
   const handleAddIngredient = (index) => {
     setSelectedIngredients([
       ...selectedIngredients,
-      { quantity: "", units: "", ingredient: "", unitOptions: [] },
+      {
+        quantity: "",
+        units: "",
+        ingredient: { _id: "", ingredientName: "" },
+        unitOptions: [],
+      },
     ]);
   };
   const handleDeleteIngredient = (index) => {
@@ -93,7 +129,6 @@ const NewRecipePage = () => {
     values.splice(index, 1);
     setSelectedIngredients(values);
   };
-
   const handleInstructionChange = (event, index) => {
     const values = [...cookingInstructions];
     values[index] = event.target.value;
@@ -110,15 +145,6 @@ const NewRecipePage = () => {
     setCookingInstructions(values);
   };
 
-  const capitalizeName = (str) => {
-    const splitStr = str.toLowerCase().split(" ");
-    for (let i = 0; i < splitStr.length; i++) {
-      splitStr[i] =
-        splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
-    }
-    return splitStr.join(" ");
-  };
-
   const handleCheckChange = (index) => {
     const tags = [...availableTags];
     tags[index].checked = !tags[index].checked;
@@ -133,21 +159,34 @@ const NewRecipePage = () => {
   };
 
   const handleReset = () => {
-    //reset the tags checked
+    const checkedTags = initialState.tags.map((tag) => {
+      return tag.tagName;
+    });
+    const checkChecked = (tag) => {
+      return checkedTags.includes(tag);
+    };
     const currentAvailableTags = [...availableTags];
     setAvailableTags(
       currentAvailableTags.map((tag) => {
-        return { ...tag, checked: false };
+        return { ...tag, checked: checkChecked(tag) };
       })
     );
+
     //reset ingredients selected
-    setSelectedIngredients([
-      { quantity: "", units: "", ingredient: "", unitOptions: [] },
-    ]);
+    setSelectedIngredients(initialState.ingredientList);
 
     //reset cooking instruction
-    setCookingInstructions([""]);
+    setCookingInstructions(initialState.instructions);
     setFormData(initialState);
+  };
+
+  const capitalizeName = (str) => {
+    const splitStr = str.toLowerCase().split(" ");
+    for (let i = 0; i < splitStr.length; i++) {
+      splitStr[i] =
+        splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
+    }
+    return splitStr.join(" ");
   };
 
   const handleSubmit = () => {
@@ -169,7 +208,9 @@ const NewRecipePage = () => {
     console.log(dataToBeSubmitted);
 
     axios
-      .post("/recipes/new", dataToBeSubmitted, { withCredentials: true })
+      .post(`/recipes/${recipeID}`, dataToBeSubmitted, {
+        withCredentials: true,
+      })
       .then((response) => {
         setDonePopUp(true);
       })
@@ -178,6 +219,7 @@ const NewRecipePage = () => {
       });
   };
 
+  console.log(selectedIngredients);
   if (redirect) {
     return <Redirect to={"/recipe/user"} />;
   }
@@ -187,23 +229,23 @@ const NewRecipePage = () => {
       <Container>
         <SweetAlert
           success
-          title="Recipe Added"
+          title="Recipe Edited"
           onConfirm={() => {
             setRedirect(true);
           }}
           confirmBtnText="Go to your recipes"
         >
-          Your have successfully added a new recipe!
+          Your have successfully edited this recipe!
         </SweetAlert>
       </Container>
     );
   }
-  console.log(formData);
-  console.log(selectedIngredients);
+  // console.log(formData);
+  // console.log(selectedIngredients);
 
   return (
     <Container>
-      <h1>Add A New Recipe</h1>
+      <h1>Edit Your Recipe</h1>
       {availableTags.length > 0 && availableIngredients.length > 0 ? (
         <Form>
           <Form.Group controlId="recipeName">
@@ -295,7 +337,7 @@ const NewRecipePage = () => {
                 <Form.Group as={Col} controlId="ingredient">
                   <Form.Control
                     as="select"
-                    value={selectedIngredient.ingredient}
+                    value={selectedIngredient.ingredient._id}
                     onChange={(event) => handleIngredientSelect(event, index)}
                   >
                     <option disabled value="">
@@ -387,7 +429,7 @@ const NewRecipePage = () => {
             );
           })}
 
-          <Button onClick={handleSubmit}>Submit New Recipe</Button>
+          <Button onClick={handleSubmit}>Edit Recipe</Button>
           <Button className="ml-1" onClick={handleReset}>
             Reset Form
           </Button>
@@ -398,5 +440,4 @@ const NewRecipePage = () => {
     </Container>
   );
 };
-
-export default NewRecipePage;
+export default EditRecipePage;
