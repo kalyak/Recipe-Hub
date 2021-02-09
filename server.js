@@ -1,3 +1,4 @@
+const path = require("path");
 require("dotenv").config();
 
 const mongoose = require("mongoose");
@@ -50,5 +51,12 @@ app.use("/recipes", recipesController);
 
 const reviewsController = require("./controllers/reviewsController.js");
 app.use("/reviews", reviewsController);
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("./client/build"));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
 
 app.listen(process.env.PORT || 4000);

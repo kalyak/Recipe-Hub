@@ -58,9 +58,9 @@ const About = () => {
             <ul>
               <li>Axios</li>
               <li>Dayjs</li>
-              <li>React-bootstrap</li>
               <li>Filestack-react</li>
               <li>Lodash</li>
+              <li>React-bootstrap</li>
               <li>React-bootstrap-sweetalert</li>
               <li>React-rating-star-component</li>
               <li>React-router-dom</li>
@@ -102,7 +102,10 @@ const About = () => {
         <Col>
           <h4 className="text-center">
             Link to our{" "}
-            <a href="#" target="_blank">
+            <a
+              href="https://github.com/aukokyong/recipehub-mern"
+              target="_blank"
+            >
               Github Repository
             </a>
           </h4>

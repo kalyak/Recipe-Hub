@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { Container } from "react-bootstrap";
 import axios from "axios";
 import RecipeDisplay from "../display/RecipeDisplay.js";
 import ReviewDisplay from "../display/ReviewDisplay.js";
@@ -43,7 +44,7 @@ const RecipePage = () => {
     imageURL: "",
   });
 
-  console.log(recipeData);
+  // console.log(recipeData);
 
   useEffect(() => {
     axios
@@ -58,8 +59,10 @@ const RecipePage = () => {
   }, []);
 
   return (
-    <>
-      <h1>Recipe Page</h1>
+    <Container>
+      <br />
+      <br />
+      {/* <h1>Recipe</h1> */}
       <RecipeDisplay recipeData={recipeData} />
       <br />
       <br />
@@ -70,7 +73,7 @@ const RecipePage = () => {
       <br />
       <br />
       <ReviewDisplay reviews={recipeData.reviews} />
-    </>
+    </Container>
   );
 };
 
