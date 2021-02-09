@@ -110,9 +110,6 @@ const QueryForm = (props) => {
       <h1>Query Form</h1>
       <h2>You are searching for {formData.keyword}</h2>
       <InputGroup>
-        <InputGroup.Prepend>
-          <Button onClick={(e) => handleClick(e)}>Search</Button>
-        </InputGroup.Prepend>
         <Form.Control
           type="text"
           name="keyword"
@@ -120,6 +117,9 @@ const QueryForm = (props) => {
           placeholder="Enter Keyword"
           onChange={(e) => handleChange(e)}
         />
+        <InputGroup.Append>
+          <Button onClick={(e) => handleClick(e)}>Search</Button>
+        </InputGroup.Append>
       </InputGroup>
       <br />
       <br />
