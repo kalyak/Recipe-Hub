@@ -1,49 +1,47 @@
 import { Container, Card, Button, Col, Row, Badge } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
+import { Fragment } from "react";
 
 const QueryResultsDisplay = (props) => {
-  // console.log(props.filteredResults);
+  console.log(props.filteredResults);
+
   const display = props.filteredResults.map((recipe) => {
+    console.log(recipe);
     return (
-      <Col sm="auto">
+      <Col sm="auto" key={recipe._id}>
         <Card style={{ width: "18rem" }}>
-          <Card.Img
-            variant="top"
-            src={recipe.imageURL}
-            alt={recipe.recipeName}
-          />
+          <Card.Img variant="top" src={recipe.imgURL} alt={recipe.recipeName} />
           <Card.Body>
             <Card.Title>
-              <p className="text-capitalize">
-                {recipe.recipeName}
-                <ReactStars value={recipe.avgRating} edit={false} />
-              </p>
+              <p>{recipe.recipeName}</p>
+              <p>{recipe.avgRating}</p>
+              <ReactStars value={recipe.avgRating} edit={false} isHalf={true} />
             </Card.Title>
             <Card.Text>{recipe.description}</Card.Text>
             <Card.Text>
-              Tags:
-              <br />
+              Tags: <br />
               {recipe.tags
-                .sort((a, b) => (a > b ? 1 : -1))
+                .sort((a, b) => (a.tagName > b.tagName ? 1 : -1))
                 .map((tag) => {
+                  console.log(tag);
                   return (
-                    <>
+                    <Fragment key={tag._id}>
                       <Link to="/browse">
                         <Badge variant="success" className="text-capitalize">
-                          {tag}
+                          {tag.tagName}
                         </Badge>
                       </Link>
-                    </>
+                    </Fragment>
                   );
                 })}
             </Card.Text>
-            <Row className="justify-content-md-center">
-              <Link to={`/recipe/${recipe._id}`}>
-                <Button variant="primary">Show More</Button>
-              </Link>
-            </Row>
           </Card.Body>
+          <Row className="justify-content-md-center">
+            <Link to={`/recipe/${recipe._id}`}>
+              <Button variant="primary">Show More</Button>
+            </Link>
+          </Row>
         </Card>
       </Col>
     );

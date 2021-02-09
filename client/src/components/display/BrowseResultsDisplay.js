@@ -19,10 +19,8 @@ const BrowseResultsDisplay = (props) => {
           />
           <Card.Body>
             <Card.Title>
-              <p className="text-capitalize">
-                {recipe.recipeName}
-                <ReactStars value={recipe.avgRating} edit={false} />
-              </p>
+              <p className="text-capitalize">{recipe.recipeName}</p>
+              <ReactStars value={recipe.avgRating} edit={false} isHalf={true} />
             </Card.Title>
             <Card.Text>{recipe.description}</Card.Text>
             <Card.Text>

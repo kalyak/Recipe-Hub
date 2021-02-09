@@ -12,7 +12,7 @@ const TopRating = () => {
     axios
       .get("/recipes?sort=-avgRating&limit=3")
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         setTopRating(response.data);
       })
       .catch((error) => {
@@ -25,7 +25,7 @@ const TopRating = () => {
       <Row>
         {topRating.length > 0 &&
           topRating.map((recipe) => {
-            console.log(recipe);
+            // console.log(recipe);
             return (
               <Col md={4} key={recipe._id}>
                 <Card style={{ width: "18rem" }} className="mb-5 ml-5">
@@ -33,7 +33,11 @@ const TopRating = () => {
                   <Card.Body>
                     <Card.Title className="text-capitalize">
                       {recipe.recipeName}
-                      <ReactStars value={recipe.avgRating} edit={false} />
+                      <ReactStars
+                        value={recipe.avgRating}
+                        edit={false}
+                        isHalf={true}
+                      />
                     </Card.Title>
                     <Card.Text>{recipe.description}</Card.Text>
                     <Card.Text>
@@ -43,7 +47,7 @@ const TopRating = () => {
                         .sort((a, b) => (b.tagName > a.tagName ? 1 : -1))
                         .reverse()
                         .map((tag) => {
-                          console.log(tag);
+                          // console.log(tag);
                           return (
                             <Fragment key={tag._id}>
                               <Link to={`/browse?tag=${tag._id}`}>
