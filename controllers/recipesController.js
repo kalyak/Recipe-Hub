@@ -50,10 +50,7 @@ router.post(
       .toLowerCase() //html capitalize recipeName when displaying
       .notEmpty()
       .withMessage("recipe name cannot be empty"),
-    body("instructions")
-      .trim()
-      .notEmpty()
-      .withMessage("instructions cannot be empty"),
+    body("instructions").notEmpty().withMessage("instructions cannot be empty"),
     body("prepTime")
       .trim()
       .toInt()
