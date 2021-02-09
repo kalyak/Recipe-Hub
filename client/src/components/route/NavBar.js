@@ -28,6 +28,11 @@ const NavBar = () => {
       <Nav className='mr-auto'>
         <SearchBar />
       </Nav>
+      <Nav>
+        <Nav.Link as={Link} to='/about'>
+          About
+        </Nav.Link>
+      </Nav>
       {user ? (
         user.username === "NOT_LOGGED_IN" ? (
           <Nav>

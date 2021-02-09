@@ -45,7 +45,11 @@ const NewlyAdded = () => {
                 <Card.Body>
                   <Card.Title className='text-capitalize'>
                     {recipe.recipeName}
-                    <ReactStars value={recipe.avgRating} edit={false} />
+                    <ReactStars
+                      value={recipe.avgRating}
+                      edit={false}
+                      isHalf={true}
+                    />
                   </Card.Title>
                   <Card.Text>{recipe.description}</Card.Text>{" "}
                   <Row className='justify-content-md-center'>

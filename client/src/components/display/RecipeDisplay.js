@@ -10,13 +10,13 @@ import dayjs from "dayjs";
 import AddtoFavePlanner from "./AddtoFavePlanner";
 
 const RecipeDisplay = (props) => {
-  let now = dayjs(props.recipeData.updatedAt).format("DD MMM YYYY");
+  let now = dayjs(props.recipeData.updatedAt).format("DD/MMM/YYYY");
   // console.log(now);
 
   return (
     <Container style={{ border: "1px black solid" }}>
       <Row className="justify-content-md-center">
-        <h1>{props.recipeData.recipeName}</h1>
+        <h1 className="text-capitalize">{props.recipeData.recipeName}</h1>
       </Row>
       <Row className="justify-content-md-center">
         <Col sm="auto">Posted by: {props.recipeData.userID.username}</Col>

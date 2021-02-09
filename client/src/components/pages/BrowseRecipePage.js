@@ -88,55 +88,63 @@ const BrowseRecipePage = () => {
   };
   // console.log(browsingTag);
 
-  const displayTags = tagData.map((category, index) => {
-    return (
-      <Fragment key={category._id}>
-        <Col>
-          <h3>{category._id}</h3>
-          {category.tag.map((tag, index) => {
-            if (browsingTag.tag === tag.tagID) {
-              return (
-                <Col key={tag.tagID}>
-                  <label>
-                    <Button
-                      variant="danger"
-                      key={tag.tagID}
-                      name="tag"
-                      value={tag.tagID}
-                      onClick={(e) => handleClick(e)}
-                    >
-                      {tag.tagName}
-                    </Button>
-                  </label>
-                </Col>
-              );
-            } else {
-              return (
-                <Col key={tag.tagID}>
-                  <label>
-                    <Button
-                      variant="light"
-                      key={tag.tagID}
-                      name="tag"
-                      value={tag.tagID}
-                      onClick={(e) => handleClick(e)}
-                    >
-                      {tag.tagName}
-                    </Button>
-                  </label>
-                </Col>
-              );
-            }
-          })}
-        </Col>
-      </Fragment>
-    );
-  });
+  const displayTags = tagData
+    .sort((a, b) => (a._id > b._id ? 1 : -1))
+    .map((category, index) => {
+      return (
+        <Fragment key={category._id}>
+          <Col>
+            <h3 className="text-capitalize">{category._id}</h3>
+            {category.tag
+              .sort((a, b) => (a.tagName > b.tagName ? 1 : -1))
+              .map((tag, index) => {
+                if (browsingTag.tag === tag.tagID) {
+                  return (
+                    <Col key={tag.tagID}>
+                      <label>
+                        <Button
+                          variant="danger"
+                          key={tag.tagID}
+                          name="tag"
+                          value={tag.tagID}
+                          onClick={(e) => handleClick(e)}
+                          className="text-capitalize"
+                        >
+                          {tag.tagName}
+                        </Button>
+                      </label>
+                    </Col>
+                  );
+                } else {
+                  return (
+                    <Col key={tag.tagID}>
+                      <label>
+                        <Button
+                          variant="light"
+                          key={tag.tagID}
+                          name="tag"
+                          value={tag.tagID}
+                          onClick={(e) => handleClick(e)}
+                          className="text-capitalize"
+                        >
+                          {tag.tagName}
+                        </Button>
+                      </label>
+                    </Col>
+                  );
+                }
+              })}
+          </Col>
+        </Fragment>
+      );
+    });
 
   return (
     <Container style={{ border: "1px black solid" }}>
-      <h1>Browse by categories for your meal</h1>
+      <h1>Browse by Tag</h1>
+      <br />
       <Row>{displayTags}</Row>
+      <br />
       {browsingTag.tag !== "" ? (
         <BrowseResultsDisplay
           filteredResults={queryResults}
