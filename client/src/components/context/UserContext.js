@@ -13,7 +13,7 @@ export const UserProvider = (props) => {
         setUser(response.data);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         setUser({ username: "NOT_LOGGED_IN" });
       });
   }, []);
