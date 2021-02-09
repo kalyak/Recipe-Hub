@@ -37,7 +37,9 @@ const BrowseResultsDisplay = (props) => {
                           props.setBrowsingTag({ tag: tag._id });
                         }}
                       >
-                        <Badge variant="success">{tag.tagName}</Badge>
+                        <Badge variant="success" className="text-capitalize">
+                          {tag.tagName}
+                        </Badge>
                       </Link>
                     </Fragment>
                   );
