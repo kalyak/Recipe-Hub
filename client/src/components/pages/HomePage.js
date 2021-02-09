@@ -30,17 +30,22 @@ const HomePage = () => {
       <h3>Browse by categories for your meal</h3>
       <Row>
         {categories.length > 0 &&
-          categories.map((category) => {
-            return (
-              <Col md="auto" key={category}>
-                <Link to={`/browse`}>
-                  <Button variant="info" className="mb-5 ml-5">
-                    {category}
-                  </Button>
-                </Link>
-              </Col>
-            );
-          })}
+          categories
+            .sort((a, b) => (a > b ? 1 : -1))
+            .map((category) => {
+              return (
+                <Col md="auto" key={category}>
+                  <Link to={`/browse`}>
+                    <Button
+                      variant="info"
+                      className="mb-5 ml-5 text-capitalize"
+                    >
+                      {category}
+                    </Button>
+                  </Link>
+                </Col>
+              );
+            })}
       </Row>
     </Container>
   );
