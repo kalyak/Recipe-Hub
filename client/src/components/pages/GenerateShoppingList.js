@@ -60,7 +60,8 @@ const GenerateShoppingList = () => {
           total += x.quantity;
         });
       } else {
-        unit = item[0].type === "solid" ? "g" : "ml";
+        unit = item[0].ingredient.type === "solid" ? "g" : "ml";
+        console.log("type", item[0].ingredient.type, "unit", unit);
         item.map((x) => {
           const qty = x.quantity * converter[x.ingredient.type][x.units];
           total += qty;
