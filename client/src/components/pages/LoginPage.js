@@ -1,7 +1,8 @@
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({
@@ -14,6 +15,8 @@ const LoginPage = () => {
     password: "",
   });
 
+  const [user, setUser] = useContext(UserContext);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     // console.log(formData);
@@ -21,9 +24,10 @@ const LoginPage = () => {
     axios
       .post("/sessions", formData)
       .then((response) => {
-        // console.log(response);
-        setIsLogin(true);
+        console.log(response);
+        setUser(response.data);
       })
+      .then(setIsLogin(true))
       .catch((error) => {
         // console.log(error.response.data);
         setResError((state) => {

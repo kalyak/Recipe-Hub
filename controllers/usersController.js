@@ -6,11 +6,6 @@ const bcrypt = require("bcrypt");
 const { body, validationResult } = require("express-validator");
 const { find } = require("../models/UsersSchema");
 
-// SHOW
-router.get("/", (req, res) => {
-  res.send("SHOW USERS");
-});
-
 // CREATE
 router.post(
   "/new",
@@ -75,6 +70,15 @@ const isAuthenticated = (req, res, next) => {
     res.status(401).send("You are currently not logged in. Please log in");
   }
 };
+
+// SHOW
+router.get("/", isAuthenticated, (req, res) => {
+  const userID = req.session.currentUser._id;
+  Users.findById(userID, "username favourites planner", (err, user) => {
+    res.send(user);
+  });
+  // res.send("SHOW USERS");
+});
 
 // UPDATE
 router.put("/", isAuthenticated, (req, res) => {

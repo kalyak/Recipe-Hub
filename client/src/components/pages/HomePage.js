@@ -9,6 +9,7 @@ const HomePage = () => {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
+    console.log("home page");
     axios
       .get("/tags/categories")
       .then((response) => {
@@ -34,7 +35,7 @@ const HomePage = () => {
             return (
               <Col md={4}>
                 <Link to={`/search/${category}`}>
-                  <Button variant="info" className="mb-5 ml-5">
+                  <Button variant='info' className='mb-5 ml-5'>
                     {category}
                   </Button>
                 </Link>
