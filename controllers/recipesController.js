@@ -21,6 +21,25 @@ const dbError = (res) => {
     .send("Database error. Please contact your system administrator.");
 };
 
+// Return Random Recipe
+router.get("/random", (req, res) => {
+  Recipes.estimatedDocumentCount((err, count) => {
+    // console.log(count);
+    if (err) {
+      return res.send(err);
+    } else {
+      const random = Math.floor(Math.random() * count);
+      // console.log(random);
+      Recipes.find()
+        .limit(1)
+        .skip(random)
+        .exec((err, doc) => {
+          return res.send(doc);
+        });
+    }
+  });
+});
+
 // CREATE
 router.post(
   "/new",
@@ -65,7 +84,10 @@ router.post(
 //Show recipe list from userid
 router.get("/user", isAuthenticated, (req, res) => {
   // res.send(req.query);
-  const query = { userID: req.session.currentUser.userID, archived: false };
+  console.log("userid", req.session.currentUser._id);
+  const query = {
+    $and: [{ userID: req.session.currentUser._id }, { archived: false }],
+  };
   Recipes.find(
     // { $and: [{ recipeName: /Egg/ }, { recipeName: /Tomato/ }] }, //test query with multiple keywords
     // { userID: req.session.currentUser._id },

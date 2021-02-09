@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Button, Row, Col } from "react-bootstrap";
+import { Button, Row, Col, Container } from "react-bootstrap";
 import axios from "axios";
 import TopRating from "../display/homepage-topRating";
 import NewlyAdded from "../display/homepage-newlyAdded";
@@ -21,7 +21,7 @@ const HomePage = () => {
   }, []);
 
   return (
-    <>
+    <Container>
       <h1>RECIPE HUB</h1>
       <h1>Placeholder for some headlines </h1>
       <h3>Top Rating Recipes</h3>
@@ -33,8 +33,8 @@ const HomePage = () => {
         {categories.length > 0 &&
           categories.map((category) => {
             return (
-              <Col md={4}>
-                <Link to={`/search/${category}`}>
+              <Col md='auto' key={category}>
+                <Link to={`/browse`}>
                   <Button variant='info' className='mb-5 ml-5'>
                     {category}
                   </Button>
@@ -43,7 +43,7 @@ const HomePage = () => {
             );
           })}
       </Row>
-    </>
+    </Container>
   );
 };
 

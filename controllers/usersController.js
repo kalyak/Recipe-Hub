@@ -117,7 +117,10 @@ router.get("/planner", isAuthenticated, (req, res) => {
     .populate({
       path: "planner.recipeID",
       select: "recipeName servingSize ingredientList",
-      populate: { path: "ingredientList.ingredient", select: "ingredientName" },
+      populate: {
+        path: "ingredientList.ingredient",
+        select: "ingredientName type",
+      },
     })
     // .project({ _id: 0 })
     .exec((err, user) => {
