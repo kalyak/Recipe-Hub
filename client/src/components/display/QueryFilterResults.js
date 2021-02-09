@@ -128,9 +128,7 @@ const QueryFilterResults = (props) => {
           </Accordion.Toggle>
           <Accordion.Collapse eventKey="1">
             <Card.Body>
-              <Card.Text>
-                <Row>{displayTags}</Row>
-              </Card.Text>
+              <Row>{displayTags}</Row>
             </Card.Body>
           </Accordion.Collapse>
         </Card>

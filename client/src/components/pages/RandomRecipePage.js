@@ -10,7 +10,7 @@ const RandomRecipePage = () => {
     axios
       .get("/recipes/random")
       .then((response) => {
-        console.log(response.data[0]._id);
+        // console.log(response.data[0]._id);
         setRandomRecipeID(response.data[0]._id);
       })
       .catch((error) => {
