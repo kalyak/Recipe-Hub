@@ -6,11 +6,6 @@ const bcrypt = require("bcrypt");
 const { body, validationResult } = require("express-validator");
 const { find } = require("../models/UsersSchema");
 
-// SHOW
-router.get("/", (req, res) => {
-  res.send("SHOW USERS");
-});
-
 // CREATE
 router.post(
   "/new",
@@ -76,6 +71,15 @@ const isAuthenticated = (req, res, next) => {
   }
 };
 
+// SHOW
+router.get("/", isAuthenticated, (req, res) => {
+  const userID = req.session.currentUser._id;
+  Users.findById(userID, "username favourites planner", (err, user) => {
+    res.send(user);
+  });
+  // res.send("SHOW USERS");
+});
+
 // UPDATE
 router.put("/", isAuthenticated, (req, res) => {
   // res.send("USERS UPDATE");
@@ -113,7 +117,10 @@ router.get("/planner", isAuthenticated, (req, res) => {
     .populate({
       path: "planner.recipeID",
       select: "recipeName servingSize ingredientList",
-      populate: { path: "ingredientList.ingredient", select: "ingredientName" },
+      populate: {
+        path: "ingredientList.ingredient",
+        select: "ingredientName type",
+      },
     })
     // .project({ _id: 0 })
     .exec((err, user) => {
