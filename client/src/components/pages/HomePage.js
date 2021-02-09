@@ -23,7 +23,7 @@ const HomePage = () => {
   return (
     <Container>
       <h1>RECIPE HUB</h1>
-      <h1>Placeholder for some headlines </h1>
+      <h1>Find Simple and Delicious Recipe here</h1>
       <h3>Top Rating Recipes</h3>
       <TopRating />
       <h3>Newly Added Recipes</h3>
