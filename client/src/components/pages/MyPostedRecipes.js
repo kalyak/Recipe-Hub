@@ -43,14 +43,15 @@ const MyPostedRecipes = () => {
           <CardDeck className='row row-cols-1 row-cols-sm-2 row-cols-lg-3'>
             {myRecipes.map((recipe, index) => {
               const image = recipe.imgURL ? recipe.imgURL : noImage;
-              const createdDate = dayjs(recipe.createdAt).format("DD/MMM/YYYY");
+              const updatedDate = dayjs(recipe.updatedAt).format("DD/MMM/YYYY");
 
               return (
-                <Col>
+                <Col className='pb-5'>
                   <Card
                     key={recipe._id}
                     style={{ width: "18rem" }}
                     // className='mb-5 ml-5'
+                    className='h-100'
                   >
                     <Card.Img
                       width={288}
@@ -110,7 +111,7 @@ const MyPostedRecipes = () => {
                         })}
                       <br />
                       <small className='text-muted'>
-                        Created on: {createdDate}
+                        Created on: {updatedDate}
                       </small>
                     </Card.Footer>
                   </Card>

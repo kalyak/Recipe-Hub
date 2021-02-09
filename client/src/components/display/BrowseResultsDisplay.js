@@ -1,7 +1,17 @@
-import { Container, Card, Button, Col, Row, Badge } from "react-bootstrap";
+import {
+  Container,
+  Card,
+  Button,
+  Col,
+  Row,
+  Badge,
+  CardDeck,
+} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { Fragment } from "react";
 import ReactStars from "react-rating-stars-component";
+import noImage from "../icons/600px-No_image_available_600_x_450.png";
+import dayjs from "dayjs";
 
 const BrowseResultsDisplay = (props) => {
   // console.log(props.filteredResults);
@@ -9,57 +19,70 @@ const BrowseResultsDisplay = (props) => {
 
   // console.log(props.filteredResults.imageURL);
   const display = props.filteredResults.map((recipe) => {
+    const image = recipe.imgURL ? recipe.imgURL : noImage;
+    const updatedDate = dayjs(recipe.updatedAt).format("DD/MMM/YYYY");
+
     return (
-      <Col sm="auto" key={recipe._id}>
-        <Card style={{ width: "18rem" }}>
-          <Card.Img variant="top" src={recipe.imgURL} alt={recipe.recipeName} />
+      <Col className='pb-5'>
+        <Card
+          key={recipe._id}
+          style={{ width: "18rem" }}
+          // className='mb-5 ml-5'
+          className='h-100'
+        >
+          <Card.Img width={288} height={216} variant='top' src={image} />
           <Card.Body>
-            <Card.Title>
-              <p className="text-capitalize">{recipe.recipeName}</p>
+            <Card.Title className='text-capitalize'>
+              {recipe.recipeName}
               <ReactStars value={recipe.avgRating} edit={false} isHalf={true} />
             </Card.Title>
-            <Card.Text>{recipe.description}</Card.Text>
-            <Card.Text>
-              Tags:
-              <br />
-              {recipe.tags
-                .sort((a, b) => (a.tagName > b.tagName ? 1 : -1))
-                .map((tag) => {
-                  return (
-                    <Fragment key={tag._id}>
-                      <Link
-                        to={`/browse`}
-                        onClick={(e) => {
-                          props.setBrowsingTag({ tag: tag._id });
-                        }}
-                      >
-                        <Badge variant="success" className="text-capitalize">
-                          {tag.tagName}
-                        </Badge>
-                      </Link>
-                    </Fragment>
-                  );
-                })}
+            <Card.Text
+              style={{
+                height: "5rem",
+                "overflow-y": "hidden",
+                "text-overflow": "ellipsis",
+              }}
+            >
+              {recipe.description}
             </Card.Text>
-            <Row className="justify-content-md-center">
+            <Row className='justify-content-md-center'>
               <Link to={`/recipe/${recipe._id}`}>
-                <Button variant="primary">Show More</Button>
+                <Button variant='primary'>Show More</Button>
               </Link>
             </Row>
           </Card.Body>
+          <Card.Footer>
+            {recipe.tags
+              .sort((a, b) => (a.tagName > b.tagName ? 1 : -1))
+              .map((tag) => {
+                return (
+                  <Fragment key={tag._id}>
+                    <Link to={`/browse?tag=${tag._id}`}>
+                      <Badge className='text-capitalize' variant='success'>
+                        {tag.tagName}
+                      </Badge>
+                    </Link>
+                  </Fragment>
+                );
+              })}
+            <br />
+            <small className='text-muted'>Created on: {updatedDate}</small>
+          </Card.Footer>
         </Card>
       </Col>
     );
   });
 
   return (
-    <Container style={{ border: "1px blue solid" }}>
+    <Container>
       <h1>Results Display</h1>
 
       {props.filteredResults.length > 0 ? (
-        <Row>{display}</Row>
+        <CardDeck className='row row-cols-1 row-cols-sm-2 row-cols-lg-3'>
+          {display}
+        </CardDeck>
       ) : (
-        <h4 className="text-center">No results found</h4>
+        <h4 className='text-center'>No results found</h4>
       )}
     </Container>
   );

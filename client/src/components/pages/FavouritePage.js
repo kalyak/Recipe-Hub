@@ -1,53 +1,119 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, Fragment } from "react";
 import { Link } from "react-router-dom";
-import { Card, Button, Row, Col } from "react-bootstrap";
+import {
+  Card,
+  Button,
+  Row,
+  Col,
+  CardDeck,
+  Container,
+  Badge,
+} from "react-bootstrap";
 import HomePageData from "./sampleData";
 import sampleImage from "./sampleimage.jpg";
+import noImage from "../icons/600px-No_image_available_600_x_450.png";
+import dayjs from "dayjs";
+import ReactStars from "react-rating-stars-component";
+import axios from "axios";
 
 const FavouritePage = () => {
   const [fave, setFave] = useState("");
 
   useEffect(() => {
-    // axios
-    //   .get()
-    //   .then((response) => {
-    //     setFave(response.data);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error.response);
-    //   });
-    console.log(HomePageData.topRating);
-    setFave(HomePageData.topRating);
+    axios
+      .get("/users/favourites", { withCredentials: true })
+      .then((response) => {
+        setFave(response.data);
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+    // console.log(HomePageData.topRating);
+    // setFave(HomePageData.topRating);
   }, []);
 
   return (
     <>
       <h1>My Favourite Recipes</h1>
       <br />
-      <Row>
+      <Container>
         {fave === "" ? (
           <p>Loading..</p>
         ) : fave.length === 0 ? (
           <p>You do not have any favourite recipe yet</p>
         ) : (
-          fave.map((recipe) => {
-            return (
-              <Col md={4}>
-                <Card style={{ width: "18rem" }} className="mb-5 ml-5">
-                  <Card.Img variant="top" src={sampleImage} />
-                  <Card.Body>
-                    <Card.Title>{recipe.recipeName}</Card.Title>
-                    <Card.Text>{recipe.description}</Card.Text>
-                    <Link to={`/recipe/${recipe._id}`}>
-                      <Button variant="primary">Show More</Button>
-                    </Link>
-                  </Card.Body>
-                </Card>
-              </Col>
-            );
-          })
+          <CardDeck className='row row-cols-1 row-cols-sm-2 row-cols-lg-3'>
+            {fave.map((recipe) => {
+              const image = recipe.imgURL ? recipe.imgURL : noImage;
+              const updatedDate = dayjs(recipe.updatedAt).format("DD/MMM/YYYY");
+
+              return (
+                <Col className='pb-5'>
+                  <Card
+                    key={recipe._id}
+                    style={{ width: "18rem" }}
+                    // className='mb-5 ml-5'
+                    className='h-100'
+                  >
+                    <Card.Img
+                      width={288}
+                      height={216}
+                      variant='top'
+                      src={image}
+                    />
+                    <Card.Body>
+                      <Card.Title className='text-capitalize'>
+                        {recipe.recipeName}
+                        <ReactStars
+                          value={recipe.avgRating}
+                          edit={false}
+                          isHalf={true}
+                        />
+                      </Card.Title>
+                      <Card.Text
+                        style={{
+                          height: "5rem",
+                          "overflow-y": "hidden",
+                          "text-overflow": "ellipsis",
+                        }}
+                      >
+                        {recipe.description}
+                      </Card.Text>
+                      <Row className='justify-content-md-center'>
+                        <Link to={`/recipe/${recipe._id}`}>
+                          <Button variant='primary'>Show More</Button>
+                        </Link>
+                      </Row>
+                    </Card.Body>
+                    <Card.Footer>
+                      {recipe.tags
+                        .sort((a, b) => (a.tagName > b.tagName ? 1 : -1))
+                        .map((tag) => {
+                          return (
+                            <Fragment key={tag._id}>
+                              <Link to={`/browse?tag=${tag._id}`}>
+                                <Badge
+                                  className='text-capitalize'
+                                  variant='success'
+                                >
+                                  {tag.tagName}
+                                </Badge>
+                              </Link>
+                            </Fragment>
+                          );
+                        })}
+                      <br />
+                      <small className='text-muted'>
+                        Created on: {updatedDate}
+                      </small>
+                    </Card.Footer>
+                  </Card>
+                </Col>
+              );
+            })}
+          </CardDeck>
         )}
-      </Row>
+      </Container>
     </>
   );
 };
