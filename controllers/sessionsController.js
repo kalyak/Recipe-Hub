@@ -24,6 +24,8 @@ sessions.post("/", (req, res) => {
         res.status(200).send({
           _id: foundUser._id,
           username: foundUser.username,
+          favourites: foundUser.favourites,
+          planner: foundUser.planner,
         });
       } else {
         res.status(401).send({ password: "Password incorrect" });

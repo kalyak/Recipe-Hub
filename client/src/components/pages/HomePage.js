@@ -9,6 +9,7 @@ const HomePage = () => {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
+    console.log("home page");
     axios
       .get("/tags/categories")
       .then((response) => {
@@ -32,9 +33,9 @@ const HomePage = () => {
         {categories.length > 0 &&
           categories.map((category) => {
             return (
-              <Col md="auto" key={category}>
+              <Col md='auto' key={category}>
                 <Link to={`/browse`}>
-                  <Button variant="info" className="mb-5 ml-5">
+                  <Button variant='info' className='mb-5 ml-5'>
                     {category}
                   </Button>
                 </Link>
