@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
 
 const QueryResultsDisplay = (props) => {
-  console.log(props.filteredResults);
+  // console.log(props.filteredResults);
   const display = props.filteredResults.map((recipe) => {
     return (
       <Col sm="auto">
@@ -15,8 +15,10 @@ const QueryResultsDisplay = (props) => {
           />
           <Card.Body>
             <Card.Title>
-              {recipe.recipeName}
-              <ReactStars value={recipe.avgRating} edit={false} />
+              <p className="text-capitalize">
+                {recipe.recipeName}
+                <ReactStars value={recipe.avgRating} edit={false} />
+              </p>
             </Card.Title>
             <Card.Text>{recipe.description}</Card.Text>
             <Card.Text>
