@@ -89,8 +89,10 @@ router.get("/user", isAuthenticated, (req, res) => {
     // { $and: [{ recipeName: /Egg/ }, { recipeName: /Tomato/ }] }, //test query with multiple keywords
     // { userID: req.session.currentUser._id },
     query,
-    "recipeName tags description avgRating createdAt updatedAt",
-    (err, recipe) => {
+    "recipeName tags description avgRating createdAt updatedAt"
+  )
+    .populate({ path: "tags", select: "tagName" })
+    .exec((err, recipe) => {
       if (err) {
         // return dbError(res);
         console.log(err);
@@ -99,8 +101,7 @@ router.get("/user", isAuthenticated, (req, res) => {
         console.log(recipe);
         res.send(recipe);
       }
-    }
-  );
+    });
 });
 
 // SHOW (individual)
@@ -142,7 +143,7 @@ router.get("/", (req, res) => {
   Recipes.find(
     // { $and: [{ recipeName: /Egg/ }, { recipeName: /Tomato/ }] }, //test query with multiple keywords
     query,
-    "recipeName tags description avgRating imgURL",
+    "recipeName tags description avgRating imgURL updatedAt createdAt",
     limit
   )
     .populate({ path: "tags", select: "tagName" })

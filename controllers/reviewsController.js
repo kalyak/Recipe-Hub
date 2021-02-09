@@ -40,11 +40,15 @@ router.post("/new", isAuthenticated, (req, res) => {
           } else {
             console.log(newRating);
             console.log(rating);
+            console.log(review._id);
             newRating = rating[0].avgRating;
             console.log(newRating, rating[0].avgRating);
             Recipes.findByIdAndUpdate(
               data.recipeID,
-              { avgRating: newRating },
+              [
+                { avgRating: newRating },
+                { $addToSet: { reviews: review._id } },
+              ],
               { upsert: true, new: true },
               (err, recipe) => {
                 if (err) {

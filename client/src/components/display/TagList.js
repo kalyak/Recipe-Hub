@@ -1,4 +1,4 @@
-import { Button, Row, Badge } from "react-bootstrap";
+import { Badge, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { Fragment } from "react";
 
@@ -12,9 +12,9 @@ const TagList = (props) => {
           <Link to={`/browse?tag=${tag._id}`}>
             <Badge
               pill
-              variant="success"
+              variant='success'
               key={tag._id}
-              className="text-capitalize"
+              className='text-capitalize'
             >
               {tag.tagName}
             </Badge>

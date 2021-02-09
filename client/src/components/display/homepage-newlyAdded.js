@@ -1,18 +1,10 @@
 import { useEffect, useState, Fragment } from "react";
-import {
-  Row,
-  Col,
-  Card,
-  Button,
-  Badge,
-  Container,
-  CardDeck,
-} from "react-bootstrap";
+import { Row, Card, Button, Badge, Container, CardDeck } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import axios from "axios";
-// import sampleImage from "../pages/sampleimage.jpg";
 import noImage from "../icons/600px-No_image_available_600_x_450.png";
 import ReactStars from "react-rating-stars-component";
+import dayjs from "dayjs";
 
 const NewlyAdded = () => {
   const [newlyAdded, setNewlyAdded] = useState([]);
@@ -34,8 +26,9 @@ const NewlyAdded = () => {
         {newlyAdded.length > 0 &&
           newlyAdded.map((recipe) => {
             const image = recipe.imgURL ? recipe.imgURL : noImage;
+            const createdDate = dayjs(recipe.createdAt).format("DD/MMM/YYYY");
+
             return (
-              // <Col md={4} key={recipe._id}>
               <Card
                 key={recipe._id}
                 style={{ width: "18rem" }}
@@ -51,7 +44,15 @@ const NewlyAdded = () => {
                       isHalf={true}
                     />
                   </Card.Title>
-                  <Card.Text>{recipe.description}</Card.Text>{" "}
+                  <Card.Text
+                    style={{
+                      height: "5rem",
+                      "overflow-y": "hidden",
+                      "text-overflow": "ellipsis",
+                    }}
+                  >
+                    {recipe.description}
+                  </Card.Text>
                   <Row className='justify-content-md-center'>
                     <Link to={`/recipe/${recipe._id}`}>
                       <Button variant='primary'>Show More</Button>
@@ -59,9 +60,6 @@ const NewlyAdded = () => {
                   </Row>
                 </Card.Body>
                 <Card.Footer>
-                  {/* <Card.Text> */}
-                  Tags:
-                  <br />
                   {recipe.tags
                     .sort((a, b) => (a.tagName > b.tagName ? 1 : -1))
                     .map((tag) => {
@@ -78,10 +76,12 @@ const NewlyAdded = () => {
                         </Fragment>
                       );
                     })}
-                  {/* </Card.Text> */}
+                  <br />
+                  <small className='text-muted'>
+                    Created on: {createdDate}
+                  </small>
                 </Card.Footer>
               </Card>
-              // </Col>
             );
           })}
       </CardDeck>

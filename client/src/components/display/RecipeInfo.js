@@ -4,14 +4,14 @@ import cuttingImg from "../icons/cutting.svg";
 import fryingpanImg from "../icons/frying-pan.svg";
 import servingImg from "../icons/food-serving.svg";
 
-const RecipeInfo = (props) => {
-  // console.log(props.recipeData.avgRating);
-  let rating = props.recipeData.avgRating;
+const RecipeInfo = ({ recipeData }) => {
+  // console.log(recipeData.avgRating);
+  let rating = recipeData.avgRating;
 
   const Stars = () => {
     return (
       <ReactStars
-        value={props.recipeData.avgRating}
+        value={recipeData.avgRating}
         isHalf={true}
         edit={false}
         size={30}
@@ -21,52 +21,52 @@ const RecipeInfo = (props) => {
 
   return (
     <Container>
-      <Row className="justify-content-md-center">
-        <Col md="auto">
+      <Row className='justify-content-md-center'>
+        <Col md='auto'>
           <Stars />
           {rating !== undefined ? (
-            <p className="text-center">
-              Average Rating: {props.recipeData.avgRating} / 5
+            <p className='text-center'>
+              Average Rating: {recipeData.avgRating} / 5
             </p>
           ) : (
-            <p className="text-center">No rating yet</p>
+            <p className='text-center'>No rating yet</p>
           )}
         </Col>
-        <Col md="auto" className="text-center">
+        <Col md='auto' className='text-center'>
           {/* <OverlayTrigger
             placement="bottom"
             overlay={<Tooltip>Estimated Preparation Time</Tooltip>}
           > */}
-          <img src={cuttingImg} alt="icon" style={{ height: "50px" }} />
+          <img src={cuttingImg} alt='icon' style={{ height: "50px" }} />
           {/* </OverlayTrigger> */}
           <p>
-            {props.recipeData.prepTime} {props.recipeData.prepTimeUnit}
+            {recipeData.prepTime} {recipeData.prepTimeUnit}
           </p>
         </Col>
-        <Col md="auto" className="text-center">
+        <Col md='auto' className='text-center'>
           {/* <OverlayTrigger
             placement="bottom"
             overlay={<Tooltip>Estimated Cooking Time</Tooltip>}
           > */}
-          <img src={fryingpanImg} alt="icon" style={{ height: "50px" }} />
+          <img src={fryingpanImg} alt='icon' style={{ height: "50px" }} />
           {/* </OverlayTrigger> */}
           <p>
-            {props.recipeData.cookTime} {props.recipeData.cookTimeUnit}
+            {recipeData.cookTime} {recipeData.cookTimeUnit}
           </p>
         </Col>
-        <Col md="auto" className="text-center">
+        <Col md='auto' className='text-center'>
           {/* <OverlayTrigger
             placement="bottom"
             overlay={<Tooltip>Serving Size</Tooltip>}
           > */}
-          <img src={servingImg} alt="icon" style={{ height: "50px" }} />
+          <img src={servingImg} alt='icon' style={{ height: "50px" }} />
           {/* </OverlayTrigger> */}
-          <p>{props.recipeData.servingSize} pax</p>
+          <p>{recipeData.servingSize} pax</p>
         </Col>
       </Row>
       <br />
       <h2>Description</h2>
-      <p>{props.recipeData.description}</p>
+      <p>{recipeData.description}</p>
     </Container>
   );
 };
