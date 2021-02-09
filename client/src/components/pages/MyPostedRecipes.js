@@ -1,9 +1,19 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, Fragment } from "react";
 import { Link } from "react-router-dom";
-import { Card, Button, Row, Col } from "react-bootstrap";
+import {
+  Card,
+  Button,
+  Row,
+  Col,
+  CardDeck,
+  Container,
+  Badge,
+} from "react-bootstrap";
 import axios from "axios";
 import DeleteRecipe from "../buttons/DeleteRecipe";
-import sampleImage from "./sampleimage.jpg";
+import noImage from "../icons/600px-No_image_available_600_x_450.png";
+import dayjs from "dayjs";
+import ReactStars from "react-rating-stars-component";
 
 const MyPostedRecipes = () => {
   const [myRecipes, setMyRecipes] = useState("");
@@ -24,38 +34,92 @@ const MyPostedRecipes = () => {
     <>
       <h1>My Recipes</h1>
       <br />
-      <Row>
+      <Container>
         {myRecipes === "" ? (
           <p>Loading..</p>
         ) : myRecipes.length === 0 ? (
           <p>You have not posted any recipe yet</p>
         ) : (
-          myRecipes.map((recipe, index) => {
-            return (
-              <Col md={4}>
-                <Card style={{ width: "18rem" }} className="mb-5 ml-5">
-                  <Card.Img variant="top" src={sampleImage} />
-                  <Card.Body>
-                    <Card.Title>{recipe.recipeName}</Card.Title>
-                    <Card.Text>{recipe.description}</Card.Text>
-                    <Card.Link as={Link} to={`/recipe/${recipe._id}`}>
-                      Show More
-                    </Card.Link>
-                    <Card.Link as={Link} to={`/recipe/${recipe._id}/edit`}>
-                      Edit Recipe
-                    </Card.Link>
-                    <DeleteRecipe
-                      myRecipes={myRecipes}
-                      index={index}
-                      setMyRecipes={setMyRecipes}
+          <CardDeck className='row row-cols-1 row-cols-sm-2 row-cols-lg-3'>
+            {myRecipes.map((recipe, index) => {
+              const image = recipe.imgURL ? recipe.imgURL : noImage;
+              const createdDate = dayjs(recipe.createdAt).format("DD/MMM/YYYY");
+
+              return (
+                <Col>
+                  <Card
+                    key={recipe._id}
+                    style={{ width: "18rem" }}
+                    // className='mb-5 ml-5'
+                  >
+                    <Card.Img
+                      width={288}
+                      height={216}
+                      variant='top'
+                      src={image}
                     />
-                  </Card.Body>
-                </Card>
-              </Col>
-            );
-          })
+                    <Card.Body>
+                      <Card.Title className='text-capitalize'>
+                        {recipe.recipeName}
+                        <ReactStars
+                          value={recipe.avgRating}
+                          edit={false}
+                          isHalf={true}
+                        />
+                      </Card.Title>
+                      <Card.Text
+                        style={{
+                          height: "5rem",
+                          "overflow-y": "hidden",
+                          "text-overflow": "ellipsis",
+                        }}
+                      >
+                        {recipe.description}
+                      </Card.Text>
+                      <Row>
+                        <Card.Link as={Link} to={`/recipe/${recipe._id}`}>
+                          Show More
+                        </Card.Link>
+                        <Card.Link as={Link} to={`/recipe/${recipe._id}/edit`}>
+                          Edit Recipe
+                        </Card.Link>
+                      </Row>
+                      <br />
+                      <DeleteRecipe
+                        myRecipes={myRecipes}
+                        index={index}
+                        setMyRecipes={setMyRecipes}
+                      />
+                    </Card.Body>
+                    <Card.Footer>
+                      {recipe.tags
+                        .sort((a, b) => (a.tagName > b.tagName ? 1 : -1))
+                        .map((tag) => {
+                          return (
+                            <Fragment key={tag._id}>
+                              <Link to={`/browse?tag=${tag._id}`}>
+                                <Badge
+                                  className='text-capitalize'
+                                  variant='success'
+                                >
+                                  {tag.tagName}
+                                </Badge>
+                              </Link>
+                            </Fragment>
+                          );
+                        })}
+                      <br />
+                      <small className='text-muted'>
+                        Created on: {createdDate}
+                      </small>
+                    </Card.Footer>
+                  </Card>
+                </Col>
+              );
+            })}
+          </CardDeck>
         )}
-      </Row>
+      </Container>
     </>
   );
 };

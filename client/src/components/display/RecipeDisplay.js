@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
-import sampleimg from "../pages/sampleimage.jpg";
+// import { useState, useEffect } from "react";
+// import axios from "axios";
 import { Container, Row, Col } from "react-bootstrap";
 import RecipeInfo from "./RecipeInfo";
 import InstructionList from "./InstructionList.js";
@@ -8,39 +7,44 @@ import IngredientList from "./IngredientList.js";
 import TagList from "./TagList.js";
 import dayjs from "dayjs";
 import AddtoFavePlanner from "./AddtoFavePlanner";
+import noImage from "../icons/600px-No_image_available_600_x_450.png";
 
-const RecipeDisplay = (props) => {
-  let now = dayjs(props.recipeData.updatedAt).format("DD/MMM/YYYY");
+const RecipeDisplay = ({ recipeData }) => {
+  const updateDate = dayjs(recipeData.updatedAt).format("DD/MMM/YYYY");
   // console.log(now);
+
+  const image = recipeData.imgURL ? recipeData.imgURL : noImage;
 
   return (
     <Container style={{ border: "1px black solid" }}>
-      <Row className="justify-content-md-center">
-        <h1 className="text-capitalize">{props.recipeData.recipeName}</h1>
+      <Row className='justify-content-md-center'>
+        <h1 className='text-capitalize'>{recipeData.recipeName}</h1>
       </Row>
-      <Row className="justify-content-md-center">
-        <Col sm="auto">Posted by: {props.recipeData.userID.username}</Col>
-        <Col sm="auto">Posted on: {now}</Col>
+      <Row className='justify-content-md-center'>
+        <Col sm='auto'>Posted by: {recipeData.userID.username}</Col>
+        <Col sm='auto'>Posted on: {updateDate}</Col>
       </Row>
       <br />
 
-      <Row className="justify-content-md-center">
+      <Row className='justify-content-md-center'>
         <img
-          src={props.recipeData.imageURL}
-          alt={props.recipeData.recipeName}
+          max-width={300}
+          // height={300}
+          src={image}
+          alt={recipeData.recipeName}
         />
       </Row>
       <br />
 
-      <RecipeInfo recipeData={props.recipeData} />
+      <RecipeInfo recipeData={recipeData} />
 
-      <AddtoFavePlanner recipeID={props.recipeData._id} />
+      <AddtoFavePlanner recipeID={recipeData._id} />
 
-      <TagList tags={props.recipeData.tags} />
+      <TagList tags={recipeData.tags} />
       <br />
       <br />
-      <IngredientList ingredientList={props.recipeData.ingredientList} />
-      <InstructionList instructions={props.recipeData.instructions} />
+      <IngredientList ingredientList={recipeData.ingredientList} />
+      <InstructionList instructions={recipeData.instructions} />
     </Container>
   );
 };

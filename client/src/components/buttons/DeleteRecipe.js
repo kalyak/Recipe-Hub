@@ -25,7 +25,8 @@ const DeleteRecipe = (props) => {
   return (
     <>
       <Button
-        variant="primary"
+        variant='danger'
+        size='sm'
         onClick={() => {
           setDeletePopUp(true);
         }}
@@ -37,9 +38,9 @@ const DeleteRecipe = (props) => {
         <SweetAlert
           warning
           showCancel
-          confirmBtnText="Yes, delete it!"
-          confirmBtnBsStyle="danger"
-          title="Are you sure?"
+          confirmBtnText='Yes, delete it!'
+          confirmBtnBsStyle='danger'
+          title='Are you sure?'
           onConfirm={handleDelete}
           onCancel={() => {
             setDeletePopUp(false);

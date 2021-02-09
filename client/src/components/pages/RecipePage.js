@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import RecipeDisplay from "../display/RecipeDisplay.js";
 import ReviewDisplay from "../display/ReviewDisplay.js";
-import sampleimg from "./sampleimage.jpg";
 import AddReviewButton from "../display/AddReviewButton.js";
 
 const RecipePage = () => {
@@ -41,7 +40,7 @@ const RecipePage = () => {
         userReview: "No data",
       },
     ],
-    imageURL: sampleimg,
+    imageURL: "",
   });
 
   console.log(recipeData);
