@@ -75,36 +75,43 @@ const QueryResults = (props) => {
     }
   };
 
-  const displayTags = tagData.map((category) => {
-    return (
-      <>
-        <Col>
-          <h3>{category._id}</h3>
-          {category.tagName.map((tag, index) => {
-            return (
-              <Col>
-                <label>
-                  <input
-                    type="checkbox"
-                    key={category._id + index}
-                    name={category._id}
-                    value={tag}
-                    onChange={(e) => handleChange(e)}
-                  />
-                  {tag}
-                </label>
-              </Col>
-            );
-          })}
-        </Col>
-      </>
-    );
-  });
+  const displayTags = tagData
+    .sort((a, b) => (a._id > b._id ? 1 : -1))
+    .map((category) => {
+      return (
+        <>
+          <Col>
+            <h4 className="text-capitalize">{category._id}</h4>
+            {category.tagName.sort().map((tag, index) => {
+              return (
+                <Col>
+                  <label>
+                    <Row>
+                      <Col sm="auto">
+                        <input
+                          type="checkbox"
+                          key={category._id + index}
+                          name={category._id}
+                          value={tag}
+                          onChange={(e) => handleChange(e)}
+                        />
+                      </Col>
+                      <Col sm="auto" className="text-capitalize">
+                        {tag}
+                      </Col>
+                    </Row>
+                  </label>
+                </Col>
+              );
+            })}
+          </Col>
+        </>
+      );
+    });
 
   return (
     <Container style={{ border: "1px red solid" }}>
-      <h1>Query Results Filtering</h1>
-      <h2>Filter By:</h2>
+      <h2>Select Filter:</h2>
 
       <Row>{displayTags}</Row>
       {/* <Accordion defaultActiveKey="0">
