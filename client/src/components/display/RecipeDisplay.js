@@ -1,6 +1,3 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
-import sampleimg from "../pages/sampleimage.jpg";
 import { Container, Row, Col } from "react-bootstrap";
 import RecipeInfo from "./RecipeInfo";
 import InstructionList from "./InstructionList.js";
@@ -14,7 +11,7 @@ const RecipeDisplay = (props) => {
   // console.log(now);
 
   return (
-    <Container style={{ border: "1px black solid" }}>
+    <Container>
       <Row className="justify-content-md-center">
         <h1 className="text-capitalize">{props.recipeData.recipeName}</h1>
       </Row>

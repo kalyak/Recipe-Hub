@@ -5,17 +5,32 @@ import fryingpanImg from "../icons/frying-pan.svg";
 import servingImg from "../icons/food-serving.svg";
 
 const RecipeInfo = (props) => {
+  // console.log(props.recipeData.avgRating);
+  let rating = props.recipeData.avgRating;
+
+  const Stars = () => {
+    return (
+      <ReactStars
+        value={props.recipeData.avgRating}
+        isHalf={true}
+        edit={false}
+        size={30}
+      />
+    );
+  };
+
   return (
     <Container>
       <Row className="justify-content-md-center">
         <Col md="auto">
-          <ReactStars
-            value={props.recipeData.avgRating}
-            isHalf={true}
-            edit={false}
-            size={30}
-          />
-          <p>Average Rating: {props.recipeData.avgRating} / 5</p>
+          <Stars />
+          {rating !== undefined ? (
+            <p className="text-center">
+              Average Rating: {props.recipeData.avgRating} / 5
+            </p>
+          ) : (
+            <p className="text-center">No rating yet</p>
+          )}
         </Col>
         <Col md="auto" className="text-center">
           {/* <OverlayTrigger
