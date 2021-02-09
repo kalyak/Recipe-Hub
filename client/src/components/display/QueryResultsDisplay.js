@@ -4,18 +4,17 @@ import ReactStars from "react-rating-stars-component";
 import { Fragment } from "react";
 
 const QueryResultsDisplay = (props) => {
-  console.log(props.filteredResults);
+  // console.log(props.filteredResults);
 
   const display = props.filteredResults.map((recipe) => {
-    console.log(recipe);
+    // console.log(recipe);
     return (
       <Col sm="auto" key={recipe._id}>
         <Card style={{ width: "18rem" }}>
           <Card.Img variant="top" src={recipe.imgURL} alt={recipe.recipeName} />
           <Card.Body>
             <Card.Title>
-              <p>{recipe.recipeName}</p>
-              <p>{recipe.avgRating}</p>
+              <p className="text-capitalize">{recipe.recipeName}</p>
               <ReactStars value={recipe.avgRating} edit={false} isHalf={true} />
             </Card.Title>
             <Card.Text>{recipe.description}</Card.Text>
@@ -24,10 +23,10 @@ const QueryResultsDisplay = (props) => {
               {recipe.tags
                 .sort((a, b) => (a.tagName > b.tagName ? 1 : -1))
                 .map((tag) => {
-                  console.log(tag);
+                  // console.log(tag);
                   return (
                     <Fragment key={tag._id}>
-                      <Link to="/browse">
+                      <Link to={`/browse?tag=${tag._id}`}>
                         <Badge variant="success" className="text-capitalize">
                           {tag.tagName}
                         </Badge>

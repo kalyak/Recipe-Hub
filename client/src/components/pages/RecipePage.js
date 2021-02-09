@@ -44,7 +44,7 @@ const RecipePage = () => {
     imageURL: sampleimg,
   });
 
-  console.log(recipeData);
+  // console.log(recipeData);
 
   useEffect(() => {
     axios

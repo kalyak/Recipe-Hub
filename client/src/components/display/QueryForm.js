@@ -10,7 +10,7 @@ const QueryForm = (props) => {
     "keyword"
   );
 
-  const [formData, setFormData] = useState({ keyword: queryKeyword });
+  const [formData, setFormData] = useState({ keyword: queryKeyword || "" });
   const [queryResults, setQueryResults] = useState([
     {
       _id: "",
@@ -39,7 +39,10 @@ const QueryForm = (props) => {
 
   const handleChange = (event) => {
     setFormData((state) => {
-      return { ...state, [event.target.name]: event.target.value };
+      return {
+        ...state,
+        [event.target.name]: event.target.value.toLowerCase(),
+      };
     });
   };
 
@@ -59,9 +62,9 @@ const QueryForm = (props) => {
   // console.log(formData);
 
   return (
-    <Container style={{ border: "1px solid black" }}>
-      <h1>Query Form</h1>
-      <h2>You are searching for {formData.keyword}</h2>
+    <Container>
+      <h2>You are searching for... {formData.keyword}</h2>
+      <br />
       <InputGroup>
         <Form.Control
           type="text"
