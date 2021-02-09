@@ -12,11 +12,7 @@ const BrowseResultsDisplay = (props) => {
     return (
       <Col sm="auto" key={recipe._id}>
         <Card style={{ width: "18rem" }}>
-          <Card.Img
-            variant="top"
-            src={recipe.imageURL}
-            alt={recipe.recipeName}
-          />
+          <Card.Img variant="top" src={recipe.imgURL} alt={recipe.recipeName} />
           <Card.Body>
             <Card.Title>
               <p className="text-capitalize">{recipe.recipeName}</p>
