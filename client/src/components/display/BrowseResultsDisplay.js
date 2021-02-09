@@ -1,6 +1,7 @@
 import { Container, Card, Button, Col, Row, Badge } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { Fragment } from "react";
+import ReactStars from "react-rating-stars-component";
 
 const BrowseResultsDisplay = (props) => {
   // console.log(props.filteredResults);
@@ -17,25 +18,32 @@ const BrowseResultsDisplay = (props) => {
             alt={recipe.recipeName}
           />
           <Card.Body>
-            <Card.Title>{recipe.recipeName}</Card.Title>
+            <Card.Title>
+              <p className="text-capitalize">{recipe.recipeName}</p>
+              <ReactStars value={recipe.avgRating} edit={false} isHalf={true} />
+            </Card.Title>
             <Card.Text>{recipe.description}</Card.Text>
             <Card.Text>
               Tags:
               <br />
-              {recipe.tags.map((tag) => {
-                return (
-                  <Fragment key={tag._id}>
-                    <Link
-                      to={`/browse`}
-                      onClick={(e) => {
-                        props.setBrowsingTag({ tag: tag._id });
-                      }}
-                    >
-                      <Badge variant="success">{tag.tagName}</Badge>
-                    </Link>
-                  </Fragment>
-                );
-              })}
+              {recipe.tags
+                .sort((a, b) => (a.tagName > b.tagName ? 1 : -1))
+                .map((tag) => {
+                  return (
+                    <Fragment key={tag._id}>
+                      <Link
+                        to={`/browse`}
+                        onClick={(e) => {
+                          props.setBrowsingTag({ tag: tag._id });
+                        }}
+                      >
+                        <Badge variant="success" className="text-capitalize">
+                          {tag.tagName}
+                        </Badge>
+                      </Link>
+                    </Fragment>
+                  );
+                })}
             </Card.Text>
             <Row className="justify-content-md-center">
               <Link to={`/recipe/${recipe._id}`}>
@@ -55,7 +63,7 @@ const BrowseResultsDisplay = (props) => {
       {props.filteredResults.length > 0 ? (
         <Row>{display}</Row>
       ) : (
-        <p>No results found.</p>
+        <h4 className="text-center">No results found</h4>
       )}
     </Container>
   );

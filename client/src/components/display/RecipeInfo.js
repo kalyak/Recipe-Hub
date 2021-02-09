@@ -6,7 +6,7 @@ import servingImg from "../icons/food-serving.svg";
 
 const RecipeInfo = (props) => {
   return (
-    <>
+    <Container>
       <Row className="justify-content-md-center">
         <Col md="auto">
           <ReactStars
@@ -52,7 +52,7 @@ const RecipeInfo = (props) => {
       <br />
       <h2>Description</h2>
       <p>{props.recipeData.description}</p>
-    </>
+    </Container>
   );
 };
 
