@@ -324,22 +324,7 @@ const NewRecipePage = () => {
             return (
               <Form.Row>
                 <Form.Group as={Col} controlId="ingredient">
-                  <input
-                    type="text"
-                    list="ingredient"
-                    onChange={(event) => handleIngredientSelect(event, index)}
-                  />
-                  <datalist id="ingredient">
-                    {availableIngredients.map((ingredient) => {
-                      return (
-                        <option
-                          value={ingredient.ingredientName}
-                          data-value={ingredient._id}
-                        />
-                      );
-                    })}
-                  </datalist>
-                  {/* <Form.Control
+                  <Form.Control
                     as="select"
                     value={selectedIngredient.ingredient}
                     onChange={(event) => handleIngredientSelect(event, index)}
@@ -354,7 +339,7 @@ const NewRecipePage = () => {
                         </option>
                       );
                     })}
-                  </Form.Control> */}
+                  </Form.Control>
                 </Form.Group>
                 <Form.Group as={Col} controlId="quantity">
                   <Form.Control
