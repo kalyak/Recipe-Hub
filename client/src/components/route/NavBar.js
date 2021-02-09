@@ -58,26 +58,6 @@ const NavBar = () => {
                 Add New Recipe
               </NavDropdown.Item>
             </NavDropdown>
-            {/* <Nav.Item>
-              <Nav.Link as={Link} to='/fave'>
-                Faved
-              </Nav.Link>
-            </Nav.Item> */}
-            {/* <Nav.Item>
-              <Nav.Link as={Link} to='/planner'>
-                Planner
-              </Nav.Link>
-            </Nav.Item> */}
-            {/* <Nav.Item>
-              <Nav.Link as={Link} to='/recipe/user'>
-                My Recipes
-              </Nav.Link>
-            </Nav.Item> */}
-            {/* <Nav.Item>
-              <Nav.Link as={Link} to='/recipe/new'>
-                Add New Recipe
-              </Nav.Link>
-            </Nav.Item> */}
             <Nav.Item>
               <Logout />
             </Nav.Item>
