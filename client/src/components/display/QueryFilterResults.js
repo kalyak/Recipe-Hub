@@ -4,7 +4,7 @@ import QueryResultsDisplay from "./QueryResultsDisplay";
 import axios from "axios";
 
 const QueryFilterResults = (props) => {
-  console.log(props.queryResults);
+  // console.log(props.queryResults);
 
   const [tagData, setTagData] = useState([
     {
@@ -13,8 +13,8 @@ const QueryFilterResults = (props) => {
     },
   ]);
   const [filterTarget, setFilterTarget] = useState([]);
-  const [filteredResults, setFilteredResults] = useState([]);
-  console.log(filteredResults);
+  // const [filteredResults, setFilteredResults] = useState([]);
+  // console.log(filteredResults);
 
   useEffect(() => {
     axios
@@ -28,33 +28,52 @@ const QueryFilterResults = (props) => {
       });
   }, []);
 
-  useEffect(() => {
-    console.log("Filtering...");
+  const filtering = () => {
     let results = props.queryResults;
     let target = [];
-    console.log("results:");
-    console.log(results);
-    results.map((recipe) => {
-      let isIncludeTarget = filterTarget.every((target) =>
-        recipe.tags.includes(target)
-      );
-      if (isIncludeTarget) {
-        target.push(recipe);
-      }
-      console.log(isIncludeTarget);
-    });
-    console.log("target:");
-    console.log(target);
-    setFilteredResults(target);
-  }, [filterTarget]);
+    // console.log("results:");
+    // console.log(results);
+    // console.log("filterTarget.length:" + filterTarget.length);
+    if (filterTarget.length === 0) {
+      target = results;
+    } else {
+      results.map((recipe) => {
+        // console.log(recipe.tags);
+
+        // pull out all the tagID and store in array
+        let tagIDArr = [];
+        recipe.tags.map((tag) => {
+          // console.log(tag);
+          tagIDArr.push(tag._id);
+        });
+        // console.log(tagIDArr);
+
+        // check if tagID array contains all the filter tag
+        let isIncludeTarget = filterTarget.every((target) =>
+          tagIDArr.includes(target)
+        );
+        // console.log(isIncludeTarget);
+
+        // push to target is recipe contain all the filter
+        if (isIncludeTarget) {
+          target.push(recipe);
+        }
+      });
+    }
+    // console.log("target:");
+    // console.log(target);
+    // setFilteredResults(target);
+    return target;
+  };
 
   const handleChange = (event) => {
+    // console.log(event.target.value);
     if (event.target.checked === true) {
-      console.log("added " + event.target.value);
+      // console.log("added " + event.target.value);
       const newFilter = [...filterTarget, event.target.value];
       setFilterTarget(newFilter);
     } else {
-      console.log("removed " + event.target.value);
+      // console.log("removed " + event.target.value);
       const cloneArr = [...filterTarget];
       const index = cloneArr.indexOf(event.target.value);
       cloneArr.splice(index, 1);
@@ -62,55 +81,63 @@ const QueryFilterResults = (props) => {
     }
   };
 
-  const displayTags = tagData.map((category) => {
-    return (
-      <Col key={category._id}>
-        <h4 className="text-capitalize">{category._id}</h4>
-        {category.tag.map((tag, index) => {
-          return (
-            <Col key={tag.tagID}>
-              <label>
-                <Row>
-                  <Col sm="auto">
-                    <input
-                      type="checkbox"
-                      name={tag.tagID}
-                      value={tag.tagName}
-                      onChange={(e) => handleChange(e)}
-                    />
-                  </Col>
-                  <Col sm="auto" className="text-capitalize">
-                    {tag.tagName}
-                  </Col>
-                </Row>
-              </label>
-            </Col>
-          );
-        })}
-      </Col>
-    );
-  });
+  const displayTags = tagData
+    .sort((a, b) => (a._id > b._id ? 1 : -1))
+    .map((category) => {
+      // console.log(category);
+      return (
+        <Col key={category._id}>
+          <h4 className="text-capitalize">{category._id}</h4>
+          {category.tag
+            .sort((a, b) => (a.tagName > b.tagName ? 1 : -1))
+            .map((tag) => {
+              return (
+                <Col key={tag.tagID}>
+                  <label>
+                    <Row>
+                      <Col sm="auto">
+                        <input
+                          type="checkbox"
+                          name={tag.tagID}
+                          value={tag.tagID}
+                          key={tag.tagID}
+                          onChange={(e) => handleChange(e)}
+                        />
+                      </Col>
+                      <Col sm="auto" className="text-capitalize">
+                        {tag.tagName}
+                      </Col>
+                    </Row>
+                  </label>
+                </Col>
+              );
+            })}
+        </Col>
+      );
+    });
 
   return (
-    <Container style={{ border: "1px red solid" }}>
-      <h2>Select Filter:</h2>
+    <Container>
+      {/* <h2>Select Filter:</h2> */}
 
-      <Row>{displayTags}</Row>
-      {/* <Accordion defaultActiveKey="0">
+      {/* <Row>{displayTags}</Row> */}
+      <Accordion defaultActiveKey="1">
         <Card>
           <Accordion.Toggle as={Card.Header} eventKey="1">
-            Click here to add filter
+            <h4>Click here to add filter</h4>
           </Accordion.Toggle>
           <Accordion.Collapse eventKey="1">
             <Card.Body>
-              <Row>{displayTags}</Row>
+              <Card.Text>
+                <Row>{displayTags}</Row>
+              </Card.Text>
             </Card.Body>
           </Accordion.Collapse>
         </Card>
-      </Accordion> */}
+      </Accordion>
       <br />
       <br />
-      <QueryResultsDisplay filteredResults={props.queryResults} />
+      <QueryResultsDisplay filteredResults={filtering()} />
     </Container>
   );
 };
