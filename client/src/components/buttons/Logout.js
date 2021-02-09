@@ -11,8 +11,8 @@ const Logout = () => {
     axios
       .delete("/sessions/", { withCredentials: true })
       .then((response) => {
-        setUser({ username: "NOT_LOGGED_IN" });
         setLoggedOut(true);
+        setUser({ username: "NOT_LOGGED_IN" });
       })
       .catch((err) => {
         console.log(err);
