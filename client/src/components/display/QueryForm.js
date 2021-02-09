@@ -3,7 +3,6 @@ import { Container, Button, Form, InputGroup } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import QueryFilterResults from "./QueryFilterResults.js";
-import sampleimg from "../pages/sampleimage.jpg";
 
 const QueryForm = (props) => {
   const queryKeyword = new URLSearchParams(window.location.search).get(
@@ -18,7 +17,7 @@ const QueryForm = (props) => {
       recipeName: "",
       description: "",
       avgRating: 1,
-      imageURL: sampleimg,
+      imageURL: "",
     },
   ]);
 
@@ -67,10 +66,10 @@ const QueryForm = (props) => {
       <br />
       <InputGroup>
         <Form.Control
-          type="text"
-          name="keyword"
+          type='text'
+          name='keyword'
           value={formData.keyword}
-          placeholder="Enter Keyword"
+          placeholder='Enter Keyword'
           onChange={(e) => handleChange(e)}
         />
         <InputGroup.Append>

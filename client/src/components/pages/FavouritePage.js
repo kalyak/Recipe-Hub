@@ -9,8 +9,6 @@ import {
   Container,
   Badge,
 } from "react-bootstrap";
-import HomePageData from "./sampleData";
-import sampleImage from "./sampleimage.jpg";
 import noImage from "../icons/600px-No_image_available_600_x_450.png";
 import dayjs from "dayjs";
 import ReactStars from "react-rating-stars-component";
@@ -104,7 +102,7 @@ const FavouritePage = () => {
                         })}
                       <br />
                       <small className='text-muted'>
-                        Created on: {updatedDate}
+                        Updated on: {updatedDate}
                       </small>
                     </Card.Footer>
                   </Card>

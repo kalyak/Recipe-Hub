@@ -27,6 +27,8 @@ router.post("/new", isAuthenticated, (req, res) => {
     ...req.body,
     userID: req.session.currentUser._id,
   };
+  console.log("add review", data);
+
   Reviews.create(data, (err, review) => {
     if (err) {
       return dbError(res);
@@ -35,6 +37,7 @@ router.post("/new", isAuthenticated, (req, res) => {
         .match({ recipeID: ObjectId(data.recipeID) })
         .group({ _id: "$recipeID", avgRating: { $avg: "$userRating" } })
         .exec((err, rating) => {
+          console.log("rating", rating);
           if (err) {
             return err;
           } else {
@@ -45,19 +48,22 @@ router.post("/new", isAuthenticated, (req, res) => {
             console.log(newRating, rating[0].avgRating);
             Recipes.findByIdAndUpdate(
               data.recipeID,
-              [
-                { avgRating: newRating },
-                { $addToSet: { reviews: review._id } },
-              ],
+              {
+                $set: { avgRating: newRating },
+                $addToSet: { reviews: review._id },
+              },
               { upsert: true, new: true },
               (err, recipe) => {
                 if (err) {
-                  return res.status(500).send("Ratings update error");
+                  console.log("recipe review update fail", err);
+                  res.status(500).send("Ratings update error");
                 } else {
+                  console.log("recipe review update pass", recipe);
                   res.status(200).send({ review, newRating });
                 }
               }
             );
+            console.log("end add review");
           }
         });
     }
@@ -71,6 +77,7 @@ router.put("/:reviewID", isAuthenticated, (req, res) => {
     ...req.body,
     userID: req.session.currentUser._id,
   };
+  console.log("update review", data);
   Reviews.findByIdAndUpdate(
     req.params.reviewID,
     data,

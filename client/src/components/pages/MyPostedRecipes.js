@@ -111,7 +111,7 @@ const MyPostedRecipes = () => {
                         })}
                       <br />
                       <small className='text-muted'>
-                        Created on: {updatedDate}
+                        Updated on: {updatedDate}
                       </small>
                     </Card.Footer>
                   </Card>
