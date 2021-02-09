@@ -10,7 +10,6 @@ import {
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import sampleImage from "../pages/sampleimage.jpg";
 import ReactStars from "react-rating-stars-component";
 import noImage from "../icons/600px-No_image_available_600_x_450.png";
 import dayjs from "dayjs";

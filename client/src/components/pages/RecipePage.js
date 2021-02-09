@@ -50,7 +50,7 @@ const RecipePage = () => {
     axios
       .get(`/recipes/${recipeID}`)
       .then((response) => {
-        // console.log(response);
+        console.log(response.data);
         setRecipeData(response.data);
       })
       .catch((error) => {
@@ -69,6 +69,7 @@ const RecipePage = () => {
       <AddReviewButton
         reviews={recipeData.reviews}
         setRecipeData={setRecipeData}
+        recipeID={recipeID}
       />
       <br />
       <br />

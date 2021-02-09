@@ -66,7 +66,7 @@ const BrowseResultsDisplay = (props) => {
                 );
               })}
             <br />
-            <small className='text-muted'>Created on: {updatedDate}</small>
+            <small className='text-muted'>Updated on: {updatedDate}</small>
           </Card.Footer>
         </Card>
       </Col>

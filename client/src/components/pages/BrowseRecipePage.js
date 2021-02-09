@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import HomePageData from "./sampleData";
 import BrowseResultsDisplay from "../display/BrowseResultsDisplay";
-import sampleimg from "./sampleimage.jpg";
 import { Fragment } from "react";
 
 const BrowseRecipePage = () => {
@@ -94,7 +93,7 @@ const BrowseRecipePage = () => {
       return (
         <Fragment key={category._id}>
           <Col>
-            <h3 className="text-capitalize">{category._id}</h3>
+            <h3 className='text-capitalize'>{category._id}</h3>
             {category.tag
               .sort((a, b) => (a.tagName > b.tagName ? 1 : -1))
               .map((tag, index) => {
@@ -103,12 +102,12 @@ const BrowseRecipePage = () => {
                     <Col key={tag.tagID}>
                       <label>
                         <Button
-                          variant="danger"
+                          variant='danger'
                           key={tag.tagID}
-                          name="tag"
+                          name='tag'
                           value={tag.tagID}
                           onClick={(e) => handleClick(e)}
-                          className="text-capitalize"
+                          className='text-capitalize'
                         >
                           {tag.tagName}
                         </Button>
@@ -120,12 +119,12 @@ const BrowseRecipePage = () => {
                     <Col key={tag.tagID}>
                       <label>
                         <Button
-                          variant="light"
+                          variant='light'
                           key={tag.tagID}
-                          name="tag"
+                          name='tag'
                           value={tag.tagID}
                           onClick={(e) => handleClick(e)}
-                          className="text-capitalize"
+                          className='text-capitalize'
                         >
                           {tag.tagName}
                         </Button>
