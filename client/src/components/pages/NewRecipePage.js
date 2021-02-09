@@ -5,7 +5,6 @@ import { Redirect } from "react-router-dom";
 import axios from "axios";
 import AddIngredientModal from "../display/AddIngredientModal";
 import ImageUpload from "../display/ImageUpload";
-// import { PickerOverlay } from "filestack-react";
 
 const NewRecipePage = () => {
   const [availableTags, setAvailableTags] = useState([]);
@@ -18,9 +17,6 @@ const NewRecipePage = () => {
   const [redirect, setRedirect] = useState(false);
 
   const [openIngredientModal, setOpenIngredientModal] = useState(false);
-
-  // const [isPickerOverlayVisible, setIsPickerOverlayVisible] = useState(false);
-  // const YOUR_API_KEY = "AEtU9B1JaSJytaqukN9nnz";
 
   const initialState = {
     recipeName: "",
@@ -128,23 +124,6 @@ const NewRecipePage = () => {
     });
   };
 
-  // const imgUploadButton = () => {
-  //   // console.log("click");
-  //   // event.preventDefault();
-  //   isPickerOverlayVisible
-  //     ? setIsPickerOverlayVisible(false)
-  //     : setIsPickerOverlayVisible(true);
-  // };
-
-  // const imgUploadSuccess = (res) => {
-  //   // setURL(res.filesUploaded[0].url);
-  //   // console.log(res);
-  //   // console.log(res.filesUploaded[0].url);
-  //   setFormData((state) => {
-  //     return { ...state, imgURL: res.filesUploaded[0].url };
-  //   });
-  // };
-
   const handleReset = () => {
     //reset the tags checked
     const currentAvailableTags = [...availableTags];
@@ -199,11 +178,11 @@ const NewRecipePage = () => {
       <Container>
         <SweetAlert
           success
-          title="Recipe Added"
+          title='Recipe Added'
           onConfirm={() => {
             setRedirect(true);
           }}
-          confirmBtnText="Go to your recipes"
+          confirmBtnText='Go to your recipes'
         >
           Your have successfully added a new recipe!
         </SweetAlert>
@@ -218,51 +197,36 @@ const NewRecipePage = () => {
       <h1>Add A New Recipe</h1>
       {availableTags.length > 0 && availableIngredients.length > 0 ? (
         <Form>
-          <Form.Group controlId="recipeName">
+          <Form.Group controlId='recipeName'>
             <Form.Label>Recipe Name:</Form.Label>
             <Form.Control
-              type="text"
+              type='text'
               value={formData.recipeName}
               onChange={handleChange}
             />
           </Form.Group>
-          <Form.Group controlId="description">
+          <Form.Group controlId='description'>
             <Form.Label>Brief Description of the meal</Form.Label>
             <Form.Control
-              as="textarea"
+              as='textarea'
               rows={3}
               value={formData.description}
               onChange={handleChange}
             />
           </Form.Group>
-          {/* <Form.Group>
-            <Form.Label>Recipe Cover Image</Form.Label>
-            <input
-              type='button'
-              value='upload image'
-              onClick={imgUploadButton}
-            />
 
-            {isPickerOverlayVisible && (
-              <PickerOverlay
-                apikey={YOUR_API_KEY}
-                onSuccess={imgUploadSuccess}
-                pickerOptions={{ onClose: imgUploadButton }}
-              />
-            )}
-          </Form.Group> */}
           <ImageUpload setFormData={setFormData} />
 
-          <Form.Group controlId="tags">
+          <Form.Group controlId='tags'>
             <Form.Label>Select tags</Form.Label>
             <br />
             {availableTags.map((tag, index) => {
               return (
                 <Form.Check
-                  className="text-capitalize"
+                  className='text-capitalize'
                   inline
                   label={tag.tagName}
-                  type="checkbox"
+                  type='checkbox'
                   id={`inline-checkbox-${tag.tagName}`}
                   checked={tag.checked}
                   onChange={() => handleCheckChange(index)}
@@ -270,49 +234,49 @@ const NewRecipePage = () => {
               );
             })}
           </Form.Group>
-          <Form.Group controlId="servingSize">
+          <Form.Group controlId='servingSize'>
             <Form.Label>Serving Size:</Form.Label>
             <Form.Control
-              type="number"
+              type='number'
               value={formData.servingSize}
               onChange={handleChange}
             />
           </Form.Group>
           <Form.Row>
             <Form.Label>Preparation Time:</Form.Label>
-            <Form.Group as={Col} controlId="prepTime">
+            <Form.Group as={Col} controlId='prepTime'>
               <Form.Control
-                type="number"
+                type='number'
                 value={formData.prepTime}
                 onChange={handleChange}
               />
             </Form.Group>
-            <Form.Group as={Col} controlId="prepTimeUnit">
+            <Form.Group as={Col} controlId='prepTimeUnit'>
               <Form.Control
-                as="select"
+                as='select'
                 onChange={(event) => handleSelect(event)}
               >
-                <option value="mins">mins</option>
-                <option value="hours">hours</option>
+                <option value='mins'>mins</option>
+                <option value='hours'>hours</option>
               </Form.Control>
             </Form.Group>
           </Form.Row>
           <Form.Row>
             <Form.Label>Cooking Time:</Form.Label>
-            <Form.Group as={Col} controlId="cookTime">
+            <Form.Group as={Col} controlId='cookTime'>
               <Form.Control
-                type="number"
+                type='number'
                 value={formData.cookTime}
                 onChange={handleChange}
               />
             </Form.Group>
-            <Form.Group as={Col} controlId="cookTimeUnit">
+            <Form.Group as={Col} controlId='cookTimeUnit'>
               <Form.Control
-                as="select"
+                as='select'
                 onChange={(event) => handleSelect(event)}
               >
-                <option value="mins">mins</option>
-                <option value="hours">hours</option>
+                <option value='mins'>mins</option>
+                <option value='hours'>hours</option>
               </Form.Control>
             </Form.Group>
           </Form.Row>
@@ -323,13 +287,13 @@ const NewRecipePage = () => {
           {selectedIngredients.map((selectedIngredient, index) => {
             return (
               <Form.Row>
-                <Form.Group as={Col} controlId="ingredient">
+                <Form.Group as={Col} controlId='ingredient'>
                   <Form.Control
-                    as="select"
+                    as='select'
                     value={selectedIngredient.ingredient}
                     onChange={(event) => handleIngredientSelect(event, index)}
                   >
-                    <option disabled value="">
+                    <option disabled value=''>
                       Please select ingredient
                     </option>
                     {availableIngredients.map((ingredient) => {
@@ -341,21 +305,21 @@ const NewRecipePage = () => {
                     })}
                   </Form.Control>
                 </Form.Group>
-                <Form.Group as={Col} controlId="quantity">
+                <Form.Group as={Col} controlId='quantity'>
                   <Form.Control
-                    type="number"
+                    type='number'
                     value={selectedIngredient.quantity}
-                    placeholder="Quantity"
+                    placeholder='Quantity'
                     onChange={(event) => handleIngredientChange(event, index)}
                   />
                 </Form.Group>
-                <Form.Group as={Col} controlId="units">
+                <Form.Group as={Col} controlId='units'>
                   <Form.Control
-                    as="select"
+                    as='select'
                     value={selectedIngredient.units}
                     onChange={(event) => handleIngredientSelect(event, index)}
                   >
-                    <option disabled value="">
+                    <option disabled value=''>
                       Please select unit measurement
                     </option>
                     {selectedIngredient["unitOptions"].map((unit) => {
@@ -398,9 +362,9 @@ const NewRecipePage = () => {
             return (
               <Form.Row>
                 <Form.Group as={Col}>Step {index + 1}</Form.Group>
-                <Form.Group as={Col} controlId="instructions">
+                <Form.Group as={Col} controlId='instructions'>
                   <Form.Control
-                    as="textarea"
+                    as='textarea'
                     rows={1}
                     value={cookingInstructions[index]}
                     onChange={(event) => handleInstructionChange(event, index)}
@@ -418,10 +382,10 @@ const NewRecipePage = () => {
             );
           })}
 
-          <Button variant="success" onClick={handleSubmit}>
+          <Button variant='success' onClick={handleSubmit}>
             Submit New Recipe
           </Button>
-          <Button variant="danger" className="ml-1" onClick={handleReset}>
+          <Button variant='danger' className='ml-1' onClick={handleReset}>
             Reset Form
           </Button>
         </Form>

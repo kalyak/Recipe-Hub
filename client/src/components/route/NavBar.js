@@ -9,7 +9,7 @@ const NavBar = () => {
   const [user, setUser] = useContext(UserContext);
 
   return (
-    <Navbar fixed='top' bg='dark' variant='dark'>
+    <Navbar className='sticky-top' bg='dark' variant='dark'>
       <Navbar.Brand as={Link} to='/'>
         RECIPE HUB
       </Navbar.Brand>
