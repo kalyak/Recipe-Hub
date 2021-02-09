@@ -13,6 +13,7 @@ import PlannerPage from "../pages/PlannerPage";
 import MyPostedRecipes from "../pages/MyPostedRecipes";
 import EditRecipePage from "../pages/EditRecipePage";
 import GenerateShoppingList from "../pages/GenerateShoppingList";
+import About from "../pages/About";
 import AxiosTest from "../pages/axiostest";
 
 const SwitchRoute = () => {
@@ -36,9 +37,13 @@ const SwitchRoute = () => {
       <Route exact path='/search/:category/:keyword/:filter'>
         <SearchPage />
       </Route> */}
+      <Route exact path="/about">
+        <About />
+      </Route>
       <Route exact path="/random">
         <RandomRecipePage />
       </Route>
+
       <Route exact path="/planner">
         <PlannerPage />
       </Route>
