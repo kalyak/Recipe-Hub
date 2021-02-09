@@ -1,4 +1,4 @@
-import { Nav, Navbar, Button } from "react-bootstrap";
+import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import SearchBar from "../pages/SearchBar";
 import Logout from "../buttons/Logout";
@@ -9,7 +9,7 @@ const NavBar = () => {
   const [user, setUser] = useContext(UserContext);
 
   return (
-    <Navbar bg='dark' variant='dark'>
+    <Navbar fixed='top' bg='dark' variant='dark'>
       <Navbar.Brand as={Link} to='/'>
         RECIPE HUB
       </Navbar.Brand>
@@ -44,26 +44,40 @@ const NavBar = () => {
           </Nav>
         ) : (
           <Nav>
-            <Nav.Item>
+            <NavDropdown title='Profile' id='basic-nav-dropdown'>
+              <NavDropdown.Item as={Link} to='/fave'>
+                Faved
+              </NavDropdown.Item>
+              <NavDropdown.Item as={Link} to='/planner'>
+                Planner
+              </NavDropdown.Item>
+              <NavDropdown.Item as={Link} to='/recipe/user'>
+                My Recipes
+              </NavDropdown.Item>
+              <NavDropdown.Item as={Link} to='/recipe/new'>
+                Add New Recipe
+              </NavDropdown.Item>
+            </NavDropdown>
+            {/* <Nav.Item>
               <Nav.Link as={Link} to='/fave'>
                 Faved
               </Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
+            </Nav.Item> */}
+            {/* <Nav.Item>
               <Nav.Link as={Link} to='/planner'>
                 Planner
               </Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
+            </Nav.Item> */}
+            {/* <Nav.Item>
               <Nav.Link as={Link} to='/recipe/user'>
                 My Recipes
               </Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
+            </Nav.Item> */}
+            {/* <Nav.Item>
               <Nav.Link as={Link} to='/recipe/new'>
                 Add New Recipe
               </Nav.Link>
-            </Nav.Item>
+            </Nav.Item> */}
             <Nav.Item>
               <Logout />
             </Nav.Item>
