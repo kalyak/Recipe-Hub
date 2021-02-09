@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { Form, FormControl, Button } from "react-bootstrap";
+import { Form, Button, InputGroup } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 
 const SearchBar = () => {
   const [keyword, setKeyword] = useState("");
-  const queryStr = `/search?keyword=${keyword}`;
+  // const queryStr = `/search?keyword=${keyword}`;
 
   const handleChange = (e) => {
     setKeyword(e.target.value);
@@ -18,31 +18,25 @@ const SearchBar = () => {
   // };
 
   return (
-    <Form
-      action={`/search`}
-      inline
-      // method="GET"
-      // action={`/search/all/${keyword}`}
-      // onSubmit={(e) => handleSubmit(e)}
-    >
-      <FormControl
-        name="keyword"
-        type="text"
-        placeholder="Quick Search"
-        className=" mr-sm-4"
-        value={keyword}
-        onChange={(e) => handleChange(e)}
-      />
-      <Button
-        type="submit"
-        variant="outline-info"
-        // disabled={keyword === "" ? true : false}
-        // onClick={() => {
-        //   setKeyword("");
-        // }}
-      >
-        Submit
-      </Button>
+    <Form action={`/search`} inline>
+      <InputGroup>
+        <Form.Control
+          name="keyword"
+          type="text"
+          placeholder="Quick Search"
+          value={keyword}
+          onChange={(e) => handleChange(e)}
+        />
+        <InputGroup.Append>
+          <Button
+            type="submit"
+            variant="outline-info"
+            disabled={keyword === "" ? true : false}
+          >
+            Search
+          </Button>
+        </InputGroup.Append>
+      </InputGroup>
     </Form>
   );
 };

@@ -1,5 +1,14 @@
 import { useState, useEffect } from "react";
-import { Container, Button, Card, Accordion, Row, Col } from "react-bootstrap";
+import {
+  Container,
+  Button,
+  Card,
+  Accordion,
+  Row,
+  Col,
+  Form,
+  InputGroup,
+} from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import QueryFilterResults from "./QueryFilterResults.js";
@@ -18,7 +27,7 @@ const QueryForm = (props) => {
       recipeName: "Egg Fried Rice1",
       description:
         "1If you are busy with all the preparations for the festive season, this oldie but goodie is just the thing to whip up for a simple one-dish homecooked meal.",
-      avgRating: 3.5,
+      avgRating: 1,
       imageURL: sampleimg,
     },
     {
@@ -27,7 +36,7 @@ const QueryForm = (props) => {
       recipeName: "Egg Fried Rice2",
       description:
         "2If you are busy with all the preparations for the festive season, this oldie but goodie is just the thing to whip up for a simple one-dish homecooked meal.",
-      avgRating: 3.5,
+      avgRating: 2,
       imageURL: sampleimg,
     },
     {
@@ -36,7 +45,7 @@ const QueryForm = (props) => {
       recipeName: "Egg Fried Rice3",
       description:
         "3If you are busy with all the preparations for the festive season, this oldie but goodie is just the thing to whip up for a simple one-dish homecooked meal.",
-      avgRating: 3.5,
+      avgRating: 3,
       imageURL: sampleimg,
     },
     {
@@ -45,7 +54,7 @@ const QueryForm = (props) => {
       recipeName: "Egg Fried Rice4",
       description:
         "4If you are busy with all the preparations for the festive season, this oldie but goodie is just the thing to whip up for a simple one-dish homecooked meal.",
-      avgRating: 3.5,
+      avgRating: 4,
       imageURL: sampleimg,
     },
     {
@@ -54,7 +63,7 @@ const QueryForm = (props) => {
       recipeName: "Egg Fried Rice5",
       description:
         "5If you are busy with all the preparations for the festive season, this oldie but goodie is just the thing to whip up for a simple one-dish homecooked meal.",
-      avgRating: 3.5,
+      avgRating: 5,
       imageURL: sampleimg,
     },
   ]);
@@ -100,20 +109,20 @@ const QueryForm = (props) => {
     <Container style={{ border: "1px solid black" }}>
       <h1>Query Form</h1>
       <h2>You are searching for {formData.keyword}</h2>
-      <form>
-        <input
+      <InputGroup>
+        <Form.Control
           type="text"
           name="keyword"
           value={formData.keyword}
           placeholder="Enter Keyword"
           onChange={(e) => handleChange(e)}
         />
-        <br />
-        <br />
-        <Button onClick={(e) => handleClick(e)}>Search</Button>
-        <br />
-        <br />
-      </form>
+        <InputGroup.Append>
+          <Button onClick={(e) => handleClick(e)}>Search</Button>
+        </InputGroup.Append>
+      </InputGroup>
+      <br />
+      <br />
       <QueryFilterResults queryResults={queryResults} />
     </Container>
   );

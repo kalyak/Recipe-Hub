@@ -3,6 +3,7 @@ import { Row, Col, Card, Button, Badge, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import sampleImage from "../pages/sampleimage.jpg";
+import ReactStars from "react-rating-stars-component";
 
 const NewlyAdded = () => {
   const [newlyAdded, setNewlyAdded] = useState([]);
@@ -28,20 +29,30 @@ const NewlyAdded = () => {
                 <Card style={{ width: "18rem" }} className="mb-5 ml-5">
                   <Card.Img variant="top" src={sampleImage} />
                   <Card.Body>
-                    <Card.Title>{recipe.recipeName}</Card.Title>
+                    <Card.Title className="text-capitalize">
+                      {recipe.recipeName}
+                      <ReactStars value={recipe.avgRating} edit={false} />
+                    </Card.Title>
                     <Card.Text>{recipe.description}</Card.Text>
                     <Card.Text>
                       Tags:
                       <br />
-                      {recipe.tags.map((tag) => {
-                        return (
-                          <Fragment key={tag._id}>
-                            <Link to={`/browse?tag=${tag._id}`}>
-                              <Badge variant="success">{tag.tagName}</Badge>
-                            </Link>
-                          </Fragment>
-                        );
-                      })}
+                      {recipe.tags
+                        .sort((a, b) => (a.tagName > b.tagName ? 1 : -1))
+                        .map((tag) => {
+                          return (
+                            <Fragment key={tag._id}>
+                              <Link to={`/browse?tag=${tag._id}`}>
+                                <Badge
+                                  className="text-capitalize"
+                                  variant="success"
+                                >
+                                  {tag.tagName}
+                                </Badge>
+                              </Link>
+                            </Fragment>
+                          );
+                        })}
                     </Card.Text>
                     <Row className="justify-content-md-center">
                       <Link to={`/recipe/${recipe._id}`}>
