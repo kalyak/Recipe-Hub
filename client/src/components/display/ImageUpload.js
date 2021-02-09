@@ -32,7 +32,11 @@ const ImageUpload = ({ setFormData }) => {
         <PickerOverlay
           apikey={YOUR_API_KEY}
           onSuccess={imgUploadSuccess}
-          pickerOptions={{ onClose: imgUploadButton }}
+          pickerOptions={{
+            onClose: imgUploadButton,
+            accept: ["image/*"],
+            imageMax: [600, 450],
+          }}
         />
       )}
     </Form.Group>
