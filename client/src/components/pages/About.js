@@ -102,7 +102,10 @@ const About = () => {
         <Col>
           <h4 className="text-center">
             Link to our{" "}
-            <a href="#" target="_blank">
+            <a
+              href="https://github.com/aukokyong/recipehub-mern"
+              target="_blank"
+            >
               Github Repository
             </a>
           </h4>
