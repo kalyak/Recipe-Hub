@@ -1,14 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Table, Row, Button, Container } from "react-bootstrap";
 import SweetAlert from "react-bootstrap-sweetalert";
 import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
+import { UserContext } from "../context/UserContext";
 
 const PlannerPage = () => {
   const [list, setList] = useState([]);
   const [successfulUpdatePopUp, setSuccessfulUpdatePopUp] = useState(false);
   const [successfulClearPopUp, setSuccessfulClearPopUp] = useState(false);
+  const [deleteConfirmation, setDeleteConfirmation] = useState(false);
   const [redirect, setRedirect] = useState(false);
+  const [redirectToShoppingList, setRedirectToShoppingList] = useState(false);
+  const [user, setUser] = useContext(UserContext);
 
   useEffect(() => {
     axios
@@ -32,7 +36,7 @@ const PlannerPage = () => {
   const handleAddServing = (index) => {
     console.log("add serving clicked");
     const listArr = [...list];
-    listArr[index].totalServing = listArr[index].totalServing + 1;
+    listArr[index].totalServing += 1;
     listArr[index].multiplier =
       listArr[index].totalServing / listArr[index].recipeID.servingSize;
     console.log(listArr[index]);
@@ -42,32 +46,47 @@ const PlannerPage = () => {
   const handleReduceServing = (index) => {
     console.log("reduce serving clicked");
     const listArr = [...list];
-    listArr[index].totalServing = listArr[index].totalServing - 1;
+    listArr[index].totalServing -= 1;
     if (listArr[index].totalServing === 0) {
-      listArr.splice(index, 1);
+      if (listArr.length === 1) {
+        setDeleteConfirmation(true);
+      } else {
+        listArr.splice(index, 1);
+        setList(listArr);
+      }
     } else {
       listArr[index].multiplier =
         listArr[index].totalServing / listArr[index].recipeID.servingSize;
+      setList(listArr);
     }
-    console.log(listArr);
-    setList(listArr);
   };
 
   const handleRemoveRecipe = (index) => {
     console.log("delete recipe from planner clicked");
     const listArr = [...list];
-    listArr.splice(index, 1);
-    console.log(listArr);
-    setList(listArr);
+    if (listArr.length === 1) {
+      setDeleteConfirmation(true);
+    } else {
+      listArr.splice(index, 1);
+      console.log(listArr);
+      setList(listArr);
+    }
   };
 
   const handleUpdatePlanner = () => {
     console.log("list to be sent to axios", list);
+    const newUser = { ...user };
+    const cloneList = [...list];
+    const dataForUserContext = cloneList.map((data) => {
+      return { ...data, recipeID: data.recipeID._id };
+    });
+    newUser.planner = dataForUserContext;
     axios
       .put("/users", { planner: list }, { withCredentials: true })
       .then((response) => {
         console.log("backend updated");
         console.log(response.data);
+        setUser(newUser);
         setSuccessfulUpdatePopUp(true);
       })
       .catch((error) => {
@@ -76,13 +95,36 @@ const PlannerPage = () => {
   };
 
   const handleClearPlanner = () => {
+    const newUser = { ...user };
+    newUser.planner = [];
     axios
       .put("/users", { planner: [] }, { withCredentials: true })
       .then((response) => {
         console.log("planner cleared");
         console.log(response.data);
+        setUser(newUser);
         setList([]);
+        setDeleteConfirmation(false);
         setSuccessfulClearPopUp(true);
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+  };
+
+  const handleGenerateShoppingList = () => {
+    const newUser = { ...user };
+    const cloneList = [...list];
+    const dataForUserContext = cloneList.map((data) => {
+      return { ...data, recipeID: data.recipeID._id };
+    });
+    newUser.planner = dataForUserContext;
+    axios
+      .put("/users", { planner: list }, { withCredentials: true })
+      .then((response) => {
+        console.log("planner updated");
+        setUser(newUser);
+        setRedirectToShoppingList(true);
       })
       .catch((error) => {
         console.log(error.response);
@@ -91,6 +133,31 @@ const PlannerPage = () => {
 
   if (redirect) {
     return <Redirect to="/" />;
+  }
+
+  if (redirectToShoppingList) {
+    return <Redirect to="/planner/generate" />;
+  }
+
+  if (deleteConfirmation) {
+    return (
+      <Container>
+        <SweetAlert
+          warning
+          showCancel
+          confirmBtnText="Yes, clear it!"
+          confirmBtnBsStyle="danger"
+          title="Are you sure you want to clear your planner?"
+          onConfirm={handleClearPlanner}
+          onCancel={() => {
+            setDeleteConfirmation(false);
+          }}
+          focusCancelBtn
+        >
+          You will not be able to recover this imaginary file!
+        </SweetAlert>
+      </Container>
+    );
   }
 
   if (successfulUpdatePopUp) {
@@ -179,9 +246,11 @@ const PlannerPage = () => {
             </tbody>
           </Table>
           <br />
-          <Link to="/planner/generate">
-            <Button>Generate shopping List</Button>
-          </Link>
+
+          <Button onClick={handleGenerateShoppingList}>
+            Generate shopping List
+          </Button>
+
           <Button onClick={handleUpdatePlanner}>
             Save changes and come back later
           </Button>

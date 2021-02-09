@@ -25,9 +25,10 @@ const LoginPage = () => {
       .post("/sessions", formData)
       .then((response) => {
         console.log(response);
+        setIsLogin(true);
         setUser(response.data);
       })
-      .then(setIsLogin(true))
+      // .then(setIsLogin(true))
       .catch((error) => {
         // console.log(error.response.data);
         setResError((state) => {
