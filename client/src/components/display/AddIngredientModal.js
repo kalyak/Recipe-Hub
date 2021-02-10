@@ -10,7 +10,16 @@ const AddIngredientModal = (props) => {
     type: "",
   };
   const [formData, setFormData] = useState(initialState);
-  const measurementUnits = ["", "tsp", "tbsp", "g", "ml", "clove", "packs"];
+  const measurementUnits = [
+    "",
+    "tsp",
+    "tbsp",
+    "g",
+    "cup",
+    "ml",
+    "clove",
+    "packs",
+  ];
 
   const handleChange = (event) => {
     setFormData((state) => {
@@ -54,7 +63,8 @@ const AddIngredientModal = (props) => {
     axios
       .post("/ingredients/new", formData, { withCredentials: true })
       .then((response) => {
-        setFormData({ ingredientName: "", units: [""] });
+        console.log("successful ingredient addition");
+        setFormData({ ingredientName: "", units: [""], type: "" });
         props.availableIngredients.push(response.data);
         props.onHide();
       })
@@ -78,7 +88,7 @@ const AddIngredientModal = (props) => {
         </Modal.Header>
         <Modal.Body>
           <h4>Please fill up all the empty fields</h4>
-          <form onSubmit={handleSubmit}>
+          <form>
             <label htmlFor="ingredientName">Ingredient Name:</label> <br />
             <input
               type="text"
@@ -99,7 +109,6 @@ const AddIngredientModal = (props) => {
                     name="units"
                     value={formData.units[index]}
                     onChange={(event) => handleChangeUnit(event, index)}
-                    required={true}
                   >
                     {measurementUnits.map((unit) => {
                       return <option value={unit}>{unit}</option>;
@@ -134,7 +143,7 @@ const AddIngredientModal = (props) => {
             <br />
             <br />
             <Button onClick={handleCancel}>Cancel</Button>
-            <Button type="submit">Add</Button>
+            <Button onClick={(event) => handleSubmit(event)}>Add</Button>
           </form>
         </Modal.Body>
         <Modal.Footer></Modal.Footer>
