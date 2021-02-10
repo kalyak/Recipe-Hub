@@ -239,8 +239,10 @@ const NewRecipePage = () => {
             </Form.Label>
             <br />
             {availableTags.map((tag, index) => {
+              // console.log(tag);
               return (
                 <Form.Check
+                  key={tag._id}
                   className="text-capitalize"
                   inline
                   label={tag.tagName}
@@ -317,8 +319,9 @@ const NewRecipePage = () => {
           </Form.Row>
 
           {selectedIngredients.map((selectedIngredient, index) => {
+            // console.log(selectedIngredient);
             return (
-              <Form.Row>
+              <Form.Row key={selectedIngredient.ingredient}>
                 <Form.Group as={Col} controlId="ingredient">
                   <Form.Control
                     as="select"
@@ -329,16 +332,22 @@ const NewRecipePage = () => {
                     <option disabled value="">
                       Please select ingredient
                     </option>
-                    {availableIngredients.map((ingredient) => {
-                      return (
-                        <option
-                          value={ingredient._id}
-                          className="text-capitalize"
-                        >
-                          {ingredient.ingredientName}
-                        </option>
-                      );
-                    })}
+                    {availableIngredients
+                      .sort((a, b) => {
+                        return a.ingredientName > b.ingredientName ? 1 : -1;
+                      })
+                      .map((ingredient) => {
+                        // console.log(ingredient);
+                        return (
+                          <option
+                            key={ingredient._id}
+                            value={ingredient._id}
+                            className="text-capitalize"
+                          >
+                            {ingredient.ingredientName}
+                          </option>
+                        );
+                      })}
                   </Form.Control>
                 </Form.Group>
                 <Form.Group as={Col} controlId="quantity">
@@ -361,7 +370,12 @@ const NewRecipePage = () => {
                       Please select unit measurement
                     </option>
                     {selectedIngredient["unitOptions"].map((unit) => {
-                      return <option value={unit}>{unit}</option>;
+                      // console.log(unit);
+                      return (
+                        <option value={unit} key={unit}>
+                          {unit}
+                        </option>
+                      );
                     })}
                   </Form.Control>
                 </Form.Group>
@@ -410,8 +424,9 @@ const NewRecipePage = () => {
             </Form.Label>
           </Form.Row>
           {cookingInstructions.map((instruction, index) => {
+            // console.log(instruction);
             return (
-              <Form.Row>
+              <Form.Row key={index}>
                 <Form.Group as={Col} xs={1}>
                   Step {index + 1}:
                 </Form.Group>

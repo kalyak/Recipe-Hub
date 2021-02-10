@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, Fragment } from "react";
 import { Modal, Button, Col, Row } from "react-bootstrap";
 
 const AddIngredientModal = (props) => {
@@ -85,40 +85,46 @@ const AddIngredientModal = (props) => {
     <>
       <Modal
         {...props}
-        size='lg'
-        aria-labelledby='contained-modal-title-vcenter'
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
         centered
       >
         <Modal.Header closeButton>
-          <Modal.Title id='contained-modal-title-vcenter'>
+          <Modal.Title id="contained-modal-title-vcenter">
             Add Ingredient
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form>
-            <label htmlFor='ingredientName'>Ingredient Name:</label> <br />
+            <label htmlFor="ingredientName">Ingredient Name:</label> <br />
             <input
-              type='text'
-              id='ingredientName'
-              name='ingredientName'
+              type="text"
+              id="ingredientName"
+              name="ingredientName"
               value={formData.ingredientName}
               onChange={(event) => handleChange(event)}
               required={true}
             />
             <br />
-            <label htmlFor='units'>Measurement unit:</label>
+            <label htmlFor="units">Measurement unit:</label>
             <br />
             {formData.units.map((unit, index) => {
+              // console.log(unit);
               return (
-                <>
+                <Fragment key={index}>
                   <select
-                    id='units'
-                    name='units'
+                    id="units"
+                    name="units"
                     value={formData.units[index]}
                     onChange={(event) => handleChangeUnit(event, index)}
                   >
                     {measurementUnits.map((unit) => {
-                      return <option value={unit}>{unit}</option>;
+                      // console.log(unit);
+                      return (
+                        <option key={unit} value={unit}>
+                          {unit}
+                        </option>
+                      );
                     })}
                   </select>
                   {index === formData.units.length - 1 && (
@@ -128,24 +134,24 @@ const AddIngredientModal = (props) => {
                     <Button onClick={() => removeUnits(index)}>-</Button>
                   )}
                   <br />
-                </>
+                </Fragment>
               );
             })}
             <br />
-            <label htmlFor='type'>Type of ingredient:</label>
+            <label htmlFor="type">Type of ingredient:</label>
             <br />
             <select
-              id='type'
-              name='type'
+              id="type"
+              name="type"
               value={formData.type}
               onChange={(event) => handleChange(event)}
               required={true}
             >
-              <option disabled value=''>
+              <option disabled value="">
                 --Pls select--
               </option>
-              <option value='solid'>Solid</option>
-              <option value='liquid'>Liquid</option>
+              <option value="solid">Solid</option>
+              <option value="liquid">Liquid</option>
             </select>
             <br />
             <br />
