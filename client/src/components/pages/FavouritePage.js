@@ -8,6 +8,7 @@ import {
   CardDeck,
   Container,
   Badge,
+  Spinner,
 } from "react-bootstrap";
 import noImage from "../icons/600px-No_image_available_600_x_450.png";
 import dayjs from "dayjs";
@@ -37,9 +38,22 @@ const FavouritePage = () => {
       <br />
       <Container>
         {fave === "" ? (
-          <p>Loading..</p>
+          <Container
+            className="d-flex justify-content-center"
+            style={{ height: "90vh" }}
+          >
+            <div
+              className="text-center align-self-center"
+              // style={{ margin: "20% 0" }}
+            >
+              <Spinner animation="grow" />
+              <h1>Loading your favorite recipe...</h1>
+            </div>
+          </Container>
         ) : fave.length === 0 ? (
-          <p>You do not have any favourite recipe yet</p>
+          <h6 className="text-center">
+            You do not have any favourite recipe yet
+          </h6>
         ) : (
           <CardDeck className="row row-cols-1 row-cols-sm-2 row-cols-lg-3">
             {fave.map((recipe) => {

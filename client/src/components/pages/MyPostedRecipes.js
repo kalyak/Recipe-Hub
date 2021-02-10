@@ -1,6 +1,14 @@
 import { useEffect, useState, Fragment } from "react";
 import { Link } from "react-router-dom";
-import { Card, Row, Col, CardDeck, Container, Badge } from "react-bootstrap";
+import {
+  Card,
+  Row,
+  Col,
+  CardDeck,
+  Container,
+  Badge,
+  Spinner,
+} from "react-bootstrap";
 import axios from "axios";
 import DeleteRecipe from "../buttons/DeleteRecipe";
 import noImage from "../icons/600px-No_image_available_600_x_450.png";
@@ -28,9 +36,24 @@ const MyPostedRecipes = () => {
       <br />
       <Container>
         {myRecipes === "" ? (
-          <p>Loading..</p>
+          <Container
+            className="d-flex justify-content-center"
+            style={{ height: "90vh" }}
+          >
+            <div
+              className="text-center align-self-center"
+              // style={{ margin: "20% 0" }}
+            >
+              <Spinner animation="grow" />
+              <h1>Loading your recipe...</h1>
+            </div>
+          </Container>
         ) : myRecipes.length === 0 ? (
+<<<<<<< HEAD
           <p className="text-center">You have not posted any recipe yet</p>
+=======
+          <h6 className="text-center">You have not posted any recipe yet</h6>
+>>>>>>> master
         ) : (
           <CardDeck className="row row-cols-1 row-cols-sm-2 row-cols-lg-3">
             {myRecipes.map((recipe, index) => {
