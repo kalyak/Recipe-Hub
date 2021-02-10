@@ -32,7 +32,7 @@ const NewlyAdded = () => {
               <Card
                 key={recipe._id}
                 style={{ width: "18rem" }}
-                className='mb-5'
+                className='mb-5 ml-5'
               >
                 <Card.Img width={288} height={216} variant='top' src={image} />
                 <Card.Body>

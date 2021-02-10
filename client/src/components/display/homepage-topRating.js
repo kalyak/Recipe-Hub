@@ -1,5 +1,13 @@
 import { useEffect, useState, Fragment } from "react";
-import { Row, Card, Button, Badge, Container, CardDeck } from "react-bootstrap";
+import {
+  Row,
+  Col,
+  Card,
+  Button,
+  Badge,
+  Container,
+  CardDeck,
+} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import ReactStars from "react-rating-stars-component";
@@ -13,7 +21,7 @@ const TopRating = () => {
     axios
       .get("/recipes?sort=-avgRating&limit=3")
       .then((response) => {
-        // console.log(response.data);
+        console.log(response.data);
         setTopRating(response.data);
       })
       .catch((error) => {
@@ -33,7 +41,7 @@ const TopRating = () => {
               <Card
                 key={recipe._id}
                 style={{ width: "18rem" }}
-                className='mb-5'
+                className='mb-5 ml-5'
               >
                 <Card.Img width={288} height={216} variant='top' src={image} />
                 <Card.Body>
