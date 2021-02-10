@@ -6,7 +6,7 @@ import favourite from "../icons/like.svg";
 import favouriteFilled from "../icons/like-filled.svg";
 import planner from "../icons/notebook.svg";
 import plannerFilled from "../icons/notebook-filled.svg";
-import { Redirect } from "react-router-dom";
+// import { Redirect } from "react-router-dom";
 import _ from "lodash";
 import NoAccountPopUp from "./NoAccountPopUp";
 
@@ -84,38 +84,38 @@ const AddtoFavePlanner = ({ recipeID }) => {
 
   return (
     <Container>
-      <Row className='justify-content-md-center'>
+      <Row className="justify-content-md-center">
         {!user || !user.favourites || !user["favourites"].includes(recipeID) ? (
           <Col
-            sm='auto'
-            className='text-center faveplanner-icon'
-            title='favourites'
+            sm="auto"
+            className="text-center faveplanner-icon"
+            title="favourites"
             onClick={handleAdd}
           >
             <img
               src={favourite}
-              alt='icon'
+              alt="icon"
               style={{ height: "50px" }}
-              title='favourites'
+              title="favourites"
               // onClick={handleAdd}
             />
-            <p title='favourites'>Add to Favourite</p>
+            <p title="favourites">Add to Favourite</p>
           </Col>
         ) : (
           <Col
-            sm='auto'
-            className='text-center faveplanner-icon'
-            title='favourites'
+            sm="auto"
+            className="text-center faveplanner-icon"
+            title="favourites"
             onClick={handleRemove}
           >
             <img
               src={favouriteFilled}
-              alt='icon'
+              alt="icon"
               style={{ height: "50px" }}
-              title='favourites'
+              title="favourites"
               // onClick={handleRemove}
             />
-            <p title='favourites'>Remove from Favourite</p>
+            <p title="favourites">Remove from Favourite</p>
           </Col>
         )}
 
@@ -123,42 +123,42 @@ const AddtoFavePlanner = ({ recipeID }) => {
         !user.planner ||
         !user.planner.some((recipe) => recipe.recipeID === recipeID) ? (
           <Col
-            sm='auto'
-            className='text-center faveplanner-icon'
-            title='planner'
+            sm="auto"
+            className="text-center faveplanner-icon"
+            title="planner"
             onClick={handleAdd}
           >
             <img
               src={planner}
-              alt='icon'
+              alt="icon"
               style={{ height: "50px" }}
-              title='planner'
+              title="planner"
               // onClick={handleAdd}
             />
-            <p title='planner'>Add to Planner</p>
+            <p title="planner">Add to Planner</p>
           </Col>
         ) : (
           <Col
-            sm='auto'
-            className='text-center faveplanner-icon'
-            title='planner'
+            sm="auto"
+            className="text-center faveplanner-icon"
+            title="planner"
             onClick={handleRemove}
           >
             <img
               src={plannerFilled}
-              alt='icon'
+              alt="icon"
               style={{ height: "50px" }}
-              title='planner'
+              title="planner"
               // onClick={handleRemove}
             />
-            <p title='planner'>Remove from Planner</p>
+            <p title="planner">Remove from Planner</p>
           </Col>
         )}
       </Row>
       {loginModalShow && (
         // <Modal onHide={() => setLoginModalShow(false)}>Login Modal</Modal>
         <NoAccountPopUp
-          action='add review'
+          action="add review"
           setLoginModalShow={setLoginModalShow}
         />
       )}
