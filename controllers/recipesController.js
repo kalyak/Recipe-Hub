@@ -89,7 +89,7 @@ router.get("/user", isAuthenticated, (req, res) => {
     // { $and: [{ recipeName: /Egg/ }, { recipeName: /Tomato/ }] }, //test query with multiple keywords
     // { userID: req.session.currentUser._id },
     query,
-    "recipeName tags description avgRating createdAt updatedAt"
+    "recipeName tags description imgURL avgRating createdAt updatedAt"
   )
     .populate({ path: "tags", select: "tagName" })
     .exec((err, recipe) => {
