@@ -5,7 +5,7 @@ const ReviewDisplay = (props) => {
   const NoReview = () => {
     return (
       <Row className="justify-content-md-center">
-        <h4>No Reviews Found</h4>
+        <h4>No Review Found</h4>
       </Row>
     );
   };
