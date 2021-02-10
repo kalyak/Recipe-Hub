@@ -3,53 +3,54 @@ import { useContext, useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
+import LoginForm from "../display/LoginForm";
 
 const LoginPage = () => {
-  const [formData, setFormData] = useState({
-    username: "",
-    password: "",
-  });
+  // const [formData, setFormData] = useState({
+  //   username: "",
+  //   password: "",
+  // });
   const [isLogin, setIsLogin] = useState(false);
-  const [resError, setResError] = useState({
-    username: "",
-    password: "",
-  });
+  // const [resError, setResError] = useState({
+  //   username: "",
+  //   password: "",
+  // });
 
-  const [user, setUser] = useContext(UserContext);
+  // const [user, setUser] = useContext(UserContext);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // console.log(formData);
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   // console.log(formData);
 
-    axios
-      .post("/sessions", formData)
-      .then((response) => {
-        console.log(response);
-        setIsLogin(true);
-        setUser(response.data);
-      })
-      // .then(setIsLogin(true))
-      .catch((error) => {
-        // console.log(error.response.data);
-        setResError((state) => {
-          return { ...state, ...error.response.data };
-        });
-      });
-  };
+  //   axios
+  //     .post("/sessions", formData)
+  //     .then((response) => {
+  //       console.log(response);
+  //       setIsLogin(true);
+  //       setUser(response.data);
+  //     })
+  //     // .then(setIsLogin(true))
+  //     .catch((error) => {
+  //       // console.log(error.response.data);
+  //       setResError((state) => {
+  //         return { ...state, ...error.response.data };
+  //       });
+  //     });
+  // };
 
   if (isLogin) {
     return <Redirect to='/' />;
   }
 
-  const handleChange = (event) => {
-    setFormData((state) => {
-      return { ...state, [event.target.name]: event.target.value };
-    });
-    setResError({
-      username: "",
-      password: "",
-    });
-  };
+  // const handleChange = (event) => {
+  //   setFormData((state) => {
+  //     return { ...state, [event.target.name]: event.target.value };
+  //   });
+  //   setResError({
+  //     username: "",
+  //     password: "",
+  //   });
+  // };
 
   return (
     <Container>
@@ -57,7 +58,8 @@ const LoginPage = () => {
         <h1>Login Page</h1>
       </Row>
       <br />
-      <form
+      <LoginForm afterLoginAction={setIsLogin} />;
+      {/* <form
         onSubmit={(event) => {
           handleSubmit(event);
         }}
@@ -105,7 +107,7 @@ const LoginPage = () => {
         <Row className='justify-content-md-center'>
           <Button type='submit'>Login</Button>
         </Row>
-      </form>
+      </form> */}
     </Container>
   );
 };
