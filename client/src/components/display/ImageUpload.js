@@ -25,8 +25,10 @@ const ImageUpload = ({ setFormData }) => {
 
   return (
     <Form.Group>
-      <Form.Label>Recipe Cover Image</Form.Label>
-      <input type='button' value='upload image' onClick={imgUploadButton} />
+      <Form.Label className="mr-2">
+        <strong>Recipe Cover Image </strong>
+      </Form.Label>
+      <input type="button" value="upload image" onClick={imgUploadButton} />
 
       {isPickerOverlayVisible && (
         <PickerOverlay
