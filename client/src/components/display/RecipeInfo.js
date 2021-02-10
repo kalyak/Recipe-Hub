@@ -8,8 +8,6 @@ const RecipeInfo = ({ recipeData }) => {
   // console.log(recipeData.avgRating);
   const rating = recipeData.avgRating;
 
-  console.log(recipeData.prepTimeUnit);
-
   const Stars = () => {
     return (
       <ReactStars

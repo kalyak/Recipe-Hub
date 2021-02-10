@@ -51,7 +51,7 @@ const RecipePage = () => {
     axios
       .get(`/recipes/${recipeID}`)
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         setRecipeData(response.data);
         setDataReturned(true);
       })
