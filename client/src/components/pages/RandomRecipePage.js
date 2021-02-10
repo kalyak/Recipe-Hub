@@ -35,7 +35,7 @@ const RandomRecipePage = () => {
         // style={{ margin: "20% 0" }}
       >
         <Spinner animation="grow" />
-        <h1>Loading Recipe...</h1>
+        <h1>Fetching Recipe...</h1>
       </div>
     </Container>
   );
