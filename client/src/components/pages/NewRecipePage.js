@@ -238,21 +238,25 @@ const NewRecipePage = () => {
               <strong>Select tags:</strong>
             </Form.Label>
             <br />
-            {availableTags.map((tag, index) => {
-              // console.log(tag);
-              return (
-                <Form.Check
-                  key={tag._id}
-                  className="text-capitalize"
-                  inline
-                  label={tag.tagName}
-                  type="checkbox"
-                  id={`inline-checkbox-${tag.tagName}`}
-                  checked={tag.checked}
-                  onChange={() => handleCheckChange(index)}
-                />
-              );
-            })}
+            {availableTags
+              .sort((a, b) => {
+                return a.tagName > b.tagName ? 1 : -1;
+              })
+              .map((tag, index) => {
+                console.log(tag);
+                return (
+                  <Form.Check
+                    key={tag._id}
+                    className="text-capitalize"
+                    inline
+                    label={tag.tagName}
+                    type="checkbox"
+                    id={`inline-checkbox-${tag.tagName}`}
+                    checked={tag.checked}
+                    onChange={() => handleCheckChange(index)}
+                  />
+                );
+              })}
           </Form.Group>
           <Form.Group controlId="servingSize">
             <Form.Label>
