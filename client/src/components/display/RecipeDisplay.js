@@ -26,8 +26,8 @@ const RecipeDisplay = ({ recipeData }) => {
 
       <Row className="justify-content-md-center">
         <img
-          width={400}
-          // height={300}
+          // width={400}
+          height={400}
           src={image}
           alt={recipeData.recipeName}
         />
