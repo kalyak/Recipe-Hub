@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { Modal, Button } from "react-bootstrap";
+import { Modal, Button, Col, Row } from "react-bootstrap";
 
 const AddIngredientModal = (props) => {
   //   const [openIngredientModal, setOpenIngredientModal] = useState(false);
@@ -20,6 +20,14 @@ const AddIngredientModal = (props) => {
     "clove",
     "packs",
   ];
+
+  const isFormFilled = () => {
+    if (formData.ingredientName !== "" && formData.type !== "") {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
   const handleChange = (event) => {
     setFormData((state) => {
@@ -87,7 +95,6 @@ const AddIngredientModal = (props) => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h4>Please fill up all the empty fields</h4>
           <form>
             <label htmlFor="ingredientName">Ingredient Name:</label> <br />
             <input
@@ -142,8 +149,22 @@ const AddIngredientModal = (props) => {
             </select>
             <br />
             <br />
-            <Button onClick={handleCancel}>Cancel</Button>
-            <Button onClick={(event) => handleSubmit(event)}>Add</Button>
+            <Row>
+              <Col sm="auto">
+                <Button variant="danger" onClick={handleCancel}>
+                  Cancel
+                </Button>
+              </Col>
+              <Col sm="auto">
+                {isFormFilled() ? (
+                  <Button onClick={(event) => handleSubmit(event)}>
+                    Add Ingredient
+                  </Button>
+                ) : (
+                  ""
+                )}
+              </Col>
+            </Row>
           </form>
         </Modal.Body>
         <Modal.Footer></Modal.Footer>
