@@ -1,5 +1,13 @@
 import { useEffect, useState } from "react";
-import { Form, Col, Button, Container, ButtonToolbar } from "react-bootstrap";
+import {
+  Form,
+  Row,
+  Col,
+  Button,
+  Container,
+  ButtonToolbar,
+  Spinner,
+} from "react-bootstrap";
 import SweetAlert from "react-bootstrap-sweetalert";
 import { Redirect, Link } from "react-router-dom";
 import axios from "axios";
@@ -198,7 +206,7 @@ const NewRecipePage = () => {
       <h1 className="text-center">Add A New Recipe</h1>
       <br />
       {availableTags.length > 0 && availableIngredients.length > 0 ? (
-        <Form onSubmit={(event) => handleSubmit(event)}>
+        <Form onSubmit={(event) => handleSubmit(event)} className="pb-5">
           <Form.Group controlId="recipeName">
             <Form.Label>
               <strong>Recipe Name:</strong>
@@ -436,20 +444,39 @@ const NewRecipePage = () => {
             );
           })}
           <br />
-          <Button variant="success" type="submit">
-            Submit New Recipe
-          </Button>
-          <Button variant="warning" className="ml-1" onClick={handleReset}>
-            Reset Form
-          </Button>
-          <Link to="/recipe/user">
-            <Button variant="danger" className="ml-1">
-              Cancel Form
-            </Button>
-          </Link>
+          <Row className="justify-content-md-center">
+            <Col sm="auto">
+              <Button variant="success" type="submit">
+                Submit New Recipe
+              </Button>
+            </Col>
+            <Col sm="auto">
+              <Button variant="warning" className="ml-1" onClick={handleReset}>
+                Reset Form
+              </Button>
+            </Col>
+            <Col sm="auto">
+              <Link to="/recipe/user">
+                <Button variant="danger" className="ml-1">
+                  Cancel Form
+                </Button>
+              </Link>
+            </Col>
+          </Row>
         </Form>
       ) : (
-        <p>Loading..</p>
+        <Container
+          className="d-flex justify-content-center"
+          style={{ height: "90vh" }}
+        >
+          <div
+            className="text-center align-self-center"
+            // style={{ margin: "20% 0" }}
+          >
+            <Spinner animation="grow" />
+            <h1>Loading form...</h1>
+          </div>
+        </Container>
       )}
     </Container>
   );
