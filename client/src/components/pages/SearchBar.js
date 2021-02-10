@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Form, Button, InputGroup } from "react-bootstrap";
-import { Redirect } from "react-router-dom";
 
 const SearchBar = () => {
   const [keyword, setKeyword] = useState("");

@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { Button, Container } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import SweetAlert from "react-bootstrap-sweetalert";
 import axios from "axios";
-import { Redirect } from "react-router-dom";
 
 const DeleteRecipe = (props) => {
   const recipe = props.myRecipes[props.index];
@@ -25,8 +24,8 @@ const DeleteRecipe = (props) => {
   return (
     <>
       <Button
-        variant='danger'
-        size='sm'
+        variant="danger"
+        size="sm"
         onClick={() => {
           setDeletePopUp(true);
         }}
@@ -38,9 +37,9 @@ const DeleteRecipe = (props) => {
         <SweetAlert
           warning
           showCancel
-          confirmBtnText='Yes, delete it!'
-          confirmBtnBsStyle='danger'
-          title='Are you sure?'
+          confirmBtnText="Yes, delete it!"
+          confirmBtnBsStyle="danger"
+          title="Are you sure?"
           onConfirm={handleDelete}
           onCancel={() => {
             setDeletePopUp(false);

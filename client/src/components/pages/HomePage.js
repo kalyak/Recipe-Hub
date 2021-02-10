@@ -11,7 +11,7 @@ const HomePage = () => {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    console.log("home page");
+    // console.log("home page");
     axios
       .get("/tags/categories")
       .then((response) => {

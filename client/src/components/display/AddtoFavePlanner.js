@@ -19,14 +19,14 @@ const AddtoFavePlanner = ({ recipeID }) => {
       setLoginModalShow(true);
     } else {
       const key = event.target.id ? event.target.id : event.target.name;
-      console.log(key, recipeID);
+      // console.log(key, recipeID);
       const data = {
         $addToSet:
           key === "planner"
             ? { [key]: { recipeID: recipeID } }
             : { [key]: recipeID },
       };
-      console.log(data);
+      // console.log(data);
       const newUser = { ...user };
       newUser[key].push(
         key === "planner" ? { recipeID: recipeID, multiplier: 1 } : recipeID
@@ -34,9 +34,9 @@ const AddtoFavePlanner = ({ recipeID }) => {
       axios
         .put("/users", data)
         .then((response) => {
-          console.log(response);
+          // console.log(response);
           setUser(newUser);
-          console.log("add", newUser);
+          // console.log("add", newUser);
         })
         .catch((err) => {
           console.log(err);
@@ -49,14 +49,14 @@ const AddtoFavePlanner = ({ recipeID }) => {
       setLoginModalShow(true);
     } else {
       const key = event.target.id ? event.target.id : event.target.name;
-      console.log(key, recipeID);
+      // console.log(key, recipeID);
       const data = {
         $pull:
           key === "planner"
             ? { [key]: { recipeID: recipeID } }
             : { [key]: recipeID },
       };
-      console.log(data);
+      // console.log(data);
       const newUser = { ...user };
       newUser[key] =
         key === "planner"
@@ -66,14 +66,14 @@ const AddtoFavePlanner = ({ recipeID }) => {
       axios
         .put("/users", data)
         .then((response) => {
-          console.log(response);
+          // console.log(response);
           // const newUser = user;
           // if (key === "planner") {
           //   newUser[key].push({ recipeID: recipeID, multiplier: 1 });
           // } else {
           //   newUser[key].push(recipeID);
           // }
-          console.log("remove", newUser);
+          // console.log("remove", newUser);
           setUser(newUser);
         })
         .catch((err) => {
@@ -84,38 +84,38 @@ const AddtoFavePlanner = ({ recipeID }) => {
 
   return (
     <Container>
-      <Row className='justify-content-md-center'>
+      <Row className="justify-content-md-center">
         {!user || !user.favourites || !user["favourites"].includes(recipeID) ? (
           <Col
-            sm='auto'
-            className='text-center faveplanner-icon'
-            id='favourites'
+            sm="auto"
+            className="text-center faveplanner-icon"
+            id="favourites"
             onClick={handleAdd}
           >
             <img
               src={favourite}
-              alt='icon'
+              alt="icon"
               style={{ height: "50px" }}
-              name='favourites'
+              name="favourites"
               // onClick={handleAdd}
             />
-            <p name='favourites'>Add to Favourite</p>
+            <p name="favourites">Add to Favourite</p>
           </Col>
         ) : (
           <Col
-            sm='auto'
-            className='text-center faveplanner-icon'
-            id='favourites'
+            sm="auto"
+            className="text-center faveplanner-icon"
+            id="favourites"
             onClick={handleRemove}
           >
             <img
               src={favouriteFilled}
-              alt='icon'
+              alt="icon"
               style={{ height: "50px" }}
-              name='favourites'
+              name="favourites"
               // onClick={handleRemove}
             />
-            <p name='favourites'>Remove from Favourite</p>
+            <p name="favourites">Remove from Favourite</p>
           </Col>
         )}
 
@@ -123,42 +123,42 @@ const AddtoFavePlanner = ({ recipeID }) => {
         !user.planner ||
         !user.planner.some((recipe) => recipe.recipeID === recipeID) ? (
           <Col
-            sm='auto'
-            className='text-center faveplanner-icon'
-            id='planner'
+            sm="auto"
+            className="text-center faveplanner-icon"
+            id="planner"
             onClick={handleAdd}
           >
             <img
               src={planner}
-              alt='icon'
+              alt="icon"
               style={{ height: "50px" }}
-              name='planner'
+              name="planner"
               // onClick={handleAdd}
             />
-            <p name='planner'>Add to Planner</p>
+            <p name="planner">Add to Planner</p>
           </Col>
         ) : (
           <Col
-            sm='auto'
-            className='text-center faveplanner-icon'
-            id='planner'
+            sm="auto"
+            className="text-center faveplanner-icon"
+            id="planner"
             onClick={handleRemove}
           >
             <img
               src={plannerFilled}
-              alt='icon'
+              alt="icon"
               style={{ height: "50px" }}
-              name='planner'
+              name="planner"
               // onClick={handleRemove}
             />
-            <p name='planner'>Remove from Planner</p>
+            <p name="planner">Remove from Planner</p>
           </Col>
         )}
       </Row>
       {loginModalShow && (
         // <Modal onHide={() => setLoginModalShow(false)}>Login Modal</Modal>
         <NoAccountPopUp
-          action='add review'
+          action="add review"
           setLoginModalShow={setLoginModalShow}
         />
       )}

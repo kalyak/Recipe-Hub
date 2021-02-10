@@ -69,7 +69,7 @@ const NewRecipePage = () => {
 
     if (event.target.id === "ingredient") {
       const selectedIngredient = availableIngredients.filter((ingredient) => {
-        return ingredient._id == event.target.value;
+        return ingredient._id === event.target.value;
       });
       values[index]["unitOptions"] = selectedIngredient[0].units;
     }

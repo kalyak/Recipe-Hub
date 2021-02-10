@@ -153,23 +153,3 @@ const AddIngredientModal = (props) => {
 };
 
 export default AddIngredientModal;
-
-{
-  /* <>
-                  <input
-                    type="text"
-                    id="units"
-                    name="units"
-                    value={formData.units[index]}
-                    onChange={(event) => handleChangeUnit(event, index)}
-                    required={true}
-                  ></input>
-                  {index === formData.units.length - 1 && (
-                    <Button onClick={() => addUnits()}>+</Button>
-                  )}
-                  {index !== formData.units.length - 1 && (
-                    <Button onClick={() => removeUnits(index)}>-</Button>
-                  )}
-                  <br />
-                </> */
-}

@@ -64,6 +64,16 @@ const About = () => {
               <li>React-bootstrap-sweetalert</li>
               <li>React-rating-star-component</li>
               <li>React-router-dom</li>
+              <li>
+                Icons made by{" "}
+                <a href="https://www.freepik.com" title="Freepik">
+                  Freepik
+                </a>{" "}
+                from{" "}
+                <a href="https://www.flaticon.com/" title="Flaticon">
+                  www.flaticon.com
+                </a>
+              </li>
             </ul>
           </Row>
         </Col>
@@ -103,8 +113,9 @@ const About = () => {
           <h4 className="text-center">
             Link to our{" "}
             <a
-              href="https://github.com/aukokyong/recipehub-mern"
+              href={"https://github.com/aukokyong/recipehub-mern"}
               target="_blank"
+              rel="noreferrer"
             >
               Github Repository
             </a>

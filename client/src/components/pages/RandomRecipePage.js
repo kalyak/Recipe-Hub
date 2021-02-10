@@ -1,8 +1,7 @@
-import { useEffect, useState, Fragment } from "react";
+import { useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
-import HomePageData from "./sampleData";
-import { Row, Col, Container, Spinner } from "react-bootstrap";
+import { Container, Spinner } from "react-bootstrap";
 
 const RandomRecipePage = () => {
   const [randomRecipeID, setRandomRecipeID] = useState("");
@@ -35,7 +34,7 @@ const RandomRecipePage = () => {
         // style={{ margin: "20% 0" }}
       >
         <Spinner animation="grow" />
-        <h1>Loading Recipe...</h1>
+        <h1>Fetching Recipe...</h1>
       </div>
     </Container>
   );
