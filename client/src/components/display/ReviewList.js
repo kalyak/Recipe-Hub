@@ -3,7 +3,12 @@ import ReactStars from "react-rating-stars-component";
 import dayjs from "dayjs";
 
 const ReviewList = (props) => {
+  // console.log(props);
+
   const listReviews = props.reviews.map((review) => {
+    const date = dayjs(review.createdAt).format("DD/MM/YYYY");
+    // console.log(date);
+
     return (
       <Card key={review.userID._id}>
         <Card.Body>
@@ -16,12 +21,13 @@ const ReviewList = (props) => {
                   edit={false}
                 />
               </Card.Title>
-            </Col>
-            <Col sm="auto">
+              {date}
               <Card.Title>{review.userID.username}</Card.Title>
             </Col>
+            <Col>
+              <Card.Text>{review.userReview}</Card.Text>
+            </Col>
           </Row>
-          <Card.Text>{review.userReview}</Card.Text>
         </Card.Body>
       </Card>
     );
