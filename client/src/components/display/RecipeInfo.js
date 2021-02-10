@@ -26,7 +26,7 @@ const RecipeInfo = ({ recipeData }) => {
           <Stars />
           {rating !== undefined ? (
             <p className="text-center">
-              Average Rating: {recipeData.avgRating} / 5
+              Average Rating: {Math.ceil(recipeData.avgRating / 0.5) * 0.5} / 5
             </p>
           ) : (
             <p className="text-center">No Rating Available</p>
