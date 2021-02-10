@@ -1,14 +1,6 @@
 import { useEffect, useState, Fragment } from "react";
 import { Link } from "react-router-dom";
-import {
-  Card,
-  Button,
-  Row,
-  Col,
-  CardDeck,
-  Container,
-  Badge,
-} from "react-bootstrap";
+import { Card, Row, Col, CardDeck, Container, Badge } from "react-bootstrap";
 import axios from "axios";
 import DeleteRecipe from "../buttons/DeleteRecipe";
 import noImage from "../icons/600px-No_image_available_600_x_450.png";
@@ -40,27 +32,27 @@ const MyPostedRecipes = () => {
         ) : myRecipes.length === 0 ? (
           <p>You have not posted any recipe yet</p>
         ) : (
-          <CardDeck className='row row-cols-1 row-cols-sm-2 row-cols-lg-3'>
+          <CardDeck className="row row-cols-1 row-cols-sm-2 row-cols-lg-3">
             {myRecipes.map((recipe, index) => {
               const image = recipe.imgURL ? recipe.imgURL : noImage;
               const updatedDate = dayjs(recipe.updatedAt).format("DD/MMM/YYYY");
 
               return (
-                <Col className='pb-5'>
+                <Col className="pb-5">
                   <Card
                     key={recipe._id}
                     style={{ width: "18rem" }}
                     // className='mb-5 ml-5'
-                    className='h-100'
+                    className="h-100"
                   >
                     <Card.Img
                       width={288}
                       height={216}
-                      variant='top'
+                      variant="top"
                       src={image}
                     />
                     <Card.Body>
-                      <Card.Title className='text-capitalize'>
+                      <Card.Title className="text-capitalize">
                         {recipe.recipeName}
                         <ReactStars
                           value={recipe.avgRating}
@@ -100,8 +92,8 @@ const MyPostedRecipes = () => {
                             <Fragment key={tag._id}>
                               <Link to={`/browse?tag=${tag._id}`}>
                                 <Badge
-                                  className='text-capitalize'
-                                  variant='success'
+                                  className="text-capitalize"
+                                  variant="success"
                                 >
                                   {tag.tagName}
                                 </Badge>
@@ -110,7 +102,7 @@ const MyPostedRecipes = () => {
                           );
                         })}
                       <br />
-                      <small className='text-muted'>
+                      <small className="text-muted">
                         Updated on: {updatedDate}
                       </small>
                     </Card.Footer>

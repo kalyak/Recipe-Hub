@@ -1,13 +1,5 @@
 import { useEffect, useState, Fragment } from "react";
-import {
-  Row,
-  Col,
-  Card,
-  Button,
-  Badge,
-  Container,
-  CardDeck,
-} from "react-bootstrap";
+import { Row, Card, Button, Badge, Container, CardDeck } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import ReactStars from "react-rating-stars-component";

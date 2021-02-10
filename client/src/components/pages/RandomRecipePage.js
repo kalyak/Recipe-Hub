@@ -1,8 +1,7 @@
-import { useEffect, useState, Fragment } from "react";
+import { useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
-import HomePageData from "./sampleData";
-import { Row, Col, Container, Spinner } from "react-bootstrap";
+import { Container, Spinner } from "react-bootstrap";
 
 const RandomRecipePage = () => {
   const [randomRecipeID, setRandomRecipeID] = useState("");

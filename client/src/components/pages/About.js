@@ -103,8 +103,9 @@ const About = () => {
           <h4 className="text-center">
             Link to our{" "}
             <a
-              href="https://github.com/aukokyong/recipehub-mern"
+              href={"https://github.com/aukokyong/recipehub-mern"}
               target="_blank"
+              rel="noreferrer"
             >
               Github Repository
             </a>

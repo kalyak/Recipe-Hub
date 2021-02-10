@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { Row, Col, Button, Container, Spinner } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import axios from "axios";
-import HomePageData from "./sampleData";
 import BrowseResultsDisplay from "../display/BrowseResultsDisplay";
 import { Fragment } from "react";
 
@@ -51,7 +49,7 @@ const BrowseRecipePage = () => {
     if (queryKeyword !== null) {
       setBrowsingTag({ tag: queryKeyword });
     }
-  }, []);
+  }, [queryKeyword]);
 
   useEffect(() => {
     const url = `/recipes?tags=${browsingTag.tag}`;

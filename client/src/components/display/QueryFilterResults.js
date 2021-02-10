@@ -45,6 +45,7 @@ const QueryFilterResults = (props) => {
         recipe.tags.map((tag) => {
           // console.log(tag);
           tagIDArr.push(tag._id);
+          return null;
         });
         // console.log(tagIDArr);
 
@@ -58,6 +59,7 @@ const QueryFilterResults = (props) => {
         if (isIncludeTarget) {
           target.push(recipe);
         }
+        return null;
       });
     }
     // console.log("target:");

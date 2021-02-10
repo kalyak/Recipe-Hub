@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Container, Button, Form, InputGroup } from "react-bootstrap";
-import { useLocation } from "react-router-dom";
 import axios from "axios";
 import QueryFilterResults from "./QueryFilterResults.js";
 
@@ -36,7 +35,7 @@ const QueryForm = (props) => {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [apiurl]);
 
   const handleChange = (event) => {
     setFormData((state) => {

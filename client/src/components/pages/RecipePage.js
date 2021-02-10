@@ -58,7 +58,7 @@ const RecipePage = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [recipeID]);
 
   if (dataReturned) {
     return (
