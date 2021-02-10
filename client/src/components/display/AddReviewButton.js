@@ -3,6 +3,7 @@ import { useState, useContext } from "react";
 import ReactStars from "react-rating-stars-component";
 import axios from "axios";
 import { UserContext } from "../context/UserContext";
+import LoginPopUp from "./LoginPopUp";
 
 // CHIlD COMPONENT
 const MyVerticallyCenteredModal = (props) => {
@@ -70,12 +71,12 @@ const MyVerticallyCenteredModal = (props) => {
       show={props.show}
       onHide={props.onHide}
       // {...props}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
+      size='lg'
+      aria-labelledby='contained-modal-title-vcenter'
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">New Review</Modal.Title>
+        <Modal.Title id='contained-modal-title-vcenter'>New Review</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <ReactStars
@@ -86,21 +87,21 @@ const MyVerticallyCenteredModal = (props) => {
 
         <textarea
           onChange={(e) => handleChange(e)}
-          name="userReview"
+          name='userReview'
           value={reviewData.userReview}
           style={{ width: "100%", height: "100px" }}
-          placeholder="Input your review here"
+          placeholder='Input your review here'
         />
       </Modal.Body>
       <Modal.Footer>
         {isInputValid ? (
-          <Button type="submit" onClick={(e) => handleSubmitReview(e)}>
+          <Button type='submit' onClick={(e) => handleSubmitReview(e)}>
             Submit Review
           </Button>
         ) : (
           ""
         )}
-        <Button variant="danger" onClick={(e) => handleClose(e)}>
+        <Button variant='danger' onClick={(e) => handleClose(e)}>
           Close
         </Button>
       </Modal.Footer>
@@ -124,7 +125,7 @@ const AddReviewButton = (props) => {
 
   return (
     <>
-      <Row className="justify-content-md-center">
+      <Row className='justify-content-md-center'>
         <Button onClick={(e) => handleClick(e)}>Add a Review</Button>
 
         <MyVerticallyCenteredModal
@@ -136,9 +137,13 @@ const AddReviewButton = (props) => {
         />
 
         {/* Add login modal or replace with component below */}
-        <Modal show={loginModalShow} onHide={() => setLoginModalShow(false)}>
-          Login Modal
-        </Modal>
+        {loginModalShow && (
+          // <Modal onHide={() => setLoginModalShow(false)}>Login Modal</Modal>
+          <LoginPopUp
+            action='add review'
+            setLoginModalShow={setLoginModalShow}
+          />
+        )}
       </Row>
     </>
   );

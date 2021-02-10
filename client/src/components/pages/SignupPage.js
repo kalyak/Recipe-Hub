@@ -136,7 +136,7 @@ const SignupPage = () => {
       {donePopup && (
         <SweetAlert
           success
-          title='Welcome to Gaddit!'
+          title='Welcome to the Recipe Hub!'
           onConfirm={handlenextPage}
           // onCancel={this.onCancel}
           confirmBtnText='Go to home page'
