@@ -10,7 +10,7 @@ const GenerateShoppingList = () => {
     axios
       .get("/users/planner")
       .then((response) => {
-        console.log("planner data", response.data);
+        // console.log("planner data", response.data);
         setList(response.data);
       })
       .catch((error) => {
@@ -29,7 +29,7 @@ const GenerateShoppingList = () => {
   };
 
   const displayList = (list) => {
-    console.log("display list is called");
+    // console.log("display list is called");
     const consolidatedList = [];
     list.map((list) => {
       list.recipeID.ingredientList.map((ingList) => {
@@ -43,10 +43,10 @@ const GenerateShoppingList = () => {
       });
       return null;
     });
-    console.log("consolodated list", consolidatedList);
+    // console.log("consolodated list", consolidatedList);
 
     const ingredientsByName = groupBy(consolidatedList, "ingredientName");
-    console.log("ingredientsByName", ingredientsByName);
+    // console.log("ingredientsByName", ingredientsByName);
 
     const tableData = [];
     for (let keys in ingredientsByName) {
@@ -64,7 +64,7 @@ const GenerateShoppingList = () => {
         });
       } else {
         unit = item[0].ingredient.type === "solid" ? "g" : "ml";
-        console.log("type", item[0].ingredient.type, "unit", unit);
+        // console.log("type", item[0].ingredient.type, "unit", unit);
         item.map((x) => {
           const qty = x.quantity * converter[x.ingredient.type][x.units];
           total += qty;
@@ -73,7 +73,7 @@ const GenerateShoppingList = () => {
       }
       tableData.push({ ingredientName: keys, unit: unit, quantity: total });
     }
-    console.log("table data", tableData);
+    // console.log("table data", tableData);
 
     return (
       <>

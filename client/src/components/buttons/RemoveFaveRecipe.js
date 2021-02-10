@@ -1,6 +1,5 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { Button } from "react-bootstrap";
-import SweetAlert from "react-bootstrap-sweetalert";
 import axios from "axios";
 import { UserContext } from "../context/UserContext";
 import _ from "lodash";
@@ -13,17 +12,17 @@ const RemoveFave = (props) => {
       $pull: { favourites: props.recipeID },
     };
 
-    console.log(data);
+    // console.log(data);
     const newUser = { ...user };
     newUser["favourites"] = _.pull(newUser["favourites"], props.recipeID);
-    console.log(newUser["favourites"]);
+    // console.log(newUser["favourites"]);
     const newFave = _.reject(props.fave, ["_id", props.recipeID]);
     axios
       .put("/users", data)
       .then((response) => {
         setUser(newUser);
         props.setFave(newFave);
-        console.log(newUser);
+        // console.log(newUser);
       })
       .catch((err) => {
         console.log(err);

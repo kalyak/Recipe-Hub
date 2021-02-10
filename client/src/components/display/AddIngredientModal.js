@@ -28,10 +28,10 @@ const AddIngredientModal = (props) => {
   };
 
   const handleChangeUnit = (event, index) => {
-    console.log(event.target.value);
+    // console.log(event.target.value);
     const selectedUnits = [...formData.units];
     selectedUnits[index] = event.target.value;
-    console.log("units", selectedUnits);
+    // console.log("units", selectedUnits);
     setFormData((state) => {
       return { ...state, units: selectedUnits };
     });
@@ -59,11 +59,11 @@ const AddIngredientModal = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("axios call with", formData);
+    // console.log("axios call with", formData);
     axios
       .post("/ingredients/new", formData, { withCredentials: true })
       .then((response) => {
-        console.log("successful ingredient addition");
+        // console.log("successful ingredient addition");
         setFormData({ ingredientName: "", units: [""], type: "" });
         props.availableIngredients.push(response.data);
         props.onHide();
@@ -77,36 +77,36 @@ const AddIngredientModal = (props) => {
     <>
       <Modal
         {...props}
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
+        size='lg'
+        aria-labelledby='contained-modal-title-vcenter'
         centered
       >
         <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
+          <Modal.Title id='contained-modal-title-vcenter'>
             Add Ingredient
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <h4>Please fill up all the empty fields</h4>
           <form>
-            <label htmlFor="ingredientName">Ingredient Name:</label> <br />
+            <label htmlFor='ingredientName'>Ingredient Name:</label> <br />
             <input
-              type="text"
-              id="ingredientName"
-              name="ingredientName"
+              type='text'
+              id='ingredientName'
+              name='ingredientName'
               value={formData.ingredientName}
               onChange={(event) => handleChange(event)}
               required={true}
             />
             <br />
-            <label htmlFor="units">Measurement unit:</label>
+            <label htmlFor='units'>Measurement unit:</label>
             <br />
             {formData.units.map((unit, index) => {
               return (
                 <>
                   <select
-                    id="units"
-                    name="units"
+                    id='units'
+                    name='units'
                     value={formData.units[index]}
                     onChange={(event) => handleChangeUnit(event, index)}
                   >
@@ -125,20 +125,20 @@ const AddIngredientModal = (props) => {
               );
             })}
             <br />
-            <label htmlFor="type">Type of ingredient:</label>
+            <label htmlFor='type'>Type of ingredient:</label>
             <br />
             <select
-              id="type"
-              name="type"
+              id='type'
+              name='type'
               value={formData.type}
               onChange={(event) => handleChange(event)}
               required={true}
             >
-              <option disabled value="">
+              <option disabled value=''>
                 --Pls select--
               </option>
-              <option value="solid">Solid</option>
-              <option value="liquid">Liquid</option>
+              <option value='solid'>Solid</option>
+              <option value='liquid'>Liquid</option>
             </select>
             <br />
             <br />

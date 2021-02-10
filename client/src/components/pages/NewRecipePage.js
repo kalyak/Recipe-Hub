@@ -63,7 +63,7 @@ const NewRecipePage = () => {
   };
 
   const handleIngredientSelect = (event, index) => {
-    console.log("handleIngredientSelect", event);
+    // console.log("handleIngredientSelect", event);
     const values = [...selectedIngredients];
     values[index][event.target.id] = event.target.value;
 
@@ -77,7 +77,7 @@ const NewRecipePage = () => {
   };
 
   const handleIngredientChange = (event, index) => {
-    console.log("handleIngredientChange", event);
+    // console.log("handleIngredientChange", event);
     const values = [...selectedIngredients];
     values[index][event.target.id] = event.target.value;
     setSelectedIngredients(values);
@@ -118,7 +118,7 @@ const NewRecipePage = () => {
   };
 
   const handleSelect = (event) => {
-    console.log(event.target.value, event);
+    // console.log(event.target.value, event);
     setFormData((state) => {
       return { ...state, [event.target.id]: event.target.value };
     });
@@ -159,7 +159,7 @@ const NewRecipePage = () => {
       instructions: cookingInstructions,
       tags: checkedTags.map((tag) => tag._id),
     };
-    console.log(dataToBeSubmitted);
+    // console.log(dataToBeSubmitted);
 
     axios
       .post("/recipes/new", dataToBeSubmitted, { withCredentials: true })
@@ -180,42 +180,42 @@ const NewRecipePage = () => {
       <Container>
         <SweetAlert
           success
-          title="Recipe Added"
+          title='Recipe Added'
           onConfirm={() => {
             setRedirect(true);
           }}
-          confirmBtnText="Go to your recipes"
+          confirmBtnText='Go to your recipes'
         >
           Your have successfully added a new recipe!
         </SweetAlert>
       </Container>
     );
   }
-  console.log("selected ingredients", selectedIngredients);
+  // console.log("selected ingredients", selectedIngredients);
 
   return (
     <Container>
-      <h1 className="text-center">Add A New Recipe</h1>
+      <h1 className='text-center'>Add A New Recipe</h1>
       <br />
       {availableTags.length > 0 && availableIngredients.length > 0 ? (
         <Form onSubmit={(event) => handleSubmit(event)}>
-          <Form.Group controlId="recipeName">
+          <Form.Group controlId='recipeName'>
             <Form.Label>
               <strong>Recipe Name:</strong>
             </Form.Label>
             <Form.Control
-              type="text"
+              type='text'
               value={formData.recipeName}
               onChange={handleChange}
               required
             />
           </Form.Group>
-          <Form.Group controlId="description">
+          <Form.Group controlId='description'>
             <Form.Label>
               <strong>Brief Description of the meal:</strong>
             </Form.Label>
             <Form.Control
-              as="textarea"
+              as='textarea'
               rows={3}
               value={formData.description}
               onChange={handleChange}
@@ -225,7 +225,7 @@ const NewRecipePage = () => {
 
           <ImageUpload setFormData={setFormData} />
 
-          <Form.Group controlId="tags">
+          <Form.Group controlId='tags'>
             <Form.Label>
               <strong>Select tags:</strong>
             </Form.Label>
@@ -233,10 +233,10 @@ const NewRecipePage = () => {
             {availableTags.map((tag, index) => {
               return (
                 <Form.Check
-                  className="text-capitalize"
+                  className='text-capitalize'
                   inline
                   label={tag.tagName}
-                  type="checkbox"
+                  type='checkbox'
                   id={`inline-checkbox-${tag.tagName}`}
                   checked={tag.checked}
                   onChange={() => handleCheckChange(index)}
@@ -244,15 +244,15 @@ const NewRecipePage = () => {
               );
             })}
           </Form.Group>
-          <Form.Group controlId="servingSize">
+          <Form.Group controlId='servingSize'>
             <Form.Label>
               <strong>Serving Size:</strong>
             </Form.Label>
             <Form.Control
-              type="number"
+              type='number'
               value={formData.servingSize}
               onChange={handleChange}
-              min="0"
+              min='0'
               required
             />
           </Form.Group>
@@ -260,22 +260,22 @@ const NewRecipePage = () => {
             <Form.Label>
               <strong>Preparation Time:</strong>
             </Form.Label>
-            <Form.Group as={Col} controlId="prepTime">
+            <Form.Group as={Col} controlId='prepTime'>
               <Form.Control
-                type="number"
+                type='number'
                 value={formData.prepTime}
                 onChange={handleChange}
                 required
-                min="0"
+                min='0'
               />
             </Form.Group>
-            <Form.Group as={Col} controlId="prepTimeUnit">
+            <Form.Group as={Col} controlId='prepTimeUnit'>
               <Form.Control
-                as="select"
+                as='select'
                 onChange={(event) => handleSelect(event)}
               >
-                <option value="mins">mins</option>
-                <option value="hours">hours</option>
+                <option value='mins'>mins</option>
+                <option value='hours'>hours</option>
               </Form.Control>
             </Form.Group>
           </Form.Row>
@@ -283,22 +283,22 @@ const NewRecipePage = () => {
             <Form.Label>
               <strong>Cooking Time:</strong>
             </Form.Label>
-            <Form.Group as={Col} controlId="cookTime">
+            <Form.Group as={Col} controlId='cookTime'>
               <Form.Control
-                type="number"
+                type='number'
                 value={formData.cookTime}
                 onChange={handleChange}
                 required
-                min="0"
+                min='0'
               />
             </Form.Group>
-            <Form.Group as={Col} controlId="cookTimeUnit">
+            <Form.Group as={Col} controlId='cookTimeUnit'>
               <Form.Control
-                as="select"
+                as='select'
                 onChange={(event) => handleSelect(event)}
               >
-                <option value="mins">mins</option>
-                <option value="hours">hours</option>
+                <option value='mins'>mins</option>
+                <option value='hours'>hours</option>
               </Form.Control>
             </Form.Group>
           </Form.Row>
@@ -311,21 +311,21 @@ const NewRecipePage = () => {
           {selectedIngredients.map((selectedIngredient, index) => {
             return (
               <Form.Row>
-                <Form.Group as={Col} controlId="ingredient">
+                <Form.Group as={Col} controlId='ingredient'>
                   <Form.Control
-                    as="select"
+                    as='select'
                     value={selectedIngredient.ingredient}
                     onChange={(event) => handleIngredientSelect(event, index)}
                     required
                   >
-                    <option disabled value="">
+                    <option disabled value=''>
                       Please select ingredient
                     </option>
                     {availableIngredients.map((ingredient) => {
                       return (
                         <option
                           value={ingredient._id}
-                          className="text-capitalize"
+                          className='text-capitalize'
                         >
                           {ingredient.ingredientName}
                         </option>
@@ -333,23 +333,23 @@ const NewRecipePage = () => {
                     })}
                   </Form.Control>
                 </Form.Group>
-                <Form.Group as={Col} controlId="quantity">
+                <Form.Group as={Col} controlId='quantity'>
                   <Form.Control
-                    type="number"
+                    type='number'
                     value={selectedIngredient.quantity}
-                    placeholder="Quantity"
+                    placeholder='Quantity'
                     onChange={(event) => handleIngredientChange(event, index)}
                     required
-                    min="0"
+                    min='0'
                   />
                 </Form.Group>
-                <Form.Group as={Col} controlId="units">
+                <Form.Group as={Col} controlId='units'>
                   <Form.Control
-                    as="select"
+                    as='select'
                     value={selectedIngredient.units}
                     onChange={(event) => handleIngredientSelect(event, index)}
                   >
-                    <option disabled value="">
+                    <option disabled value=''>
                       Please select unit measurement
                     </option>
                     {selectedIngredient["unitOptions"].map((unit) => {
@@ -360,7 +360,7 @@ const NewRecipePage = () => {
                 {index === selectedIngredients.length - 1 && (
                   <Button
                     onClick={() => handleAddIngredient(index)}
-                    variant="info"
+                    variant='info'
                   >
                     +
                   </Button>
@@ -368,7 +368,7 @@ const NewRecipePage = () => {
                 {index !== selectedIngredients.length - 1 && (
                   <Button
                     onClick={() => handleDeleteIngredient(index)}
-                    variant="info"
+                    variant='info'
                   >
                     -
                   </Button>
@@ -381,8 +381,8 @@ const NewRecipePage = () => {
               onClick={() => {
                 setOpenIngredientModal(true);
               }}
-              variant="outline-secondary"
-              size="sm"
+              variant='outline-secondary'
+              size='sm'
             >
               Can't find the ingredient you are looking for? Click here to add
               more!
@@ -407,9 +407,9 @@ const NewRecipePage = () => {
                 <Form.Group as={Col} xs={1}>
                   Step {index + 1}:
                 </Form.Group>
-                <Form.Group as={Col} xs={10} controlId="instructions">
+                <Form.Group as={Col} xs={10} controlId='instructions'>
                   <Form.Control
-                    as="textarea"
+                    as='textarea'
                     rows={1}
                     value={cookingInstructions[index]}
                     onChange={(event) => handleInstructionChange(event, index)}
@@ -419,7 +419,7 @@ const NewRecipePage = () => {
                 {index === cookingInstructions.length - 1 && (
                   <Button
                     onClick={() => handleAddInstruction(index)}
-                    variant="info"
+                    variant='info'
                   >
                     +
                   </Button>
@@ -427,7 +427,7 @@ const NewRecipePage = () => {
                 {index !== cookingInstructions.length - 1 && (
                   <Button
                     onClick={() => handleDeleteInstruction(index)}
-                    variant="info"
+                    variant='info'
                   >
                     -
                   </Button>
@@ -436,14 +436,14 @@ const NewRecipePage = () => {
             );
           })}
           <br />
-          <Button variant="success" type="submit">
+          <Button variant='success' type='submit'>
             Submit New Recipe
           </Button>
-          <Button variant="warning" className="ml-1" onClick={handleReset}>
+          <Button variant='warning' className='ml-1' onClick={handleReset}>
             Reset Form
           </Button>
-          <Link to="/recipe/user">
-            <Button variant="danger" className="ml-1">
+          <Link to='/recipe/user'>
+            <Button variant='danger' className='ml-1'>
               Cancel Form
             </Button>
           </Link>
