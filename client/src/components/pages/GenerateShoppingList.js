@@ -10,7 +10,7 @@ const GenerateShoppingList = () => {
     axios
       .get("/users/planner")
       .then((response) => {
-        console.log("planner data", response.data);
+        // console.log("planner data", response.data);
         setList(response.data);
       })
       .catch((error) => {
@@ -29,7 +29,7 @@ const GenerateShoppingList = () => {
   };
 
   const displayList = (list) => {
-    console.log("display list is called");
+    // console.log("display list is called");
     const consolidatedList = [];
     list.map((list) => {
       list.recipeID.ingredientList.map((ingList) => {
@@ -43,10 +43,10 @@ const GenerateShoppingList = () => {
       });
       return null;
     });
-    console.log("consolodated list", consolidatedList);
+    // console.log("consolodated list", consolidatedList);
 
     const ingredientsByName = groupBy(consolidatedList, "ingredientName");
-    console.log("ingredientsByName", ingredientsByName);
+    // console.log("ingredientsByName", ingredientsByName);
 
     const tableData = [];
     for (let keys in ingredientsByName) {
@@ -64,7 +64,7 @@ const GenerateShoppingList = () => {
         });
       } else {
         unit = item[0].ingredient.type === "solid" ? "g" : "ml";
-        console.log("type", item[0].ingredient.type, "unit", unit);
+        // console.log("type", item[0].ingredient.type, "unit", unit);
         item.map((x) => {
           const qty = x.quantity * converter[x.ingredient.type][x.units];
           total += qty;
@@ -73,14 +73,14 @@ const GenerateShoppingList = () => {
       }
       tableData.push({ ingredientName: keys, unit: unit, quantity: total });
     }
-    console.log("table data", tableData);
+    // console.log("table data", tableData);
 
     return (
       <>
         {tableData.map((data) => {
           return (
             <tr>
-              <td className="text-capitalize">{data.ingredientName}</td>
+              <td className='text-capitalize'>{data.ingredientName}</td>
               {/* rounding up to nearest 5 */}
               <td>{Math.ceil(data.quantity / 5) * 5}</td>
               <td>{data.unit}</td>
@@ -93,7 +93,7 @@ const GenerateShoppingList = () => {
 
   return (
     <Container>
-      <Row className="justify-content-md-center">
+      <Row className='justify-content-md-center'>
         <h1>Your Grocery Shopping list</h1>
       </Row>
       <Row>
@@ -102,14 +102,14 @@ const GenerateShoppingList = () => {
       <Table striped bordered hover>
         <thead>
           <tr>
-            <th className="text-center">Ingredient Name</th>
-            <th className="text-center">Quantity*</th>
-            <th className="text-center">Unit</th>
+            <th className='text-center'>Ingredient Name</th>
+            <th className='text-center'>Quantity*</th>
+            <th className='text-center'>Unit</th>
           </tr>
         </thead>
         <tbody>{displayList(list)}</tbody>
       </Table>
-      <p>*Please not that it is only an approximate</p>
+      <p>*Please note that it is only an approximate</p>
     </Container>
   );
 };

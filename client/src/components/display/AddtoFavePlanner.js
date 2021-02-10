@@ -18,7 +18,7 @@ const AddtoFavePlanner = ({ recipeID }) => {
     if (user.username === "NOT_LOGGED_IN") {
       setLoginModalShow(true);
     } else {
-      const key = event.target.id ? event.target.id : event.target.name;
+      const key = event.target.title;
       // console.log(key, recipeID);
       const data = {
         $addToSet:
@@ -48,7 +48,7 @@ const AddtoFavePlanner = ({ recipeID }) => {
     if (user.username === "NOT_LOGGED_IN") {
       setLoginModalShow(true);
     } else {
-      const key = event.target.id ? event.target.id : event.target.name;
+      const key = event.target.title;
       // console.log(key, recipeID);
       const data = {
         $pull:
@@ -84,38 +84,38 @@ const AddtoFavePlanner = ({ recipeID }) => {
 
   return (
     <Container>
-      <Row className="justify-content-md-center">
+      <Row className='justify-content-md-center'>
         {!user || !user.favourites || !user["favourites"].includes(recipeID) ? (
           <Col
-            sm="auto"
-            className="text-center faveplanner-icon"
-            id="favourites"
+            sm='auto'
+            className='text-center faveplanner-icon'
+            title='favourites'
             onClick={handleAdd}
           >
             <img
               src={favourite}
-              alt="icon"
+              alt='icon'
               style={{ height: "50px" }}
-              name="favourites"
+              title='favourites'
               // onClick={handleAdd}
             />
-            <p name="favourites">Add to Favourite</p>
+            <p title='favourites'>Add to Favourite</p>
           </Col>
         ) : (
           <Col
-            sm="auto"
-            className="text-center faveplanner-icon"
-            id="favourites"
+            sm='auto'
+            className='text-center faveplanner-icon'
+            title='favourites'
             onClick={handleRemove}
           >
             <img
               src={favouriteFilled}
-              alt="icon"
+              alt='icon'
               style={{ height: "50px" }}
-              name="favourites"
+              title='favourites'
               // onClick={handleRemove}
             />
-            <p name="favourites">Remove from Favourite</p>
+            <p title='favourites'>Remove from Favourite</p>
           </Col>
         )}
 
@@ -123,42 +123,42 @@ const AddtoFavePlanner = ({ recipeID }) => {
         !user.planner ||
         !user.planner.some((recipe) => recipe.recipeID === recipeID) ? (
           <Col
-            sm="auto"
-            className="text-center faveplanner-icon"
-            id="planner"
+            sm='auto'
+            className='text-center faveplanner-icon'
+            title='planner'
             onClick={handleAdd}
           >
             <img
               src={planner}
-              alt="icon"
+              alt='icon'
               style={{ height: "50px" }}
-              name="planner"
+              title='planner'
               // onClick={handleAdd}
             />
-            <p name="planner">Add to Planner</p>
+            <p title='planner'>Add to Planner</p>
           </Col>
         ) : (
           <Col
-            sm="auto"
-            className="text-center faveplanner-icon"
-            id="planner"
+            sm='auto'
+            className='text-center faveplanner-icon'
+            title='planner'
             onClick={handleRemove}
           >
             <img
               src={plannerFilled}
-              alt="icon"
+              alt='icon'
               style={{ height: "50px" }}
-              name="planner"
+              title='planner'
               // onClick={handleRemove}
             />
-            <p name="planner">Remove from Planner</p>
+            <p title='planner'>Remove from Planner</p>
           </Col>
         )}
       </Row>
       {loginModalShow && (
         // <Modal onHide={() => setLoginModalShow(false)}>Login Modal</Modal>
         <NoAccountPopUp
-          action="add review"
+          action='add review'
           setLoginModalShow={setLoginModalShow}
         />
       )}

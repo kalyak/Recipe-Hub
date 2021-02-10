@@ -6,7 +6,7 @@ const ObjectId = require("mongoose").Types.ObjectId;
 
 let userID = "";
 const isAuthenticated = (req, res, next) => {
-  console.log(req.session);
+  // console.log(req.session);
   if (req.session.currentUser) {
     userID = req.session.currentUser._id;
     next();
@@ -81,7 +81,7 @@ router.post(
 //Show recipe list from userid
 router.get("/user", isAuthenticated, (req, res) => {
   // res.send(req.query);
-  console.log("userid", req.session.currentUser._id);
+  // console.log("userid", req.session.currentUser._id);
   const query = {
     $and: [{ userID: req.session.currentUser._id }, { archived: false }],
   };
@@ -98,7 +98,7 @@ router.get("/user", isAuthenticated, (req, res) => {
         console.log(err);
         return res.send(err);
       } else {
-        console.log(recipe);
+        // console.log(recipe);
         res.send(recipe);
       }
     });
@@ -129,7 +129,7 @@ router.get("/:recipeID", (req, res) => {
 
 // SHOW (listings)
 router.get("/", (req, res) => {
-  console.log(req.query);
+  // console.log(req.query);
   const limit = {};
   if (req.query.limit) {
     limit.limit = parseInt(req.query.limit);
@@ -145,7 +145,7 @@ router.get("/", (req, res) => {
   }
   const query = { ...req.query, archived: false };
 
-  console.log(query);
+  // console.log(query);
   Recipes.find(
     // { $and: [{ recipeName: /Egg/ }, { recipeName: /Tomato/ }] }, //test query with multiple keywords
     query,

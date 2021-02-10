@@ -36,7 +36,7 @@ router.post(
             .send("Database error. Please contact your system administrator.");
         }
       } else {
-        console.log("User created.");
+        // console.log("User created.");
         res.status(200).send({ _id: user._id, username: user.username });
       }
     });
@@ -44,7 +44,7 @@ router.post(
 );
 
 const isAuthenticated = (req, res, next) => {
-  console.log(req.session.currentUser);
+  // console.log(req.session.currentUser);
   if (req.session.currentUser) {
     if (req.body.newPassword) {
       Users.findById(req.session.currentUser._id, (err, foundUser) => {
@@ -62,11 +62,11 @@ const isAuthenticated = (req, res, next) => {
         }
       });
     } else {
-      console.log("got session but no newpassword");
+      // console.log("got session but no newpassword");
       next();
     }
   } else {
-    console.log("no session");
+    // console.log("no session");
     res.status(401).send("You are currently not logged in. Please log in");
   }
 };
@@ -85,7 +85,7 @@ router.put("/", isAuthenticated, (req, res) => {
   // res.send("USERS UPDATE");
   const userID = req.session.currentUser._id;
   if (req.body.newPassword) {
-    console.log("hashing paswsord");
+    // console.log("hashing paswsord");
     req.body.password = bcrypt.hashSync(
       req.body.newPassword,
       bcrypt.genSaltSync()
@@ -100,7 +100,7 @@ router.put("/", isAuthenticated, (req, res) => {
         return res.status(500).send("Database error");
       }
     } else {
-      console.log("User updated", user);
+      // console.log("User updated", user);
       res.status(200).send({
         _id: user._id,
         username: user.username,

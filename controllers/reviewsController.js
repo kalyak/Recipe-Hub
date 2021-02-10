@@ -6,7 +6,7 @@ const Reviews = require("../models/ReviewsSchema");
 const ObjectId = require("mongoose").Types.ObjectId;
 
 const isAuthenticated = (req, res, next) => {
-  console.log(req.session);
+  // console.log(req.session);
   if (req.session.currentUser) {
     next();
   } else {
@@ -27,7 +27,7 @@ router.post("/new", isAuthenticated, (req, res) => {
     ...req.body,
     userID: req.session.currentUser._id,
   };
-  console.log("add review", data);
+  // console.log("add review", data);
 
   Reviews.create(data, (err, review) => {
     if (err) {
@@ -37,15 +37,15 @@ router.post("/new", isAuthenticated, (req, res) => {
         .match({ recipeID: ObjectId(data.recipeID) })
         .group({ _id: "$recipeID", avgRating: { $avg: "$userRating" } })
         .exec((err, rating) => {
-          console.log("rating", rating);
+          // console.log("rating", rating);
           if (err) {
             return err;
           } else {
-            console.log(newRating);
-            console.log(rating);
-            console.log(review._id);
+            // console.log(newRating);
+            // console.log(rating);
+            // console.log(review._id);
             newRating = rating[0].avgRating;
-            console.log(newRating, rating[0].avgRating);
+            // console.log(newRating, rating[0].avgRating);
             Recipes.findByIdAndUpdate(
               data.recipeID,
               {
@@ -55,15 +55,15 @@ router.post("/new", isAuthenticated, (req, res) => {
               { upsert: true, new: true },
               (err, recipe) => {
                 if (err) {
-                  console.log("recipe review update fail", err);
+                  // console.log("recipe review update fail", err);
                   res.status(500).send("Ratings update error");
                 } else {
-                  console.log("recipe review update pass", recipe);
+                  // console.log("recipe review update pass", recipe);
                   res.status(200).send({ review, newRating });
                 }
               }
             );
-            console.log("end add review");
+            // console.log("end add review");
           }
         });
     }
@@ -77,7 +77,7 @@ router.put("/:reviewID", isAuthenticated, (req, res) => {
     ...req.body,
     userID: req.session.currentUser._id,
   };
-  console.log("update review", data);
+  // console.log("update review", data);
   Reviews.findByIdAndUpdate(
     req.params.reviewID,
     data,
@@ -93,10 +93,10 @@ router.put("/:reviewID", isAuthenticated, (req, res) => {
             if (err) {
               return err;
             } else {
-              console.log(newRating);
-              console.log(rating);
+              // console.log(newRating);
+              // console.log(rating);
               newRating = rating[0].avgRating;
-              console.log(newRating, rating[0].avgRating);
+              // console.log(newRating, rating[0].avgRating);
               Recipes.findByIdAndUpdate(
                 data.recipeID,
                 { avgRating: newRating },

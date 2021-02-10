@@ -13,6 +13,7 @@ import noImage from "../icons/600px-No_image_available_600_x_450.png";
 import dayjs from "dayjs";
 import ReactStars from "react-rating-stars-component";
 import axios from "axios";
+import RemoveFave from "../buttons/RemoveFaveRecipe";
 
 const FavouritePage = () => {
   const [fave, setFave] = useState("");
@@ -32,7 +33,7 @@ const FavouritePage = () => {
 
   return (
     <Container>
-      <h1 className="text-center">My Favourite Recipes</h1>
+      <h1 className='text-center'>My Favourite Recipes</h1>
       <br />
       <Container>
         {fave === "" ? (
@@ -40,28 +41,28 @@ const FavouritePage = () => {
         ) : fave.length === 0 ? (
           <p>You do not have any favourite recipe yet</p>
         ) : (
-          <CardDeck className="row row-cols-1 row-cols-sm-2 row-cols-lg-3">
+          <CardDeck className='row row-cols-1 row-cols-sm-2 row-cols-lg-3'>
             {fave.map((recipe) => {
               const image = recipe.imgURL ? recipe.imgURL : noImage;
               const updatedDate = dayjs(recipe.updatedAt).format("DD/MMM/YYYY");
               // console.log(recipe);
 
               return (
-                <Col className="pb-5" key={recipe._id}>
+                <Col className='pb-5' key={recipe._id}>
                   <Card
                     key={recipe._id}
                     style={{ width: "18rem" }}
                     // className='mb-5 ml-5'
-                    className="h-100"
+                    className='h-100'
                   >
                     <Card.Img
                       width={288}
                       height={216}
-                      variant="top"
+                      variant='top'
                       src={image}
                     />
                     <Card.Body>
-                      <Card.Title className="text-capitalize">
+                      <Card.Title className='text-capitalize'>
                         {recipe.recipeName}
                         <ReactStars
                           value={recipe.avgRating}
@@ -78,10 +79,21 @@ const FavouritePage = () => {
                       >
                         {recipe.description}
                       </Card.Text>
-                      <Row className="justify-content-md-center">
-                        <Link to={`/recipe/${recipe._id}`}>
-                          <Button variant="primary">Show More</Button>
-                        </Link>
+                      <Row className='justify-content-md-center'>
+                        <Col>
+                          <Link to={`/recipe/${recipe._id}`}>
+                            <Button size='sm' variant='primary'>
+                              Show More
+                            </Button>
+                          </Link>
+                        </Col>
+                        <Col>
+                          <RemoveFave
+                            recipeID={recipe._id}
+                            setFave={setFave}
+                            fave={fave}
+                          />
+                        </Col>
                       </Row>
                     </Card.Body>
                     <Card.Footer>
@@ -92,8 +104,8 @@ const FavouritePage = () => {
                             <Fragment key={tag._id}>
                               <Link to={`/browse?tag=${tag._id}`}>
                                 <Badge
-                                  className="text-capitalize"
-                                  variant="success"
+                                  className='text-capitalize'
+                                  variant='success'
                                 >
                                   {tag.tagName}
                                 </Badge>
@@ -102,7 +114,7 @@ const FavouritePage = () => {
                           );
                         })}
                       <br />
-                      <small className="text-muted">
+                      <small className='text-muted'>
                         Updated on: {updatedDate}
                       </small>
                     </Card.Footer>

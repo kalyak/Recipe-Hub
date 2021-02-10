@@ -47,7 +47,7 @@ const QueryForm = (props) => {
   };
 
   const handleClick = (event) => {
-    console.log("clicked");
+    // console.log("clicked");
     setRecipeDataReturned(false);
 
     axios
@@ -70,10 +70,10 @@ const QueryForm = (props) => {
       <br />
       <InputGroup>
         <Form.Control
-          type="text"
-          name="keyword"
+          type='text'
+          name='keyword'
           value={formData.keyword}
-          placeholder="Enter Keyword"
+          placeholder='Enter Keyword'
           onChange={(e) => handleChange(e)}
         />
         <InputGroup.Append>
