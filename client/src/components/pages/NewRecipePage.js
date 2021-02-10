@@ -206,7 +206,7 @@ const NewRecipePage = () => {
       <h1 className="text-center">Add A New Recipe</h1>
       <br />
       {availableTags.length > 0 && availableIngredients.length > 0 ? (
-        <Form onSubmit={(event) => handleSubmit(event)}>
+        <Form onSubmit={(event) => handleSubmit(event)} className="pb-5">
           <Form.Group controlId="recipeName">
             <Form.Label>
               <strong>Recipe Name:</strong>
@@ -444,17 +444,25 @@ const NewRecipePage = () => {
             );
           })}
           <br />
-          <Button variant="success" type="submit">
-            Submit New Recipe
-          </Button>
-          <Button variant="warning" className="ml-1" onClick={handleReset}>
-            Reset Form
-          </Button>
-          <Link to="/recipe/user">
-            <Button variant="danger" className="ml-1">
-              Cancel Form
-            </Button>
-          </Link>
+          <Row className="justify-content-md-center">
+            <Col sm="auto">
+              <Button variant="success" type="submit">
+                Submit New Recipe
+              </Button>
+            </Col>
+            <Col sm="auto">
+              <Button variant="warning" className="ml-1" onClick={handleReset}>
+                Reset Form
+              </Button>
+            </Col>
+            <Col sm="auto">
+              <Link to="/recipe/user">
+                <Button variant="danger" className="ml-1">
+                  Cancel Form
+                </Button>
+              </Link>
+            </Col>
+          </Row>
         </Form>
       ) : (
         <Container

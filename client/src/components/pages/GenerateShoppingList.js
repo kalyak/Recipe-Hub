@@ -77,23 +77,33 @@ const GenerateShoppingList = () => {
 
     return (
       <>
-        {tableData.map((data) => {
-          return (
-            <tr>
-              <td className='text-capitalize'>{data.ingredientName}</td>
-              {/* rounding up to nearest 5 */}
-              <td>{Math.ceil(data.quantity / 5) * 5}</td>
-              <td>{data.unit}</td>
-            </tr>
-          );
-        })}
+        {tableData
+          .sort((a, b) => {
+            return a.ingredientName > b.ingredientName ? 1 : -1;
+          })
+          .map((data, index) => {
+            // console.log(data);
+            return (
+              <tr key={data.ingredientName}>
+                <td className="text-center">{index + 1}</td>
+                <td className="text-capitalize text-center">
+                  {data.ingredientName}
+                </td>
+                {/* rounding up to nearest 5 */}
+                <td className="text-center">
+                  {Math.ceil(data.quantity / 5) * 5}
+                </td>
+                <td className="text-center">{data.unit}</td>
+              </tr>
+            );
+          })}
       </>
     );
   };
 
   return (
     <Container>
-      <Row className='justify-content-md-center'>
+      <Row className="justify-content-md-center">
         <h1>Your Grocery Shopping list</h1>
       </Row>
       <Row>
@@ -102,9 +112,10 @@ const GenerateShoppingList = () => {
       <Table striped bordered hover>
         <thead>
           <tr>
-            <th className='text-center'>Ingredient Name</th>
-            <th className='text-center'>Quantity*</th>
-            <th className='text-center'>Unit</th>
+            <th className="text-center">S/N</th>
+            <th className="text-center">Ingredient Name</th>
+            <th className="text-center">Quantity*</th>
+            <th className="text-center">Unit</th>
           </tr>
         </thead>
         <tbody>{displayList(list)}</tbody>

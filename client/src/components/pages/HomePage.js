@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Button, Row, Col, Container } from "react-bootstrap";
+import { Row, Col, Container } from "react-bootstrap";
 import axios from "axios";
 import TopRating from "../display/homepage-topRating";
 import NewlyAdded from "../display/homepage-newlyAdded";
