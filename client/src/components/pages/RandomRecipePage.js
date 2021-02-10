@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, Fragment } from "react";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
 import HomePageData from "./sampleData";
+import { Row, Col, Container, Spinner } from "react-bootstrap";
 
 const RandomRecipePage = () => {
   const [randomRecipeID, setRandomRecipeID] = useState("");
@@ -24,7 +25,20 @@ const RandomRecipePage = () => {
     return <Redirect to={`/recipe/${randomRecipeID}`} />;
   }
 
-  return <h1>Loading your random recipe..</h1>;
+  return (
+    <Container
+      className="d-flex justify-content-center"
+      style={{ height: "90vh" }}
+    >
+      <div
+        className="text-center align-self-center"
+        // style={{ margin: "20% 0" }}
+      >
+        <Spinner animation="grow" />
+        <h1>Loading Recipe...</h1>
+      </div>
+    </Container>
+  );
 };
 
 export default RandomRecipePage;
