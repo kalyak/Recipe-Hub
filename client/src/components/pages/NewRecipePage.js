@@ -243,7 +243,7 @@ const NewRecipePage = () => {
                 return a.tagName > b.tagName ? 1 : -1;
               })
               .map((tag, index) => {
-                console.log(tag);
+                // console.log(tag);
                 return (
                   <Form.Check
                     key={tag._id}
