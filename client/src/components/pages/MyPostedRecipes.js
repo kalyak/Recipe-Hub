@@ -49,11 +49,7 @@ const MyPostedRecipes = () => {
             </div>
           </Container>
         ) : myRecipes.length === 0 ? (
-<<<<<<< HEAD
-          <p className="text-center">You have not posted any recipe yet</p>
-=======
           <h6 className="text-center">You have not posted any recipe yet</h6>
->>>>>>> master
         ) : (
           <CardDeck className="row row-cols-1 row-cols-sm-2 row-cols-lg-3">
             {myRecipes.map((recipe, index) => {
