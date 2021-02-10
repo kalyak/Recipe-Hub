@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Container, Button, Form, InputGroup } from "react-bootstrap";
-import { useLocation } from "react-router-dom";
 import axios from "axios";
 import QueryFilterResults from "./QueryFilterResults.js";
 
@@ -11,15 +10,16 @@ const QueryForm = (props) => {
 
   const [formData, setFormData] = useState({ keyword: queryKeyword || "" });
   const [queryResults, setQueryResults] = useState([
-    {
-      _id: "",
-      tags: [],
-      recipeName: "",
-      description: "",
-      avgRating: 1,
-      imageURL: "",
-    },
+    // {
+    //   _id: "",
+    //   tags: [],
+    //   recipeName: "",
+    //   description: "",
+    //   avgRating: 1,
+    //   imageURL: "",
+    // },
   ]);
+  const [recipeDataReturned, setRecipeDataReturned] = useState(false);
 
   const apiurl = `/recipes?keyword=${formData.keyword}`;
   // console.log(apiurl);
@@ -30,11 +30,12 @@ const QueryForm = (props) => {
       .then((response) => {
         // console.log(response.data);
         setQueryResults([...response.data]);
+        setRecipeDataReturned(true);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [apiurl]);
 
   const handleChange = (event) => {
     setFormData((state) => {
@@ -47,11 +48,14 @@ const QueryForm = (props) => {
 
   const handleClick = (event) => {
     console.log("clicked");
+    setRecipeDataReturned(false);
+
     axios
       .get(apiurl)
       .then((response) => {
         // console.log(response.data);
         setQueryResults([...response.data]);
+        setRecipeDataReturned(true);
       })
       .catch((error) => {
         console.log(error);
@@ -66,10 +70,10 @@ const QueryForm = (props) => {
       <br />
       <InputGroup>
         <Form.Control
-          type='text'
-          name='keyword'
+          type="text"
+          name="keyword"
           value={formData.keyword}
-          placeholder='Enter Keyword'
+          placeholder="Enter Keyword"
           onChange={(e) => handleChange(e)}
         />
         <InputGroup.Append>
@@ -78,7 +82,10 @@ const QueryForm = (props) => {
       </InputGroup>
       <br />
       <br />
-      <QueryFilterResults queryResults={queryResults} />
+      <QueryFilterResults
+        queryResults={queryResults}
+        recipeDataReturned={recipeDataReturned}
+      />
     </Container>
   );
 };

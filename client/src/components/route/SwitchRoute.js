@@ -3,7 +3,7 @@ import HomePage from "../pages/HomePage";
 import BrowseRecipe from "../pages/BrowseRecipePage";
 import FavouritePage from "../pages/FavouritePage";
 import LoginPage from "../pages/LoginPage";
-import LogoutPage from "../pages/LogoutPage";
+// import LogoutPage from "../pages/LogoutPage";
 import SignupPage from "../pages/SignupPage";
 import RecipePage from "../pages/RecipePage";
 import NewRecipePage from "../pages/NewRecipePage";
@@ -14,7 +14,7 @@ import MyPostedRecipes from "../pages/MyPostedRecipes";
 import EditRecipePage from "../pages/EditRecipePage";
 import GenerateShoppingList from "../pages/GenerateShoppingList";
 import About from "../pages/About";
-import AxiosTest from "../pages/axiostest";
+// import AxiosTest from "../pages/axiostest";
 
 const SwitchRoute = () => {
   return (

@@ -39,7 +39,9 @@ const GenerateShoppingList = () => {
           ingredientName: ingList.ingredient.ingredientName,
         };
         consolidatedList.push(newIngList);
+        return null;
       });
+      return null;
     });
     console.log("consolodated list", consolidatedList);
 
@@ -58,6 +60,7 @@ const GenerateShoppingList = () => {
         unit = item[0].units;
         item.map((x) => {
           total += x.quantity;
+          return null;
         });
       } else {
         unit = item[0].ingredient.type === "solid" ? "g" : "ml";
@@ -65,6 +68,7 @@ const GenerateShoppingList = () => {
         item.map((x) => {
           const qty = x.quantity * converter[x.ingredient.type][x.units];
           total += qty;
+          return null;
         });
       }
       tableData.push({ ingredientName: keys, unit: unit, quantity: total });

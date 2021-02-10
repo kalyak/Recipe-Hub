@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
-import { Row, Col, Button, Container } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Row, Col, Button, Container, Spinner } from "react-bootstrap";
 import axios from "axios";
-import HomePageData from "./sampleData";
 import BrowseResultsDisplay from "../display/BrowseResultsDisplay";
 import { Fragment } from "react";
 
@@ -33,6 +31,8 @@ const BrowseRecipePage = () => {
     //   imageURL: sampleimg,
     // },
   ]);
+  const [tagDataReturned, setTagDataReturn] = useState(false);
+  const [recipeDataReturned, setRecipeDataReturned] = useState(false);
 
   useEffect(() => {
     axios
@@ -40,6 +40,7 @@ const BrowseRecipePage = () => {
       .then((response) => {
         // console.log(response.data);
         setTagData(response.data);
+        setTagDataReturn(true);
       })
       .catch((error) => {
         console.log(error.response);
@@ -48,7 +49,7 @@ const BrowseRecipePage = () => {
     if (queryKeyword !== null) {
       setBrowsingTag({ tag: queryKeyword });
     }
-  }, []);
+  }, [queryKeyword]);
 
   useEffect(() => {
     const url = `/recipes?tags=${browsingTag.tag}`;
@@ -58,6 +59,7 @@ const BrowseRecipePage = () => {
       .then((response) => {
         // console.log(response.data);
         setQueryResults([...response.data]);
+        setRecipeDataReturned(true);
       })
       .catch((error) => {
         // console.log(error);
@@ -68,6 +70,7 @@ const BrowseRecipePage = () => {
     // console.log(event.target.name);
     // console.log(event.target.value);
     setBrowsingTag({ [event.target.name]: event.target.value });
+    setRecipeDataReturned(false);
   };
   // console.log(browsingTag);
 
@@ -127,13 +130,33 @@ const BrowseRecipePage = () => {
       <br />
       <h1>Browse by Tag</h1>
       <br />
-      <Row>{displayTags}</Row>
+
+      {tagDataReturned ? (
+        <Row>{displayTags}</Row>
+      ) : (
+        <Container
+          className="text-center align-self-center"
+          // style={{ margin: "20% 0" }}
+        >
+          <Spinner animation="grow" />
+          <h1>Fetching Tags...</h1>
+        </Container>
+      )}
+
       <br />
+
       {browsingTag.tag !== "" ? (
-        <BrowseResultsDisplay
-          filteredResults={queryResults}
-          setBrowsingTag={setBrowsingTag}
-        />
+        recipeDataReturned ? (
+          <BrowseResultsDisplay
+            filteredResults={queryResults}
+            setBrowsingTag={setBrowsingTag}
+          />
+        ) : (
+          <Container className="text-center align-self-center">
+            <Spinner animation="grow" />
+            <h1>Fetching Results...</h1>
+          </Container>
+        )
       ) : (
         ""
       )}
