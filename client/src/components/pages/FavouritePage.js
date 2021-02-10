@@ -44,7 +44,7 @@ const FavouritePage = () => {
           <CardDeck className="row row-cols-1 row-cols-sm-2 row-cols-lg-3">
             {fave.map((recipe) => {
               const image = recipe.imgURL ? recipe.imgURL : noImage;
-              const updatedDate = dayjs(recipe.updatedAt).format("DD/MMM/YYYY");
+              const updatedDate = dayjs(recipe.updatedAt).format("DD MMM YYYY");
               // console.log(recipe);
 
               return (

@@ -20,7 +20,7 @@ const BrowseResultsDisplay = (props) => {
   // console.log(props.filteredResults.imageURL);
   const display = props.filteredResults.map((recipe) => {
     const image = recipe.imgURL ? recipe.imgURL : noImage;
-    const updatedDate = dayjs(recipe.updatedAt).format("DD/MMM/YYYY");
+    const updatedDate = dayjs(recipe.updatedAt).format("DD MMM YYYY");
 
     return (
       <Col className="pb-5" key={recipe._id}>
