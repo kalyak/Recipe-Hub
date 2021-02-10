@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Form, Col, Button, Container, ButtonToolbar } from "react-bootstrap";
 import SweetAlert from "react-bootstrap-sweetalert";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import axios from "axios";
 import AddIngredientModal from "../display/AddIngredientModal";
 import ImageUpload from "../display/ImageUpload";
@@ -142,7 +142,8 @@ const NewRecipePage = () => {
     setFormData(initialState);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     //remove unitOptions from selected ingredient
     const ingredientLists = [...selectedIngredients];
     ingredientLists.map((ingredient) => delete ingredient.unitOptions);
@@ -150,6 +151,7 @@ const NewRecipePage = () => {
     const checkedTags = availableTags.filter((tag) => {
       return tag.checked === true;
     });
+
     //construct data to be submitted
     const dataToBeSubmitted = {
       ...formData,
@@ -189,36 +191,44 @@ const NewRecipePage = () => {
       </Container>
     );
   }
-  console.log(formData);
-  console.log(selectedIngredients);
+  console.log("selected ingredients", selectedIngredients);
 
   return (
     <Container>
-      <h1>Add A New Recipe</h1>
+      <h1 className="text-center">Add A New Recipe</h1>
+      <br />
       {availableTags.length > 0 && availableIngredients.length > 0 ? (
-        <Form>
+        <Form onSubmit={(event) => handleSubmit(event)}>
           <Form.Group controlId="recipeName">
-            <Form.Label>Recipe Name:</Form.Label>
+            <Form.Label>
+              <strong>Recipe Name:</strong>
+            </Form.Label>
             <Form.Control
               type="text"
               value={formData.recipeName}
               onChange={handleChange}
+              required
             />
           </Form.Group>
           <Form.Group controlId="description">
-            <Form.Label>Brief Description of the meal</Form.Label>
+            <Form.Label>
+              <strong>Brief Description of the meal:</strong>
+            </Form.Label>
             <Form.Control
               as="textarea"
               rows={3}
               value={formData.description}
               onChange={handleChange}
+              required
             />
           </Form.Group>
 
           <ImageUpload setFormData={setFormData} />
 
           <Form.Group controlId="tags">
-            <Form.Label>Select tags</Form.Label>
+            <Form.Label>
+              <strong>Select tags:</strong>
+            </Form.Label>
             <br />
             {availableTags.map((tag, index) => {
               return (
@@ -235,20 +245,28 @@ const NewRecipePage = () => {
             })}
           </Form.Group>
           <Form.Group controlId="servingSize">
-            <Form.Label>Serving Size:</Form.Label>
+            <Form.Label>
+              <strong>Serving Size:</strong>
+            </Form.Label>
             <Form.Control
               type="number"
               value={formData.servingSize}
               onChange={handleChange}
+              min="0"
+              required
             />
           </Form.Group>
           <Form.Row>
-            <Form.Label>Preparation Time:</Form.Label>
+            <Form.Label>
+              <strong>Preparation Time:</strong>
+            </Form.Label>
             <Form.Group as={Col} controlId="prepTime">
               <Form.Control
                 type="number"
                 value={formData.prepTime}
                 onChange={handleChange}
+                required
+                min="0"
               />
             </Form.Group>
             <Form.Group as={Col} controlId="prepTimeUnit">
@@ -262,12 +280,16 @@ const NewRecipePage = () => {
             </Form.Group>
           </Form.Row>
           <Form.Row>
-            <Form.Label>Cooking Time:</Form.Label>
+            <Form.Label>
+              <strong>Cooking Time:</strong>
+            </Form.Label>
             <Form.Group as={Col} controlId="cookTime">
               <Form.Control
                 type="number"
                 value={formData.cookTime}
                 onChange={handleChange}
+                required
+                min="0"
               />
             </Form.Group>
             <Form.Group as={Col} controlId="cookTimeUnit">
@@ -281,7 +303,9 @@ const NewRecipePage = () => {
             </Form.Group>
           </Form.Row>
           <Form.Row>
-            <Form.Label>Ingredients:</Form.Label>
+            <Form.Label>
+              <strong>Ingredients:</strong>
+            </Form.Label>
           </Form.Row>
 
           {selectedIngredients.map((selectedIngredient, index) => {
@@ -292,13 +316,17 @@ const NewRecipePage = () => {
                     as="select"
                     value={selectedIngredient.ingredient}
                     onChange={(event) => handleIngredientSelect(event, index)}
+                    required
                   >
                     <option disabled value="">
                       Please select ingredient
                     </option>
                     {availableIngredients.map((ingredient) => {
                       return (
-                        <option value={ingredient._id}>
+                        <option
+                          value={ingredient._id}
+                          className="text-capitalize"
+                        >
                           {ingredient.ingredientName}
                         </option>
                       );
@@ -311,6 +339,8 @@ const NewRecipePage = () => {
                     value={selectedIngredient.quantity}
                     placeholder="Quantity"
                     onChange={(event) => handleIngredientChange(event, index)}
+                    required
+                    min="0"
                   />
                 </Form.Group>
                 <Form.Group as={Col} controlId="units">
@@ -328,10 +358,18 @@ const NewRecipePage = () => {
                   </Form.Control>
                 </Form.Group>
                 {index === selectedIngredients.length - 1 && (
-                  <Button onClick={() => handleAddIngredient(index)}>+</Button>
+                  <Button
+                    onClick={() => handleAddIngredient(index)}
+                    variant="info"
+                  >
+                    +
+                  </Button>
                 )}
                 {index !== selectedIngredients.length - 1 && (
-                  <Button onClick={() => handleDeleteIngredient(index)}>
+                  <Button
+                    onClick={() => handleDeleteIngredient(index)}
+                    variant="info"
+                  >
                     -
                   </Button>
                 )}
@@ -343,6 +381,8 @@ const NewRecipePage = () => {
               onClick={() => {
                 setOpenIngredientModal(true);
               }}
+              variant="outline-secondary"
+              size="sm"
             >
               Can't find the ingredient you are looking for? Click here to add
               more!
@@ -355,39 +395,58 @@ const NewRecipePage = () => {
               availableIngredients={availableIngredients}
             />
           </ButtonToolbar>
+          <br />
           <Form.Row>
-            <Form.Label>Cooking Instructions:</Form.Label>
+            <Form.Label>
+              <strong>Cooking Instructions:</strong>
+            </Form.Label>
           </Form.Row>
           {cookingInstructions.map((instruction, index) => {
             return (
               <Form.Row>
-                <Form.Group as={Col}>Step {index + 1}</Form.Group>
-                <Form.Group as={Col} controlId="instructions">
+                <Form.Group as={Col} xs={1}>
+                  Step {index + 1}:
+                </Form.Group>
+                <Form.Group as={Col} xs={10} controlId="instructions">
                   <Form.Control
                     as="textarea"
                     rows={1}
                     value={cookingInstructions[index]}
                     onChange={(event) => handleInstructionChange(event, index)}
+                    required
                   />
                 </Form.Group>
                 {index === cookingInstructions.length - 1 && (
-                  <Button onClick={() => handleAddInstruction(index)}>+</Button>
+                  <Button
+                    onClick={() => handleAddInstruction(index)}
+                    variant="info"
+                  >
+                    +
+                  </Button>
                 )}
                 {index !== cookingInstructions.length - 1 && (
-                  <Button onClick={() => handleDeleteInstruction(index)}>
+                  <Button
+                    onClick={() => handleDeleteInstruction(index)}
+                    variant="info"
+                  >
                     -
                   </Button>
                 )}
               </Form.Row>
             );
           })}
-
-          <Button variant="success" onClick={handleSubmit}>
+          <br />
+          <Button variant="success" type="submit">
             Submit New Recipe
           </Button>
-          <Button variant="danger" className="ml-1" onClick={handleReset}>
+          <Button variant="warning" className="ml-1" onClick={handleReset}>
             Reset Form
           </Button>
+          <Link to="/recipe/user">
+            <Button variant="danger" className="ml-1">
+              Cancel Form
+            </Button>
+          </Link>
         </Form>
       ) : (
         <p>Loading..</p>
