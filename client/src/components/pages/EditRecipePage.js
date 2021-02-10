@@ -199,7 +199,8 @@ const EditRecipePage = () => {
   //   return splitStr.join(" ");
   // };
 
-  const handleSubmit = () => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
     //remove unitOptions from selected ingredient
     const ingredientLists = [...selectedIngredients];
     ingredientLists.map((ingredient) => delete ingredient.unitOptions);
@@ -258,7 +259,7 @@ const EditRecipePage = () => {
       <h1 className="text-center">Edit Your Recipe</h1>
       <br />
       {availableTags.length > 0 && availableIngredients.length > 0 ? (
-        <Form className="pb-5">
+        <Form className="pb-5" onSubmit={handleSubmit}>
           <Form.Group controlId="recipeName">
             <Form.Label>
               <strong>Recipe Name:</strong>
@@ -515,7 +516,7 @@ const EditRecipePage = () => {
           <br />
           <Row className="justify-content-md-center">
             <Col sm="auto">
-              <Button variant="success" onClick={handleSubmit}>
+              <Button variant="success" type="submit">
                 Edit Recipe
               </Button>
             </Col>
