@@ -22,14 +22,21 @@ const HomePage = () => {
 
   return (
     <Container>
-      <h1>RECIPE HUB</h1>
-      <h1>Find Simple and Delicious Recipe here</h1>
+      {/* <h1>RECIPE HUB</h1> */}
+      <br />
+      <h1 className="text-center">A Hub For Simple and Delicious Recipe </h1>
+      <br />
       <h3>Top Rating Recipes</h3>
+      <br />
       <TopRating />
+      <br />
       <h3>Newly Added Recipes</h3>
+      <br />
       <NewlyAdded />
-      <h3>Browse by categories for your meal</h3>
-      <Row>
+      <br />
+      <h3>Browse By Categories</h3>
+      <br />
+      <Row className="justify-content-md-center">
         {categories.length > 0 &&
           categories
             .sort((a, b) => (a > b ? 1 : -1))

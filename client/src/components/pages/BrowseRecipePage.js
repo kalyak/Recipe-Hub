@@ -18,22 +18,6 @@ const BrowseRecipePage = () => {
     //       tagName: "lunch",
     //       tagID: "601a4cab1d8a6124f7a12bed",
     //     },
-    //     {
-    //       tagName: "dinner",
-    //       tagID: "601a4e08006c0625affcd17b",
-    //     },
-    //     {
-    //       tagName: "breakfast",
-    //       tagID: "601a4e0e006c0625affcd17c",
-    //     },
-    //     {
-    //       tagName: "supper",
-    //       tagID: "601a4e65006c0625affcd17d",
-    //     },
-    //     {
-    //       tagName: "side dish",
-    //       tagID: "601a87dbdf56c5440ce204a2",
-    //     },
     //   ],
     // },
   ]);
@@ -93,7 +77,7 @@ const BrowseRecipePage = () => {
       return (
         <Fragment key={category._id}>
           <Col>
-            <h3 className='text-capitalize'>{category._id}</h3>
+            <h3 className="text-capitalize">{category._id}</h3>
             {category.tag
               .sort((a, b) => (a.tagName > b.tagName ? 1 : -1))
               .map((tag, index) => {
@@ -102,12 +86,12 @@ const BrowseRecipePage = () => {
                     <Col key={tag.tagID}>
                       <label>
                         <Button
-                          variant='danger'
+                          variant="danger"
                           key={tag.tagID}
-                          name='tag'
+                          name="tag"
                           value={tag.tagID}
                           onClick={(e) => handleClick(e)}
-                          className='text-capitalize'
+                          className="text-capitalize"
                         >
                           {tag.tagName}
                         </Button>
@@ -119,12 +103,12 @@ const BrowseRecipePage = () => {
                     <Col key={tag.tagID}>
                       <label>
                         <Button
-                          variant='light'
+                          variant="light"
                           key={tag.tagID}
-                          name='tag'
+                          name="tag"
                           value={tag.tagID}
                           onClick={(e) => handleClick(e)}
-                          className='text-capitalize'
+                          className="text-capitalize"
                         >
                           {tag.tagName}
                         </Button>
@@ -139,7 +123,8 @@ const BrowseRecipePage = () => {
     });
 
   return (
-    <Container style={{ border: "1px black solid" }}>
+    <Container>
+      <br />
       <h1>Browse by Tag</h1>
       <br />
       <Row>{displayTags}</Row>

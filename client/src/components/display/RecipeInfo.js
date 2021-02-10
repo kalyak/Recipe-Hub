@@ -6,7 +6,9 @@ import servingImg from "../icons/food-serving.svg";
 
 const RecipeInfo = ({ recipeData }) => {
   // console.log(recipeData.avgRating);
-  let rating = recipeData.avgRating;
+  const rating = recipeData.avgRating;
+
+  console.log(recipeData.prepTimeUnit);
 
   const Stars = () => {
     return (
@@ -21,45 +23,45 @@ const RecipeInfo = ({ recipeData }) => {
 
   return (
     <Container>
-      <Row className='justify-content-md-center'>
-        <Col md='auto'>
+      <Row className="justify-content-md-center">
+        <Col md="auto">
           <Stars />
           {rating !== undefined ? (
-            <p className='text-center'>
+            <p className="text-center">
               Average Rating: {recipeData.avgRating} / 5
             </p>
           ) : (
-            <p className='text-center'>No rating yet</p>
+            <p className="text-center">No Rating Available</p>
           )}
         </Col>
-        <Col md='auto' className='text-center'>
+        <Col md="auto" className="text-center">
           {/* <OverlayTrigger
             placement="bottom"
             overlay={<Tooltip>Estimated Preparation Time</Tooltip>}
           > */}
-          <img src={cuttingImg} alt='icon' style={{ height: "50px" }} />
+          <img src={cuttingImg} alt="icon" style={{ height: "50px" }} />
           {/* </OverlayTrigger> */}
           <p>
             {recipeData.prepTime} {recipeData.prepTimeUnit}
           </p>
         </Col>
-        <Col md='auto' className='text-center'>
+        <Col md="auto" className="text-center">
           {/* <OverlayTrigger
             placement="bottom"
             overlay={<Tooltip>Estimated Cooking Time</Tooltip>}
           > */}
-          <img src={fryingpanImg} alt='icon' style={{ height: "50px" }} />
+          <img src={fryingpanImg} alt="icon" style={{ height: "50px" }} />
           {/* </OverlayTrigger> */}
           <p>
             {recipeData.cookTime} {recipeData.cookTimeUnit}
           </p>
         </Col>
-        <Col md='auto' className='text-center'>
+        <Col md="auto" className="text-center">
           {/* <OverlayTrigger
             placement="bottom"
             overlay={<Tooltip>Serving Size</Tooltip>}
           > */}
-          <img src={servingImg} alt='icon' style={{ height: "50px" }} />
+          <img src={servingImg} alt="icon" style={{ height: "50px" }} />
           {/* </OverlayTrigger> */}
           <p>{recipeData.servingSize} pax</p>
         </Col>

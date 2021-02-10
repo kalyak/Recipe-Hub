@@ -15,19 +15,19 @@ const RecipeDisplay = ({ recipeData }) => {
 
   return (
     <Container>
-      <Row className='justify-content-md-center'>
-        <h1 className='text-capitalize'>{recipeData.recipeName}</h1>
+      <Row className="justify-content-md-center">
+        <h1 className="text-capitalize">{recipeData.recipeName}</h1>
       </Row>
-      <Row className='justify-content-md-center'>
-        <Col sm='auto'>Posted by: {recipeData.userID.username}</Col>
-        <Col sm='auto'>Posted on: {updateDate}</Col>
+      <Row className="justify-content-md-center">
+        <Col sm="auto">Posted by: {recipeData.userID.username}</Col>
+        <Col sm="auto">Posted on: {updateDate}</Col>
       </Row>
       <br />
 
-      <Row className='justify-content-md-center'>
+      <Row className="justify-content-md-center">
         <img
-          max-width={300}
-          // height={300}
+          // width={400}
+          height={400}
           src={image}
           alt={recipeData.recipeName}
         />
