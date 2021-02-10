@@ -3,24 +3,24 @@ import { Container, Row, Col } from "react-bootstrap";
 const About = () => {
   return (
     <Container>
-      <Row className="justify-content-md-center">
-        <h1 className="text-center">Project for General Assembly (SEI26)</h1>
+      <Row className='justify-content-md-center'>
+        <h1 className='text-center'>Project for General Assembly (SEI26)</h1>
         <br />
       </Row>
       <br />
 
-      <Row className="justify-content-md-center">
-        <h2 className="text-center" style={{ textDecoration: "underline" }}>
+      <Row className='justify-content-md-center'>
+        <h2 className='text-center' style={{ textDecoration: "underline" }}>
           Tech Stack
         </h2>
       </Row>
       <br />
-      <Row className="justify-content-md-center">
-        <Col sm="auto">
-          <Row className="justify-content-md-center">
+      <Row className='justify-content-md-center'>
+        <Col sm='auto'>
+          <Row className='justify-content-md-center'>
             <h4 style={{ textDecoration: "underline" }}>Front-End</h4>
           </Row>
-          <Row className="justify-content-md-center">
+          <Row className='justify-content-md-center'>
             <ul>
               <li>HTML</li>
               <li>CSS</li>
@@ -30,11 +30,11 @@ const About = () => {
           </Row>
         </Col>
         <Col sm={1}></Col>
-        <Col sm="auto">
-          <Row className="justify-content-md-center">
+        <Col sm='auto'>
+          <Row className='justify-content-md-center'>
             <h4 style={{ textDecoration: "underline" }}>Back-End</h4>
           </Row>
-          <Row className="justify-content-md-center">
+          <Row className='justify-content-md-center'>
             <ul>
               <li>Express</li>
               <li>Mongoose</li>
@@ -44,17 +44,17 @@ const About = () => {
         </Col>
       </Row>
       <br />
-      <Row className="justify-content-md-center">
+      <Row className='justify-content-md-center'>
         <h4>Other Libraries / Frameworks</h4>
       </Row>
       <br />
 
-      <Row className="justify-content-md-center">
-        <Col sm="auto">
-          <Row className="justify-content-md-center">
+      <Row className='justify-content-md-center'>
+        <Col sm='auto'>
+          <Row className='justify-content-md-center'>
             <h4 style={{ textDecoration: "underline" }}>Front-End</h4>
           </Row>
-          <Row className="justify-content-md-center">
+          <Row className='justify-content-md-center'>
             <ul>
               <li>Axios</li>
               <li>Dayjs</li>
@@ -64,15 +64,25 @@ const About = () => {
               <li>React-bootstrap-sweetalert</li>
               <li>React-rating-star-component</li>
               <li>React-router-dom</li>
+              <li>
+                Icons made by{" "}
+                <a href='https://www.freepik.com' title='Freepik'>
+                  Freepik
+                </a>{" "}
+                from{" "}
+                <a href='https://www.flaticon.com/' title='Flaticon'>
+                  www.flaticon.com
+                </a>
+              </li>
             </ul>
           </Row>
         </Col>
         <Col sm={1}></Col>
-        <Col sm="auto">
-          <Row className="justify-content-md-center">
+        <Col sm='auto'>
+          <Row className='justify-content-md-center'>
             <h4 style={{ textDecoration: "underline" }}>Back-End</h4>
           </Row>
-          <Row className="justify-content-md-center">
+          <Row className='justify-content-md-center'>
             <ul>
               <li>Bcrypt</li>
               <li>Dotenv</li>
@@ -85,26 +95,26 @@ const About = () => {
 
       <br />
 
-      <Row className="justify-content-md-center">
+      <Row className='justify-content-md-center'>
         <Col>
-          <h2 className="text-center" style={{ textDecoration: "underline" }}>
+          <h2 className='text-center' style={{ textDecoration: "underline" }}>
             Done By
           </h2>
-          <h5 className="text-center">Au Kok Yong</h5>
-          <h5 className="text-center">Kalya Kusumadi</h5>
-          <h5 className="text-center"> Sophia Ratna</h5>
+          <h5 className='text-center'>Au Kok Yong</h5>
+          <h5 className='text-center'>Kalya Kusumadi</h5>
+          <h5 className='text-center'> Sophia Ratna</h5>
         </Col>
       </Row>
 
       <br />
 
-      <Row className="justify-content-md-center">
+      <Row className='justify-content-md-center'>
         <Col>
-          <h4 className="text-center">
+          <h4 className='text-center'>
             Link to our{" "}
             <a
-              href="https://github.com/aukokyong/recipehub-mern"
-              target="_blank"
+              href='https://github.com/aukokyong/recipehub-mern'
+              target='_blank'
             >
               Github Repository
             </a>
@@ -112,7 +122,7 @@ const About = () => {
         </Col>
       </Row>
 
-      <Row className="justify-content-md-center">
+      <Row className='justify-content-md-center'>
         <footer
           style={{
             position: "fixed",
