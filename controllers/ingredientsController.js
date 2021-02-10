@@ -51,7 +51,7 @@ router.put("/update/:id", (req, res) => {
           return res.status(500).send("Database error");
         }
       } else {
-        console.log("Tag updated", ingredient);
+        // console.log("Tag updated", ingredient);
         res.status(200).send(ingredient);
       }
     }

@@ -71,7 +71,7 @@ const NewRecipePage = () => {
   };
 
   const handleIngredientSelect = (event, index) => {
-    console.log("handleIngredientSelect", event);
+    // console.log("handleIngredientSelect", event);
     const values = [...selectedIngredients];
     values[index][event.target.id] = event.target.value;
 
@@ -85,7 +85,7 @@ const NewRecipePage = () => {
   };
 
   const handleIngredientChange = (event, index) => {
-    console.log("handleIngredientChange", event);
+    // console.log("handleIngredientChange", event);
     const values = [...selectedIngredients];
     values[index][event.target.id] = event.target.value;
     setSelectedIngredients(values);
@@ -126,7 +126,7 @@ const NewRecipePage = () => {
   };
 
   const handleSelect = (event) => {
-    console.log(event.target.value, event);
+    // console.log(event.target.value, event);
     setFormData((state) => {
       return { ...state, [event.target.id]: event.target.value };
     });
@@ -167,7 +167,7 @@ const NewRecipePage = () => {
       instructions: cookingInstructions,
       tags: checkedTags.map((tag) => tag._id),
     };
-    console.log(dataToBeSubmitted);
+    // console.log(dataToBeSubmitted);
 
     axios
       .post("/recipes/new", dataToBeSubmitted, { withCredentials: true })
@@ -199,14 +199,14 @@ const NewRecipePage = () => {
       </Container>
     );
   }
-  console.log("selected ingredients", selectedIngredients);
+  // console.log("selected ingredients", selectedIngredients);
 
   return (
     <Container>
       <h1 className="text-center">Add A New Recipe</h1>
       <br />
       {availableTags.length > 0 && availableIngredients.length > 0 ? (
-        <Form onSubmit={(event) => handleSubmit(event)} className="pb-5">
+        <Form onSubmit={(event) => handleSubmit(event)}>
           <Form.Group controlId="recipeName">
             <Form.Label>
               <strong>Recipe Name:</strong>
@@ -444,25 +444,17 @@ const NewRecipePage = () => {
             );
           })}
           <br />
-          <Row className="justify-content-md-center">
-            <Col sm="auto">
-              <Button variant="success" type="submit">
-                Submit New Recipe
-              </Button>
-            </Col>
-            <Col sm="auto">
-              <Button variant="warning" className="ml-1" onClick={handleReset}>
-                Reset Form
-              </Button>
-            </Col>
-            <Col sm="auto">
-              <Link to="/recipe/user">
-                <Button variant="danger" className="ml-1">
-                  Cancel Form
-                </Button>
-              </Link>
-            </Col>
-          </Row>
+          <Button variant="success" type="submit">
+            Submit New Recipe
+          </Button>
+          <Button variant="warning" className="ml-1" onClick={handleReset}>
+            Reset Form
+          </Button>
+          <Link to="/recipe/user">
+            <Button variant="danger" className="ml-1">
+              Cancel Form
+            </Button>
+          </Link>
         </Form>
       ) : (
         <Container

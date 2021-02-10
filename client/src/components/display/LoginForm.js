@@ -22,7 +22,7 @@ const LoginForm = ({ afterLoginAction }) => {
     axios
       .post("/sessions", formData)
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         afterLoginAction(true);
         setUser(response.data);
       })
