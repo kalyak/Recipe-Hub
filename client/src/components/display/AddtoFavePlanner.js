@@ -90,7 +90,7 @@ const AddtoFavePlanner = ({ recipeID }) => {
         {!user || !user.favourites || !user["favourites"].includes(recipeID) ? (
           <Col
             sm="auto"
-            className="text-center"
+            className="text-center faveplanner-icon"
             id="favourites"
             onClick={handleAdd}
           >
@@ -106,7 +106,7 @@ const AddtoFavePlanner = ({ recipeID }) => {
         ) : (
           <Col
             sm="auto"
-            className="text-center"
+            className="text-center faveplanner-icon"
             id="favourites"
             onClick={handleRemove}
           >
@@ -126,7 +126,7 @@ const AddtoFavePlanner = ({ recipeID }) => {
         !user.planner.some((recipe) => recipe.recipeID === recipeID) ? (
           <Col
             sm="auto"
-            className="text-center"
+            className="text-center faveplanner-icon"
             id="planner"
             onClick={handleAdd}
           >
@@ -142,7 +142,7 @@ const AddtoFavePlanner = ({ recipeID }) => {
         ) : (
           <Col
             sm="auto"
-            className="text-center"
+            className="text-center faveplanner-icon"
             id="planner"
             onClick={handleRemove}
           >
