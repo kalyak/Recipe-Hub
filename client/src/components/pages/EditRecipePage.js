@@ -199,7 +199,8 @@ const EditRecipePage = () => {
   //   return splitStr.join(" ");
   // };
 
-  const handleSubmit = () => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
     //remove unitOptions from selected ingredient
     const ingredientLists = [...selectedIngredients];
     ingredientLists.map((ingredient) => delete ingredient.unitOptions);
@@ -258,7 +259,7 @@ const EditRecipePage = () => {
       <h1 className="text-center">Edit Your Recipe</h1>
       <br />
       {availableTags.length > 0 && availableIngredients.length > 0 ? (
-        <Form className="pb-5">
+        <Form className="pb-5" onSubmit={handleSubmit}>
           <Form.Group controlId="recipeName">
             <Form.Label>
               <strong>Recipe Name:</strong>
@@ -267,6 +268,7 @@ const EditRecipePage = () => {
               type="text"
               value={formData.recipeName}
               onChange={handleChange}
+              required
             />
           </Form.Group>
           <Form.Group controlId="description">
@@ -278,6 +280,7 @@ const EditRecipePage = () => {
               rows={3}
               value={formData.description}
               onChange={handleChange}
+              required
             />
           </Form.Group>
           <ImageUpload setFormData={setFormData} />
@@ -314,6 +317,8 @@ const EditRecipePage = () => {
               type="number"
               value={formData.servingSize}
               onChange={handleChange}
+              min="0"
+              required
             />
           </Form.Group>
           <Form.Row>
@@ -325,6 +330,8 @@ const EditRecipePage = () => {
                 type="number"
                 value={formData.prepTime}
                 onChange={handleChange}
+                required
+                min="0"
               />
             </Form.Group>
             <Form.Group as={Col} controlId="prepTimeUnit">
@@ -346,6 +353,8 @@ const EditRecipePage = () => {
                 type="number"
                 value={formData.cookTime}
                 onChange={handleChange}
+                required
+                min="0"
               />
             </Form.Group>
             <Form.Group as={Col} controlId="cookTimeUnit">
@@ -373,6 +382,7 @@ const EditRecipePage = () => {
                     as="select"
                     value={selectedIngredient.ingredient._id}
                     onChange={(event) => handleIngredientSelect(event, index)}
+                    required
                   >
                     <option disabled value="">
                       Please select ingredient
@@ -401,6 +411,9 @@ const EditRecipePage = () => {
                     value={selectedIngredient.quantity}
                     placeholder="Quantity"
                     onChange={(event) => handleIngredientChange(event, index)}
+                    required
+                    min="0"
+                    step="0.01"
                   />
                 </Form.Group>
                 <Form.Group as={Col} controlId="units">
@@ -478,6 +491,7 @@ const EditRecipePage = () => {
                     rows={1}
                     value={cookingInstructions[index]}
                     onChange={(event) => handleInstructionChange(event, index)}
+                    required
                   />
                 </Form.Group>
                 {index === cookingInstructions.length - 1 && (
@@ -502,7 +516,7 @@ const EditRecipePage = () => {
           <br />
           <Row className="justify-content-md-center">
             <Col sm="auto">
-              <Button variant="success" onClick={handleSubmit}>
+              <Button variant="success" type="submit">
                 Edit Recipe
               </Button>
             </Col>
