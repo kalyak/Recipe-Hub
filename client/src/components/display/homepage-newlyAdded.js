@@ -32,11 +32,11 @@ const NewlyAdded = () => {
               <Card
                 key={recipe._id}
                 style={{ width: "18rem" }}
-                className="mb-5 ml-5"
+                className='mb-5'
               >
-                <Card.Img width={288} height={216} variant="top" src={image} />
+                <Card.Img width={288} height={216} variant='top' src={image} />
                 <Card.Body>
-                  <Card.Title className="text-capitalize">
+                  <Card.Title className='text-capitalize'>
                     {recipe.recipeName}
                     <ReactStars
                       value={recipe.avgRating}
@@ -53,9 +53,9 @@ const NewlyAdded = () => {
                   >
                     {recipe.description}
                   </Card.Text>
-                  <Row className="justify-content-md-center">
+                  <Row className='justify-content-md-center'>
                     <Link to={`/recipe/${recipe._id}`}>
-                      <Button variant="primary">Show More</Button>
+                      <Button variant='primary'>Show More</Button>
                     </Link>
                   </Row>
                 </Card.Body>
@@ -67,8 +67,8 @@ const NewlyAdded = () => {
                         <Fragment key={tag._id}>
                           <Link to={`/browse?tag=${tag._id}`}>
                             <Badge
-                              className="text-capitalize"
-                              variant="success"
+                              className='text-capitalize'
+                              variant='success'
                             >
                               {tag.tagName}
                             </Badge>
@@ -77,7 +77,7 @@ const NewlyAdded = () => {
                       );
                     })}
                   <br />
-                  <small className="text-muted">
+                  <small className='text-muted'>
                     Created on: {createdDate}
                   </small>
                 </Card.Footer>
