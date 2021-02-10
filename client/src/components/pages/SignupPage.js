@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
 import SweetAlert from "react-bootstrap-sweetalert";
 import { Container, Row, Button, Col } from "react-bootstrap";
+import { UserContext } from "../context/UserContext";
 
 const SignupPage = () => {
   const [formData, setFormData] = useState({
@@ -16,6 +17,7 @@ const SignupPage = () => {
     username: "",
     password: "",
   });
+  const [user, setUser] = useContext(UserContext);
 
   const handleChange = (event) => {
     setFormData((state) => {
@@ -59,6 +61,7 @@ const SignupPage = () => {
       .then((response) => {
         // console.log(response);
         setIsLogin(true);
+        setUser(response.data);
       })
       .catch((error) => {
         console.log(error.response.data);

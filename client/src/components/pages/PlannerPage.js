@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react";
-import { Table, Row, Button, Container } from "react-bootstrap";
+import { Table, Row, Button, Container, Col } from "react-bootstrap";
 import SweetAlert from "react-bootstrap-sweetalert";
 import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
@@ -204,10 +204,10 @@ const PlannerPage = () => {
       </Row>
 
       {list.length === 0 ? (
-        <p>
+        <h6 className="text-center">
           Your planner is empty now! Go find your desired recipe and add it to
           this planner..
-        </p>
+        </h6>
       ) : (
         <>
           <Table striped bordered hover>
@@ -216,27 +216,44 @@ const PlannerPage = () => {
                 <th className="text-center">Recipe Name</th>
                 <th className="text-center">Serving per recipe</th>
                 <th className="text-center">Total serving needed</th>
-                <th>Add/Reduce serving</th>
-                <th>Remove recipe from plan</th>
+                <th className="text-center">Add/Reduce serving</th>
+                <th className="text-center">Remove recipe from planner</th>
               </tr>
             </thead>
             <tbody>
               {list.map((data, index) => {
                 return (
                   <tr>
-                    <td className="text-capitalize">
+                    <td className="text-capitalize text-center">
                       {data.recipeID.recipeName}
                     </td>
-                    <td>{data.recipeID.servingSize}</td>
-                    <td>{data.totalServing}</td>
+                    <td className="text-center">{data.recipeID.servingSize}</td>
+                    <td className="text-center">{data.totalServing}</td>
                     <td>
-                      <Button onClick={() => handleAddServing(index)}>+</Button>
-                      <Button onClick={() => handleReduceServing(index)}>
-                        -
-                      </Button>
+                      <Row className="justify-content-md-center">
+                        <Col md="auto">
+                          <Button
+                            onClick={() => handleAddServing(index)}
+                            variant="info"
+                          >
+                            +
+                          </Button>
+                        </Col>
+                        <Col md="auto">
+                          <Button
+                            onClick={() => handleReduceServing(index)}
+                            variant="info"
+                          >
+                            -
+                          </Button>
+                        </Col>
+                      </Row>
                     </td>
-                    <td>
-                      <Button onClick={() => handleRemoveRecipe(index)}>
+                    <td className="text-center">
+                      <Button
+                        onClick={() => handleRemoveRecipe(index)}
+                        variant="danger"
+                      >
                         X
                       </Button>
                     </td>
@@ -245,19 +262,27 @@ const PlannerPage = () => {
               })}
             </tbody>
           </Table>
-          <br />
 
-          <Button onClick={handleGenerateShoppingList}>
-            Generate shopping List
-          </Button>
-
-          <Button onClick={handleUpdatePlanner}>
-            Save changes and come back later
-          </Button>
-          <Button onClick={handleClearPlanner}>
-            Done Shopping! Clear my planner
-          </Button>
-          <p>Pls note that any unsaved changes will be discarded</p>
+          <p style={{ color: "red" }}>
+            *Pls note that any unsaved changes will be discarded
+          </p>
+          <Row className="justify-content-md-center">
+            <Col md="auto">
+              <Button onClick={handleGenerateShoppingList} variant="success">
+                Generate shopping List
+              </Button>
+            </Col>
+            <Col md="auto">
+              <Button onClick={handleUpdatePlanner} variant="warning">
+                Save draft
+              </Button>
+            </Col>
+            <Col md="auto">
+              <Button onClick={handleClearPlanner}>
+                Done shopping! Clear my planner
+              </Button>
+            </Col>
+          </Row>
         </>
       )}
     </Container>

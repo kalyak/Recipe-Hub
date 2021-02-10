@@ -4,14 +4,14 @@ import { Container, Button, Row } from "react-bootstrap";
 const ReviewDisplay = (props) => {
   const NoReview = () => {
     return (
-      <>
-        <p>No reviews found.</p>
-      </>
+      <Row className="justify-content-md-center">
+        <h4>No Review Found</h4>
+      </Row>
     );
   };
 
   return (
-    <Container style={{ border: "1px red solid" }}>
+    <Container>
       <h2>Reviews</h2>
 
       {props.reviews.length === 0 ? (
@@ -19,6 +19,12 @@ const ReviewDisplay = (props) => {
       ) : (
         <ReviewList reviews={props.reviews} />
       )}
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
     </Container>
   );
 };
