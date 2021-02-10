@@ -23,14 +23,14 @@ const MyPostedRecipes = () => {
   }, []);
 
   return (
-    <>
-      <h1>My Recipes</h1>
+    <Container>
+      <h1 className="text-center">My Recipes</h1>
       <br />
       <Container>
         {myRecipes === "" ? (
           <p>Loading..</p>
         ) : myRecipes.length === 0 ? (
-          <p>You have not posted any recipe yet</p>
+          <p className="text-center">You have not posted any recipe yet</p>
         ) : (
           <CardDeck className="row row-cols-1 row-cols-sm-2 row-cols-lg-3">
             {myRecipes.map((recipe, index) => {
@@ -113,7 +113,7 @@ const MyPostedRecipes = () => {
           </CardDeck>
         )}
       </Container>
-    </>
+    </Container>
   );
 };
 

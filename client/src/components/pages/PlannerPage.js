@@ -18,7 +18,7 @@ const PlannerPage = () => {
     axios
       .get("/users/planner")
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         const data = response.data.map((list) => {
           return {
             ...list,
@@ -74,7 +74,7 @@ const PlannerPage = () => {
   };
 
   const handleUpdatePlanner = () => {
-    console.log("list to be sent to axios", list);
+    // console.log("list to be sent to axios", list);
     const newUser = { ...user };
     const cloneList = [...list];
     const dataForUserContext = cloneList.map((data) => {
@@ -84,8 +84,8 @@ const PlannerPage = () => {
     axios
       .put("/users", { planner: list }, { withCredentials: true })
       .then((response) => {
-        console.log("backend updated");
-        console.log(response.data);
+        // console.log("backend updated");
+        // console.log(response.data);
         setUser(newUser);
         setSuccessfulUpdatePopUp(true);
       })
@@ -209,7 +209,7 @@ const PlannerPage = () => {
           this planner..
         </h6>
       ) : (
-        <>
+        <Container>
           <Table striped bordered hover>
             <thead>
               <tr>
@@ -222,15 +222,22 @@ const PlannerPage = () => {
             </thead>
             <tbody>
               {list.map((data, index) => {
+                // console.log(data.recipeID._id);
                 return (
-                  <tr>
-                    <td className="text-capitalize text-center">
-                      {data.recipeID.recipeName}
+                  <tr key={data.recipeID._id}>
+                    <td className="text-capitalize text-center align-middle">
+                      <Link to={`/recipe/${data.recipeID._id}`}>
+                        {data.recipeID.recipeName}
+                      </Link>
                     </td>
-                    <td className="text-center">{data.recipeID.servingSize}</td>
-                    <td className="text-center">{data.totalServing}</td>
+                    <td className="text-center align-middle">
+                      {data.recipeID.servingSize}
+                    </td>
+                    <td className="text-center align-middle">
+                      {data.totalServing}
+                    </td>
                     <td>
-                      <Row className="justify-content-md-center">
+                      <Row className="justify-content-md-center align-middle">
                         <Col md="auto">
                           <Button
                             onClick={() => handleAddServing(index)}
@@ -249,7 +256,7 @@ const PlannerPage = () => {
                         </Col>
                       </Row>
                     </td>
-                    <td className="text-center">
+                    <td className="text-center align-middle">
                       <Button
                         onClick={() => handleRemoveRecipe(index)}
                         variant="danger"
@@ -269,21 +276,21 @@ const PlannerPage = () => {
           <Row className="justify-content-md-center">
             <Col md="auto">
               <Button onClick={handleGenerateShoppingList} variant="success">
-                Generate shopping List
+                Generate Shopping List
               </Button>
             </Col>
             <Col md="auto">
               <Button onClick={handleUpdatePlanner} variant="warning">
-                Save draft
+                Save As Draft
               </Button>
             </Col>
             <Col md="auto">
-              <Button onClick={handleClearPlanner}>
-                Done shopping! Clear my planner
+              <Button variant="danger" onClick={handleClearPlanner}>
+                Clear My Planner
               </Button>
             </Col>
           </Row>
-        </>
+        </Container>
       )}
     </Container>
   );
