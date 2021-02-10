@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
 import SweetAlert from "react-bootstrap-sweetalert";
 import { Container, Row, Button, Col } from "react-bootstrap";
+import { UserContext } from "../context/UserContext";
 
 const SignupPage = () => {
   const [formData, setFormData] = useState({
@@ -16,6 +17,7 @@ const SignupPage = () => {
     username: "",
     password: "",
   });
+  const [user, setUser] = useContext(UserContext);
 
   const handleChange = (event) => {
     setFormData((state) => {
@@ -59,6 +61,7 @@ const SignupPage = () => {
       .then((response) => {
         // console.log(response);
         setIsLogin(true);
+        setUser(response.data);
       })
       .catch((error) => {
         console.log(error.response.data);
@@ -68,78 +71,78 @@ const SignupPage = () => {
       });
   };
   if (isLogin) {
-    return <Redirect to='/' />;
+    return <Redirect to="/" />;
   }
 
   return (
     <Container>
-      <Row className='justify-content-md-center'>
+      <Row className="justify-content-md-center">
         <h1>Sign Up Page</h1>
       </Row>
       <br />
       <br />
-      <Row className='justify-content-md-center'>
+      <Row className="justify-content-md-center">
         <h3>Create your new account here:</h3>
       </Row>
       <br />
       <br />
 
       <form onSubmit={(event) => handleSubmit(event)}>
-        <Row className='justify-content-md-center'>
-          <Col sm='auto'>
+        <Row className="justify-content-md-center">
+          <Col sm="auto">
             <label>Username: </label>
           </Col>
-          <Col sm='auto'>
+          <Col sm="auto">
             <input
-              type='text'
-              name='username'
+              type="text"
+              name="username"
               required
-              id='username'
+              id="username"
               value={formData.username}
               onChange={handleChange}
-              placeholder='Username'
+              placeholder="Username"
             />
           </Col>
         </Row>
-        <Row className='justify-content-md-center'>
+        <Row className="justify-content-md-center">
           <span style={{ color: "red" }}> {errors.username} </span>
         </Row>
 
         <br />
 
-        <Row className='justify-content-md-center'>
-          <Col sm='auto'>
+        <Row className="justify-content-md-center">
+          <Col sm="auto">
             <label>Password: </label>
           </Col>
-          <Col sm='auto'>
+          <Col sm="auto">
             <input
-              type='password'
-              name='password'
+              type="password"
+              name="password"
               required
-              id='password'
+              id="password"
               value={formData.password}
               onChange={handleChange}
-              placeholder='Password'
-              minLength='8'
+              placeholder="Password"
+              minLength="8"
             />
           </Col>
         </Row>
         <br />
-        <Row className='justify-content-md-center'>
+        <Row className="justify-content-md-center">
           <span style={{ color: "red" }}> {errors.password} </span>
         </Row>
-        <Row className='justify-content-md-center'>
-          <Button type='submit'>Create Account</Button>
+        <Row className="justify-content-md-center">
+          <Button type="submit">Create Account</Button>
         </Row>
       </form>
 
       {donePopup && (
         <SweetAlert
           success
-          title='Welcome to Gaddit!'
+          title="Welcome to Gaddit!"
           onConfirm={handlenextPage}
           // onCancel={this.onCancel}
-          confirmBtnText='Go to home page'
+          confirmBtnText="Go to home page"
         >
           You have succesfully signed up!
         </SweetAlert>
