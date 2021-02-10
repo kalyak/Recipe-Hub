@@ -21,7 +21,7 @@ const TopRating = () => {
     axios
       .get("/recipes?sort=-avgRating&limit=3")
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         setTopRating(response.data);
       })
       .catch((error) => {
