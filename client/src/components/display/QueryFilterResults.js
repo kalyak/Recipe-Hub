@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Container, Col, Row, Accordion, Card } from "react-bootstrap";
+import { Container, Col, Row, Accordion, Card, Spinner } from "react-bootstrap";
 import QueryResultsDisplay from "./QueryResultsDisplay";
 import axios from "axios";
 
@@ -45,6 +45,7 @@ const QueryFilterResults = (props) => {
         recipe.tags.map((tag) => {
           // console.log(tag);
           tagIDArr.push(tag._id);
+          return null;
         });
         // console.log(tagIDArr);
 
@@ -58,6 +59,7 @@ const QueryFilterResults = (props) => {
         if (isIncludeTarget) {
           target.push(recipe);
         }
+        return null;
       });
     }
     // console.log("target:");
@@ -121,21 +123,29 @@ const QueryFilterResults = (props) => {
       {/* <h2>Select Filter:</h2> */}
 
       {/* <Row>{displayTags}</Row> */}
-      <Accordion defaultActiveKey="1">
+      <Accordion defaultActiveKey="0">
         <Card>
           <Accordion.Toggle as={Card.Header} eventKey="1">
-            <h4>Click here to add filter</h4>
+            <h4 className="text-center">Click To Add Filter</h4>
           </Accordion.Toggle>
           <Accordion.Collapse eventKey="1">
-            <Card.Body>
-              <Row>{displayTags}</Row>
-            </Card.Body>
+            <Card.Body as={Row}>{displayTags}</Card.Body>
           </Accordion.Collapse>
         </Card>
       </Accordion>
       <br />
       <br />
-      <QueryResultsDisplay filteredResults={filtering()} />
+
+      {/* <QueryResultsDisplay filteredResults={filtering()} /> */}
+
+      {props.recipeDataReturned ? (
+        <QueryResultsDisplay filteredResults={filtering()} />
+      ) : (
+        <Container className="text-center align-self-center">
+          <Spinner animation="grow" />
+          <h1>Fetching Results...</h1>
+        </Container>
+      )}
     </Container>
   );
 };

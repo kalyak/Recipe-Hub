@@ -5,11 +5,13 @@ import axios from "axios";
 import TopRating from "../display/homepage-topRating";
 import NewlyAdded from "../display/homepage-newlyAdded";
 
+import background from "../data/categories-image/background.jpg";
+
 const HomePage = () => {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    console.log("home page");
+    // console.log("home page");
     axios
       .get("/tags/categories")
       .then((response) => {
@@ -36,20 +38,40 @@ const HomePage = () => {
       <br />
       <h3>Browse By Categories</h3>
       <br />
-      <Row className="justify-content-md-center">
+      <Row className="justify-content-md-center pb-5">
         {categories.length > 0 &&
           categories
             .sort((a, b) => (a > b ? 1 : -1))
-            .map((category) => {
+            .map((category, index) => {
               return (
-                <Col md="auto" key={category}>
+                // <Col md="auto" key={category} className="categories">
+                //   <Link to={`/browse`}>
+                //     <Button
+                //       variant="info"
+                //       className="mb-5 ml-5 text-capitalize"
+                //     >
+                //       {category}
+                //     </Button>
+                //   </Link>
+                // </Col>
+                <Col
+                  key={category}
+                  sm={3}
+                  // className="categories"
+                  style={{
+                    height: "200px",
+                    borderRadius: "10px",
+                  }}
+                >
                   <Link to={`/browse`}>
-                    <Button
-                      variant="info"
-                      className="mb-5 ml-5 text-capitalize"
+                    <div
+                      className="categories"
+                      style={{ backgroundImage: `url(${background})` }}
                     >
-                      {category}
-                    </Button>
+                      <p className="categories-text text-capitalize">
+                        {category}
+                      </p>
+                    </div>
                   </Link>
                 </Col>
               );

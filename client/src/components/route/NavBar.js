@@ -9,27 +9,27 @@ const NavBar = () => {
   const [user, setUser] = useContext(UserContext);
 
   return (
-    <Navbar className='sticky-top' bg='dark' variant='dark'>
-      <Navbar.Brand as={Link} to='/'>
+    <Navbar className="sticky-top" bg="dark" variant="dark">
+      <Navbar.Brand as={Link} to="/">
         RECIPE HUB
       </Navbar.Brand>
-      <Nav className='mr-auto'>
+      <Nav className="mr-auto">
         <Nav.Item>
-          <Nav.Link as={Link} to='/browse'>
+          <Nav.Link as={Link} to="/browse">
             Browse Recipe
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link as={Link} to='/random'>
+          <Nav.Link as={Link} to="/random">
             Random Recipe
           </Nav.Link>
         </Nav.Item>
       </Nav>
-      <Nav className='mr-auto'>
+      <Nav className="mr-auto">
         <SearchBar />
       </Nav>
       <Nav>
-        <Nav.Link as={Link} to='/about'>
+        <Nav.Link as={Link} to="/about">
           About
         </Nav.Link>
       </Nav>
@@ -37,29 +37,29 @@ const NavBar = () => {
         user.username === "NOT_LOGGED_IN" ? (
           <Nav>
             <Nav.Item>
-              <Nav.Link as={Link} to='/login'>
+              <Nav.Link as={Link} to="/login">
                 Login
               </Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link as={Link} to='/signup'>
+              <Nav.Link as={Link} to="/signup">
                 Sign Up
               </Nav.Link>
             </Nav.Item>
           </Nav>
         ) : (
           <Nav>
-            <NavDropdown title='Profile' id='basic-nav-dropdown'>
-              <NavDropdown.Item as={Link} to='/fave'>
-                Faved
+            <NavDropdown title="Profile" id="basic-nav-dropdown">
+              <NavDropdown.Item as={Link} to="/fave">
+                My Favourite
               </NavDropdown.Item>
-              <NavDropdown.Item as={Link} to='/planner'>
-                Planner
+              <NavDropdown.Item as={Link} to="/planner">
+                My Planner
               </NavDropdown.Item>
-              <NavDropdown.Item as={Link} to='/recipe/user'>
+              <NavDropdown.Item as={Link} to="/recipe/user">
                 My Recipes
               </NavDropdown.Item>
-              <NavDropdown.Item as={Link} to='/recipe/new'>
+              <NavDropdown.Item as={Link} to="/recipe/new">
                 Add New Recipe
               </NavDropdown.Item>
             </NavDropdown>
