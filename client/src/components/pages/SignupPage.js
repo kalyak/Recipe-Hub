@@ -4,72 +4,73 @@ import { Redirect } from "react-router-dom";
 import SweetAlert from "react-bootstrap-sweetalert";
 import { Container, Row, Button, Col } from "react-bootstrap";
 import { UserContext } from "../context/UserContext";
+import SignupForm from "../display/SignupForm";
 
 const SignupPage = () => {
-  const [formData, setFormData] = useState({
-    username: "",
-    password: "",
-  });
-  const [errors, setErrors] = useState({});
-  const [donePopup, setPopup] = useState(false);
+  // const [formData, setFormData] = useState({
+  //   username: "",
+  //   password: "",
+  // });
+  // const [errors, setErrors] = useState({});
+  // const [donePopup, setPopup] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
-  const [resError, setResError] = useState({
-    username: "",
-    password: "",
-  });
-  const [user, setUser] = useContext(UserContext);
+  // const [resError, setResError] = useState({
+  //   username: "",
+  //   password: "",
+  // });
+  // const [user, setUser] = useContext(UserContext);
 
-  const handleChange = (event) => {
-    setFormData((state) => {
-      return { ...state, [event.target.name]: event.target.value };
-    });
-  };
+  // const handleChange = (event) => {
+  //   setFormData((state) => {
+  //     return { ...state, [event.target.name]: event.target.value };
+  //   });
+  // };
 
-  const handleValidation = (errors) => {
-    const validationErrors = {};
-    errors.forEach((error) => {
-      validationErrors[error.param] = error.msg;
-    });
-    setErrors(validationErrors);
-  };
+  // const handleValidation = (errors) => {
+  //   const validationErrors = {};
+  //   errors.forEach((error) => {
+  //     validationErrors[error.param] = error.msg;
+  //   });
+  //   setErrors(validationErrors);
+  // };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // console.log(formData);
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   // console.log(formData);
 
-    axios
-      .post("/users/new", formData)
-      .then((response) => {
-        // console.log(response);
-        setPopup(true);
-      })
-      .catch((error) => {
-        console.log(error.response);
-        if (error.response.status === 400) {
-          console.log(error.response.data.errors);
-          handleValidation(error.response.data.errors);
-        } else {
-          console.log(error.response.data);
-          setErrors(error.response.data);
-        }
-      });
-  };
+  //   axios
+  //     .post("/users/new", formData)
+  //     .then((response) => {
+  //       // console.log(response);
+  //       setPopup(true);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error.response);
+  //       if (error.response.status === 400) {
+  //         console.log(error.response.data.errors);
+  //         handleValidation(error.response.data.errors);
+  //       } else {
+  //         console.log(error.response.data);
+  //         setErrors(error.response.data);
+  //       }
+  //     });
+  // };
 
-  const handlenextPage = () => {
-    axios
-      .post("/sessions", formData)
-      .then((response) => {
-        // console.log(response);
-        setIsLogin(true);
-        setUser(response.data);
-      })
-      .catch((error) => {
-        console.log(error.response.data);
-        setResError((state) => {
-          return { ...state, ...error.response.data };
-        });
-      });
-  };
+  // const handlenextPage = () => {
+  //   axios
+  //     .post("/sessions", formData)
+  //     .then((response) => {
+  //       // console.log(response);
+  //       setIsLogin(true);
+  //       setUser(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error.response.data);
+  //       setResError((state) => {
+  //         return { ...state, ...error.response.data };
+  //       });
+  //     });
+  // };
   if (isLogin) {
     return <Redirect to='/' />;
   }
@@ -86,8 +87,8 @@ const SignupPage = () => {
       </Row>
       <br />
       <br />
-
-      <form onSubmit={(event) => handleSubmit(event)}>
+      <SignupForm afterLoginAction={setIsLogin} />
+      {/* <form onSubmit={(event) => handleSubmit(event)}>
         <Row className='justify-content-md-center'>
           <Col sm='auto'>
             <label>Username: </label>
@@ -146,7 +147,7 @@ const SignupPage = () => {
         >
           You have succesfully signed up!
         </SweetAlert>
-      )}
+      )} */}
     </Container>
   );
 };

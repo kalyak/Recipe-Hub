@@ -2,8 +2,9 @@ import { useState } from "react";
 import { Button } from "react-bootstrap";
 import SweetAlert from "react-bootstrap-sweetalert";
 import LoginForm from "./LoginForm";
+import SignupForm from "./SignupForm";
 
-const LoginPopUp = ({ action, setLoginModalShow }) => {
+const NoAccountPopUp = ({ action, setLoginModalShow }) => {
   const [selection, setSelection] = useState("");
   const [formSubmitted, setFromSubmit] = useState(false);
   const handleClose = () => {
@@ -22,6 +23,7 @@ const LoginPopUp = ({ action, setLoginModalShow }) => {
       type={"controlled"}
       dependencies={selection}
       showConfirm={false}
+      showCancel={true}
     >
       {!selection ? (
         <div>
@@ -33,7 +35,7 @@ const LoginPopUp = ({ action, setLoginModalShow }) => {
               setSelection("login");
             }}
           >
-            Increment
+            Login
           </Button>
           &nbsp;
           <Button
@@ -42,7 +44,7 @@ const LoginPopUp = ({ action, setLoginModalShow }) => {
               setSelection("signup");
             }}
           >
-            Decrement
+            Sign Up
           </Button>
           <hr />
         </div>
@@ -51,10 +53,12 @@ const LoginPopUp = ({ action, setLoginModalShow }) => {
           <LoginForm afterLoginAction={setFromSubmit} />
         </div>
       ) : (
-        <div>signup</div>
+        <div>
+          <SignupForm afterLoginAction={setFromSubmit} />
+        </div>
       )}
     </SweetAlert>
   );
 };
 
-export default LoginPopUp;
+export default NoAccountPopUp;

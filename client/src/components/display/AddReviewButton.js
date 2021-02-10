@@ -3,7 +3,7 @@ import { useState, useContext } from "react";
 import ReactStars from "react-rating-stars-component";
 import axios from "axios";
 import { UserContext } from "../context/UserContext";
-import LoginPopUp from "./LoginPopUp";
+import NoAccountPopUp from "./NoAccountPopUp";
 
 // CHIlD COMPONENT
 const MyVerticallyCenteredModal = (props) => {
@@ -139,7 +139,7 @@ const AddReviewButton = (props) => {
         {/* Add login modal or replace with component below */}
         {loginModalShow && (
           // <Modal onHide={() => setLoginModalShow(false)}>Login Modal</Modal>
-          <LoginPopUp
+          <NoAccountPopUp
             action='add review'
             setLoginModalShow={setLoginModalShow}
           />
