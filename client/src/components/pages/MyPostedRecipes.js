@@ -54,7 +54,7 @@ const MyPostedRecipes = () => {
           <CardDeck className="row row-cols-1 row-cols-sm-2 row-cols-lg-3">
             {myRecipes.map((recipe, index) => {
               const image = recipe.imgURL ? recipe.imgURL : noImage;
-              const updatedDate = dayjs(recipe.updatedAt).format("DD/MMM/YYYY");
+              const updatedDate = dayjs(recipe.updatedAt).format("DD MMM YYYY");
 
               return (
                 <Col className="pb-5">

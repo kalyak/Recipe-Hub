@@ -1,5 +1,13 @@
 import { useEffect, useState } from "react";
-import { Form, Col, Button, Container, ButtonToolbar } from "react-bootstrap";
+import {
+  Form,
+  Col,
+  Button,
+  Container,
+  ButtonToolbar,
+  Row,
+  Spinner,
+} from "react-bootstrap";
 import SweetAlert from "react-bootstrap-sweetalert";
 import { Redirect, useParams } from "react-router-dom";
 import axios from "axios";
@@ -247,11 +255,14 @@ const EditRecipePage = () => {
 
   return (
     <Container>
-      <h1>Edit Your Recipe</h1>
+      <h1 className="text-center">Edit Your Recipe</h1>
+      <br />
       {availableTags.length > 0 && availableIngredients.length > 0 ? (
-        <Form>
+        <Form className="pb-5">
           <Form.Group controlId="recipeName">
-            <Form.Label>Recipe Name:</Form.Label>
+            <Form.Label>
+              <strong>Recipe Name:</strong>
+            </Form.Label>
             <Form.Control
               type="text"
               value={formData.recipeName}
@@ -260,7 +271,9 @@ const EditRecipePage = () => {
             />
           </Form.Group>
           <Form.Group controlId="description">
-            <Form.Label>Brief Description of the meal</Form.Label>
+            <Form.Label>
+              <strong>Brief Description of the meal:</strong>
+            </Form.Label>
             <Form.Control
               as="textarea"
               rows={3}
@@ -271,23 +284,34 @@ const EditRecipePage = () => {
           </Form.Group>
           <ImageUpload setFormData={setFormData} />
           <Form.Group controlId="tags">
-            <Form.Label>Selcet tags</Form.Label>
+            <Form.Label>
+              <strong>Select tags</strong>
+            </Form.Label>
             <br />
-            {availableTags.map((tag, index) => {
-              return (
-                <Form.Check
-                  inline
-                  label={tag.tagName}
-                  type="checkbox"
-                  id={`inline-checkbox-${tag.tagName}`}
-                  checked={tag.checked}
-                  onChange={() => handleCheckChange(index)}
-                />
-              );
-            })}
+            {availableTags
+              .sort((a, b) => {
+                return a.tagName > b.tagName ? 1 : -1;
+              })
+              .map((tag, index) => {
+                // console.log(tag);
+                return (
+                  <Form.Check
+                    key={tag._id}
+                    className="text-capitalize"
+                    inline
+                    label={tag.tagName}
+                    type="checkbox"
+                    id={`inline-checkbox-${tag.tagName}`}
+                    checked={tag.checked}
+                    onChange={() => handleCheckChange(index)}
+                  />
+                );
+              })}
           </Form.Group>
           <Form.Group controlId="servingSize">
-            <Form.Label>Serving Size:</Form.Label>
+            <Form.Label>
+              <strong>Serving Size:</strong>
+            </Form.Label>
             <Form.Control
               type="number"
               value={formData.servingSize}
@@ -297,7 +321,9 @@ const EditRecipePage = () => {
             />
           </Form.Group>
           <Form.Row>
-            <Form.Label>Preparation Time:</Form.Label>
+            <Form.Label>
+              <strong>Preparation Time:</strong>
+            </Form.Label>
             <Form.Group as={Col} controlId="prepTime">
               <Form.Control
                 type="number"
@@ -318,7 +344,9 @@ const EditRecipePage = () => {
             </Form.Group>
           </Form.Row>
           <Form.Row>
-            <Form.Label>Cooking Time:</Form.Label>
+            <Form.Label>
+              <strong>Cooking Time:</strong>
+            </Form.Label>
             <Form.Group as={Col} controlId="cookTime">
               <Form.Control
                 type="number"
@@ -339,12 +367,15 @@ const EditRecipePage = () => {
             </Form.Group>
           </Form.Row>
           <Form.Row>
-            <Form.Label>Ingredients:</Form.Label>
+            <Form.Label>
+              <strong>Ingredients:</strong>
+            </Form.Label>
           </Form.Row>
 
           {selectedIngredients.map((selectedIngredient, index) => {
+            // console.log(selectedIngredient);
             return (
-              <Form.Row>
+              <Form.Row key={index}>
                 <Form.Group as={Col} controlId="ingredient">
                   <Form.Control
                     as="select"
@@ -355,13 +386,22 @@ const EditRecipePage = () => {
                     <option disabled value="">
                       Please select ingredient
                     </option>
-                    {availableIngredients.map((ingredient) => {
-                      return (
-                        <option value={ingredient._id}>
-                          {ingredient.ingredientName}
-                        </option>
-                      );
-                    })}
+                    {availableIngredients
+                      .sort((a, b) => {
+                        return a.ingredientName > b.ingredientName ? 1 : -1;
+                      })
+                      .map((ingredient) => {
+                        // console.log(ingredient);
+                        return (
+                          <option
+                            key={ingredient._id}
+                            value={ingredient._id}
+                            className="text-capitalize"
+                          >
+                            {ingredient.ingredientName}
+                          </option>
+                        );
+                      })}
                   </Form.Control>
                 </Form.Group>
                 <Form.Group as={Col} controlId="quantity">
@@ -385,15 +425,27 @@ const EditRecipePage = () => {
                       Please select unit measurement
                     </option>
                     {selectedIngredient["unitOptions"].map((unit) => {
-                      return <option value={unit}>{unit}</option>;
+                      return (
+                        <option key={unit} value={unit}>
+                          {unit}
+                        </option>
+                      );
                     })}
                   </Form.Control>
                 </Form.Group>
                 {index === selectedIngredients.length - 1 && (
-                  <Button onClick={() => handleAddIngredient(index)}>+</Button>
+                  <Button
+                    onClick={() => handleAddIngredient(index)}
+                    variant="info"
+                  >
+                    +
+                  </Button>
                 )}
                 {index !== selectedIngredients.length - 1 && (
-                  <Button onClick={() => handleDeleteIngredient(index)}>
+                  <Button
+                    onClick={() => handleDeleteIngredient(index)}
+                    variant="info"
+                  >
                     -
                   </Button>
                 )}
@@ -405,6 +457,8 @@ const EditRecipePage = () => {
               onClick={() => {
                 setOpenIngredientModal(true);
               }}
+              variant="outline-secondary"
+              size="sm"
             >
               Can't find the ingredient you are looking for? Click here to add
               more!
@@ -417,14 +471,20 @@ const EditRecipePage = () => {
               availableIngredients={availableIngredients}
             />
           </ButtonToolbar>
+          <br />
           <Form.Row>
-            <Form.Label>Cooking Instructions:</Form.Label>
+            <Form.Label>
+              <strong>Cooking Instructions:</strong>
+            </Form.Label>
           </Form.Row>
           {cookingInstructions.map((instruction, index) => {
+            // console.log(instruction);
             return (
-              <Form.Row>
-                <Form.Group as={Col}>Step {index + 1}</Form.Group>
-                <Form.Group as={Col} controlId="instructions">
+              <Form.Row key={index}>
+                <Form.Group as={Col} xs={1}>
+                  Step {index + 1}
+                </Form.Group>
+                <Form.Group as={Col} xs={10} controlId="instructions">
                   <Form.Control
                     as="textarea"
                     rows={1}
@@ -434,26 +494,51 @@ const EditRecipePage = () => {
                   />
                 </Form.Group>
                 {index === cookingInstructions.length - 1 && (
-                  <Button onClick={() => handleAddInstruction(index)}>+</Button>
+                  <Button
+                    onClick={() => handleAddInstruction(index)}
+                    variant="info"
+                  >
+                    +
+                  </Button>
                 )}
                 {index !== cookingInstructions.length - 1 && (
-                  <Button onClick={() => handleDeleteInstruction(index)}>
+                  <Button
+                    onClick={() => handleDeleteInstruction(index)}
+                    variant="info"
+                  >
                     -
                   </Button>
                 )}
               </Form.Row>
             );
           })}
-
-          <Button variant="success" onClick={handleSubmit}>
-            Edit Recipe
-          </Button>
-          <Button variant="danger" className="ml-1" onClick={handleReset}>
-            Reset Form
-          </Button>
+          <br />
+          <Row className="justify-content-md-center">
+            <Col sm="auto">
+              <Button variant="success" onClick={handleSubmit}>
+                Edit Recipe
+              </Button>
+            </Col>
+            <Col sm="auto">
+              <Button variant="danger" className="ml-1" onClick={handleReset}>
+                Reset Form
+              </Button>
+            </Col>
+          </Row>
         </Form>
       ) : (
-        <p>Loading..</p>
+        <Container
+          className="d-flex justify-content-center"
+          style={{ height: "90vh" }}
+        >
+          <div
+            className="text-center align-self-center"
+            // style={{ margin: "20% 0" }}
+          >
+            <Spinner animation="grow" />
+            <h1>Loading form...</h1>
+          </div>
+        </Container>
       )}
     </Container>
   );
