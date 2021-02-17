@@ -35,7 +35,7 @@ const TopRating = () => {
         {topRating.length > 0 &&
           topRating.map((recipe) => {
             const image = recipe.imgURL ? recipe.imgURL : noImage;
-            const updatedDate = dayjs(recipe.createdAt).format("DD/MMM/YYYY");
+            const updatedDate = dayjs(recipe.createdAt).format("DD MMM YYYY");
 
             return (
               <Col className='pb-5' key={recipe._id}>

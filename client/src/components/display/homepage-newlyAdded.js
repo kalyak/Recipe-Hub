@@ -34,7 +34,7 @@ const NewlyAdded = () => {
         {newlyAdded.length > 0 &&
           newlyAdded.map((recipe) => {
             const image = recipe.imgURL ? recipe.imgURL : noImage;
-            const createdDate = dayjs(recipe.createdAt).format("DD/MMM/YYYY");
+            const createdDate = dayjs(recipe.createdAt).format("DD MMM YYYY");
 
             return (
               <Col className='pb-5' key={recipe._id}>

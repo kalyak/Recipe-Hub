@@ -8,7 +8,7 @@ import AddtoFavePlanner from "./AddtoFavePlanner";
 import noImage from "../icons/600px-No_image_available_600_x_450.png";
 
 const RecipeDisplay = ({ recipeData }) => {
-  const updateDate = dayjs(recipeData.updatedAt).format("DD/MMM/YYYY");
+  const updateDate = dayjs(recipeData.updatedAt).format("DD MMM YYYY");
   // console.log(updateDate);
 
   const image = recipeData.imgURL ? recipeData.imgURL : noImage;
