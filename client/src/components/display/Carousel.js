@@ -1,9 +1,9 @@
 import dayjs from "dayjs";
-import { Badge, Button, Card, Carousel, Col, Row } from "react-bootstrap";
-import noImage from "../icons/600px-No_image_available_600_x_450.png";
+import { Fragment, useState } from "react";
+import { Badge, Button, Card, Carousel, Row } from "react-bootstrap";
 import ReactStars from "react-rating-stars-component";
 import { Link } from "react-router-dom";
-import { Fragment, useState } from "react";
+import noImage from "../icons/600px-No_image_available_600_x_450.png";
 
 const RecipeCarousel = ({ recipes }) => {
   const [defaultDisplay, setDefault] = useState(true);
@@ -24,16 +24,6 @@ const RecipeCarousel = ({ recipes }) => {
               key={recipe._id}
               onMouseEnter={toggleHover}
               onMouseLeave={toggleHover}
-              //   style={{
-              //     height: "500px",
-              //   }}
-
-              //   style={{
-              //     backgroundImage: { image },
-              //     backgroundRepeat: "no-repeat",
-              //     backgroundAttachment: "fixed",
-              //     backgroundSize: "cover",
-              //   }}
             >
               <img
                 className='d-block w-100'
@@ -43,9 +33,6 @@ const RecipeCarousel = ({ recipes }) => {
                   height: "500px",
                   objectFit: "cover",
                 }}
-                // style={{
-                //   height: "500px",
-                // }}
               />
 
               {defaultDisplay ? (
