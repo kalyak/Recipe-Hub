@@ -23,22 +23,22 @@ const HomePage = () => {
   }, []);
 
   return (
-    <Container>
+    <Container className='pt-4'>
       {/* <h1>RECIPE HUB</h1> */}
-      <br />
+      {/* <br />
       <h1 className="text-center">A Hub For Simple and Delicious Recipe </h1>
-      <br />
+      <br /> */}
       <h3>Top Rating Recipes</h3>
-      <br />
+      {/* <br /> */}
       <TopRating />
       <br />
       <h3>Newly Added Recipes</h3>
-      <br />
+      {/* <br /> */}
       <NewlyAdded />
       <br />
       <h3>Browse By Categories</h3>
       <br />
-      <Row className="justify-content-md-center pb-5">
+      <Row className='justify-content-md-center pb-5'>
         {categories.length > 0 &&
           categories
             .sort((a, b) => (a > b ? 1 : -1))
@@ -65,10 +65,10 @@ const HomePage = () => {
                 >
                   <Link to={`/browse`}>
                     <div
-                      className="categories"
+                      className='categories'
                       style={{ backgroundImage: `url(${background})` }}
                     >
-                      <p className="categories-text text-capitalize">
+                      <p className='categories-text text-capitalize'>
                         {category}
                       </p>
                     </div>

@@ -24,14 +24,35 @@ const RecipeCarousel = ({ recipes }) => {
               key={recipe._id}
               onMouseEnter={toggleHover}
               onMouseLeave={toggleHover}
+              //   style={{
+              //     height: "500px",
+              //   }}
+
+              //   style={{
+              //     backgroundImage: { image },
+              //     backgroundRepeat: "no-repeat",
+              //     backgroundAttachment: "fixed",
+              //     backgroundSize: "cover",
+              //   }}
             >
               <img
                 className='d-block w-100'
                 src={image}
                 alt='recipe.recipeName'
+                style={{
+                  height: "500px",
+                  objectFit: "cover",
+                }}
+                // style={{
+                //   height: "500px",
+                // }}
               />
+
               {defaultDisplay ? (
-                <Carousel.Caption className='px-1 bg-light text-dark rounded'>
+                <Carousel.Caption
+                  className='px-1 bg-light text-dark rounded'
+                  style={{ opacity: "0.9" }}
+                >
                   <h3 className='text-capitalize'>{recipe.recipeName}</h3>
                   <p>{recipe.description}</p>
                 </Carousel.Caption>
