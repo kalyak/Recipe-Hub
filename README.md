@@ -1,4 +1,4 @@
-# Project 4 - Recipe Hub
+# SEI-26 / Kalya Kusumadi, Au Kok Yong, Sophia Ratna / Project 4 - Recipe Hub
 
 https://recipehub-mern.herokuapp.com/
 
