@@ -1,6 +1,6 @@
 # SEI-26 / Kalya Kusumadi, Au Kok Yong, Sophia Ratna / Project 4 - Recipe Hub
 
-https://recipehub-mern.herokuapp.com/
+https://recipe-hub-v2.herokuapp.com/
 
 ## To foodies, created by foodies..
 
